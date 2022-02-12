@@ -1,23 +1,21 @@
 import 'package:flutter/material.dart' ;
 import 'package:the_middlemen/Constants/const.dart';
-import 'package:the_middlemen/UI/Customer/Home/cus_home.dart';
-import 'package:the_middlemen/UI/Customer/Profile/cus_profile.dart';
-import 'package:the_middlemen/UI/Customer/Settings/settings.dart';
+import 'package:the_middlemen/UI/Driver/Home/driver_home.dart';
+import 'package:the_middlemen/UI/Driver/Profile/driver_profile.dart';
 
-class BottomNavigationCus extends StatefulWidget {
-  const BottomNavigationCus({Key? key}) : super(key: key);
+class BottomNavigationDriver extends StatefulWidget {
+  const BottomNavigationDriver({Key? key}) : super(key: key);
 
   @override
-  _BottomNavigationCusState createState() => _BottomNavigationCusState();
+  _BottomNavigationDriverState createState() => _BottomNavigationDriverState();
 }
 
-class _BottomNavigationCusState extends State<BottomNavigationCus> {
+class _BottomNavigationDriverState extends State<BottomNavigationDriver> {
   int _currentIndex = 0;
 
   final _children = [
-    CusHome(),
-    CusProfile(),
-    CusSettings()
+    DriverHome(),
+    DriverProfile(),
   ];
 
   void _onChanged(int index) {
@@ -49,13 +47,6 @@ class _BottomNavigationCusState extends State<BottomNavigationCus> {
           BottomNavigationBarItem(
             icon: ImageIcon(
               AssetImage('assets/BottomNav/profile.png'),
-            ),
-            label: 'Profile',
-            backgroundColor: Colors.black,
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.settings_outlined
             ),
             label: 'Profile',
             backgroundColor: Colors.black,

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:the_middlemen/Constants/const.dart';
 import 'package:the_middlemen/UI/Customer/BottomNavBar/bottom_nav_cus.dart';
-import 'package:the_middlemen/Widgets/buttons.dart';
+import 'package:the_middlemen/UI/Driver/BottomNavBar/bottom_nav_driver.dart';
 import 'package:the_middlemen/Widgets/extracted_widgets.dart';
 import 'package:the_middlemen/Widgets/login_field.dart';
 import 'package:the_middlemen/Widgets/textformfields.dart';
@@ -17,11 +17,7 @@ class _SelectUserState extends State<SelectUser> {
   bool isHiddenPassword = true;
   bool isChecked = false;
 
-  void _togglePasswordView() {
-    setState(() {
-      isHiddenPassword = !isHiddenPassword;
-    });
-  }
+
 
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
@@ -115,6 +111,9 @@ class _SelectUserState extends State<SelectUser> {
                           },
                           ),),
                           loginText: 'Customer Log In',
+                            onPress: (){
+                              Navigator.push(context, MaterialPageRoute(builder: (context){return BottomNavigationCus();}));
+                            },
                           ),
                           //Driver Login(TAB 2)
                           LoginField(emailController: emailController,widget: PasswordTextFormField(passController: passwordController,isHiddenPassword: isHiddenPassword,icon: IconButton(
@@ -131,6 +130,9 @@ class _SelectUserState extends State<SelectUser> {
                           },
                           ),),
                             loginText: 'Driver Log In',
+                            onPress: (){
+                              Navigator.push(context, MaterialPageRoute(builder: (context){return BottomNavigationDriver();}));
+                            },
                           ),
                         ]),
                       ),

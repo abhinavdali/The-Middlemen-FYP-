@@ -8,12 +8,14 @@ import 'buttons.dart';
 class LoginField extends StatelessWidget {
   const LoginField({
     Key? key,
-    required this.emailController,required this.widget,required this.loginText
+    required this.emailController,required this.widget,required this.loginText,
+    required this.onPress
   }) : super(key: key);
 
   final TextEditingController emailController;
   final widget;
   final loginText;
+  final onPress;
 
   @override
   Widget build(BuildContext context) {
@@ -46,9 +48,7 @@ class LoginField extends StatelessWidget {
               const SizedBox(height: 16,),
               widget,
               const SizedBox(height: 32,),
-              LoginButton(text: 'LOGIN', onPress: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context){return BottomNavigationCus();}));
-              }, color: kStyleAppColor)
+              LoginButton(text: 'LOGIN', onPress: onPress, color: kStyleAppColor)
             ],
           ),
         ),

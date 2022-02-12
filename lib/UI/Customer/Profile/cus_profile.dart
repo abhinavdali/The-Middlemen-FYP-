@@ -89,7 +89,7 @@ class _CusProfileContentState extends State<CusProfileContent> {
             padding: const EdgeInsets.only(top: 33.0, bottom: 24),
             child: Column(
               children: [
-                ContainItems(
+                ContentItems(
                   onTap: () {
                   },
                   image: 'assets/Profile/menu.png',
@@ -97,14 +97,14 @@ class _CusProfileContentState extends State<CusProfileContent> {
                   containerDesignType: 'top',
                 ),
                 itemDivider(),
-                ContainItems(
+                ContentItems(
                   onTap: () {},
                   image: 'assets/Profile/shipment.png',
                   label: 'Shipments',
                   containerDesignType: 'both',
                 ),
                 itemDivider(),
-                ContainItems(
+                ContentItems(
                     onTap: () {},
                     image: 'assets/Profile/invfrens.png',
                     label: 'Invite Friends',

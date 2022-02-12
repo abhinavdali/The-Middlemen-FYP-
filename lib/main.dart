@@ -21,8 +21,8 @@ class TheMiddlemen extends StatelessWidget {
         // statusBarBrightness: Brightness.light,
       ),
     );
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
-        overlays: [SystemUiOverlay.top]);
+    // SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
+    //     overlays: [SystemUiOverlay.top]);
 
     return Sizer(
       builder: (context, orientation, deviceType) {

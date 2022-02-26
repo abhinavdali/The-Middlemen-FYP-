@@ -4,7 +4,8 @@ import 'package:sizer/sizer.dart';
 
 const kStyleMainBlue = Color(0xFF00A6FB);
 const kStyleBackground = Color(0xffF1F7FA);
-const kStyleAppColor = Color(0xff00E7FD);
+const kStyleAppColor = Color(0xffB0C4DE);
+const kStyleAppColor1 = Color(0xff00E7FD);
 const kStyleContainer = Color(0xffB0C4DE);
 
 

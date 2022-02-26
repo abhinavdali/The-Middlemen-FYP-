@@ -98,7 +98,7 @@ class ArrowButton extends StatelessWidget {
   const ArrowButton(
       {required this.text,
         required this.color,
-        this.onPress,
+        required this.onPress,
         required this.arrow});
 
   final text;

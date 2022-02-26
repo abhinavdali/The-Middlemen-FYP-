@@ -29,35 +29,35 @@ class BlueTextFormField extends StatelessWidget {
           border: InputBorder.none,
           filled: true,
           focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(
+            borderSide: const BorderSide(
               width: 1,
               color: kStyleAppColor,
             ),
             borderRadius: BorderRadius.circular(24.0),
           ),
           enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(
+            borderSide: const BorderSide(
               width: 1,
               color: kStyleAppColor,
             ),
             borderRadius: BorderRadius.circular(24.0),
           ),
           errorBorder: OutlineInputBorder(
-            borderSide: BorderSide(
+            borderSide: const BorderSide(
               width: 1,
               color: Colors.red,
             ),
             borderRadius: BorderRadius.circular(24.0),
           ),
           focusedErrorBorder: OutlineInputBorder(
-            borderSide: BorderSide(
+            borderSide: const BorderSide(
               width: 1,
               color: kStyleAppColor,
             ),
             borderRadius: BorderRadius.circular(24.0),
           ),
           hintText: hintText,
-          hintStyle: TextStyle(
+          hintStyle: const TextStyle(
             fontFamily: 'Lato',
             fontSize: 16,
             fontWeight: FontWeight.w400,
@@ -95,14 +95,14 @@ class TrackingFormField extends StatelessWidget {
         fontFamily: 'Lato',
         fontSize: 10.sp,
         fontWeight: FontWeight.w400,
-        color: Color(0xff777777),
+        color: const Color(0xff777777),
       ),
       decoration: InputDecoration(
           fillColor: Colors.white,
           border: InputBorder.none,
           filled: true,
           focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(
+            borderSide: const BorderSide(
               width: 1,
               color: Colors.black,
             ),
@@ -116,21 +116,21 @@ class TrackingFormField extends StatelessWidget {
             borderRadius: BorderRadius.circular(24.0),
           ),
           errorBorder: OutlineInputBorder(
-            borderSide: BorderSide(
+            borderSide: const BorderSide(
               width: 1,
               color: Colors.red,
             ),
             borderRadius: BorderRadius.circular(24.0),
           ),
           focusedErrorBorder: OutlineInputBorder(
-            borderSide: BorderSide(
+            borderSide: const BorderSide(
               width: 1,
               color: Colors.black,
             ),
             borderRadius: BorderRadius.circular(24.0),
           ),
           hintText: hintText,
-          hintStyle: TextStyle(
+          hintStyle: const TextStyle(
             fontFamily: 'Lato',
             fontSize: 16,
             fontWeight: FontWeight.w400,
@@ -168,7 +168,7 @@ class PasswordTextFormField extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextFormField(
       controller: passController,
-      style: TextStyle(
+      style: const TextStyle(
         fontFamily: 'Lato',
         fontSize: 14,
         fontWeight: FontWeight.w400,
@@ -180,44 +180,44 @@ class PasswordTextFormField extends StatelessWidget {
         border: InputBorder.none,
         filled: true,
         focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(
+          borderSide: const BorderSide(
             width: 1,
             color: kStyleAppColor,
           ),
           borderRadius: BorderRadius.circular(24.0),
         ),
         enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(
+          borderSide: const BorderSide(
             width: 1,
             color: kStyleAppColor,
           ),
           borderRadius: BorderRadius.circular(24.0),
         ),
         errorBorder: OutlineInputBorder(
-          borderSide: BorderSide(
+          borderSide: const BorderSide(
             width: 1,
             color: Colors.red,
           ),
           borderRadius: BorderRadius.circular(24.0),
         ),
         focusedErrorBorder: OutlineInputBorder(
-          borderSide: BorderSide(
+          borderSide: const BorderSide(
             width: 1,
             color: kStyleAppColor,
           ),
           borderRadius: BorderRadius.circular(24.0),
         ),
         hintText: 'Password',
-        hintStyle: TextStyle(
+        hintStyle: const TextStyle(
           fontFamily: 'NutinoSansReg',
           fontSize: 16,
           fontWeight: FontWeight.w400,
           color: Color(0xff777777),
         ),
         contentPadding:
-        EdgeInsets.fromLTRB(8, 16, 0, 0),
-        prefixIcon: Padding(
-          padding: const EdgeInsets.only(
+        const EdgeInsets.fromLTRB(8, 16, 0, 0),
+        prefixIcon: const Padding(
+          padding: EdgeInsets.only(
               left: 20, right: 12),
           child: Icon(Icons.lock_outlined,color: kStyleAppColor,),
         ),
@@ -236,3 +236,80 @@ class PasswordTextFormField extends StatelessWidget {
     );
   }
 }
+
+class BlueTextFormFieldPN extends StatelessWidget {
+  BlueTextFormFieldPN(
+      this.hintText, this.icon, this.nameController, this.validator);
+
+  final nameController;
+  final hintText;
+  final icon;
+  final validator;
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      inputFormatters: [
+        LengthLimitingTextInputFormatter(10),
+      ],
+      controller: nameController,
+      validator: validator,
+      autocorrect: false,
+      keyboardType: TextInputType.phone,
+      style: const TextStyle(
+        fontFamily: 'NutinoSansReg',
+        fontSize: 14,
+        fontWeight: FontWeight.w400,
+        color: Color(0xff777777),
+      ),
+      decoration: InputDecoration(
+          fillColor: Colors.white,
+          border: InputBorder.none,
+          filled: true,
+          focusedBorder: OutlineInputBorder(
+            borderSide: const BorderSide(
+              width: 1,
+              color: kStyleAppColor,
+            ),
+            borderRadius: BorderRadius.circular(24.0),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderSide: const BorderSide(
+              width: 1,
+              color: kStyleAppColor,
+            ),
+            borderRadius: BorderRadius.circular(24.0),
+          ),
+          errorBorder: OutlineInputBorder(
+            borderSide: const BorderSide(
+              width: 1,
+              color: Colors.red,
+            ),
+            borderRadius: BorderRadius.circular(24.0),
+          ),
+          focusedErrorBorder: OutlineInputBorder(
+            borderSide: const BorderSide(
+              width: 1,
+              color: kStyleAppColor,
+            ),
+            borderRadius: BorderRadius.circular(24.0),
+          ),
+          hintText: hintText,
+          hintStyle: const TextStyle(
+            fontFamily: 'NutinoSansReg',
+            fontSize: 16,
+            fontWeight: FontWeight.w400,
+            color: Color(0xff777777),
+          ),
+          contentPadding: const EdgeInsets.fromLTRB(8, 8, 16, 8),
+          prefixIcon: Padding(
+            padding: const EdgeInsets.only(left: 20, right: 12),
+            child: Image.asset(
+              icon,
+              width: 20,
+              color: kStyleAppColor,
+            ),
+          )),
+    );
+  }
+}
+

@@ -30,6 +30,10 @@ dependencies:
   sizer: ^2.0.15
   flutter_rating_bar: ^4.0.0
   flutter_spinkit: ^5.1.0
+  http: ^0.13.3
+  intl: ^0.17.0
+  connectivity_plus: ^2.0.3
+  shared_preferences: ^2.0.8
   flutter:
     sdk: flutter
 
@@ -68,6 +72,7 @@ flutter:
     - assets/Profile/
     - assets/Settings/
     - assets/DriverProfile/
+    - assets/SignUp/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

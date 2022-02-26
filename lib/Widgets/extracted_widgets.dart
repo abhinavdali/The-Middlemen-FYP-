@@ -158,7 +158,7 @@ class profileContent extends StatelessWidget {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 8),
       decoration: BoxDecoration(
-          color: Colors.white,
+          color: kStyleAppColor,
           borderRadius: BorderRadius.circular(8),
           boxShadow: [
             boxShadowBlue,
@@ -170,9 +170,9 @@ class profileContent extends StatelessWidget {
           children: [
             CircleAvatar(
               radius: 21,
-              backgroundColor: Color(0xff1B9AFA),
+              backgroundColor: Colors.black,
               child: CircleAvatar(
-                child: Image(image: AssetImage(icon),width: 20,height: 20,),
+                child: Image(image: AssetImage(icon),color: Colors.black,width: 20,height: 20,),
                 backgroundColor: Colors.white,
                 radius: 20,
               ),

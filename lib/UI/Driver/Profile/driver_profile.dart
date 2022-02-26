@@ -42,7 +42,7 @@ class _DriverProfileContentState extends State<DriverProfileContent> {
                   child: Container(
                     margin: EdgeInsets.symmetric(vertical: 16),
                     decoration: BoxDecoration(
-                        color: Colors.white,
+                        color: kStyleAppColor,
                         borderRadius: BorderRadius.circular(8),
                         boxShadow: [
                           boxShadowBlue,
@@ -64,12 +64,12 @@ class _DriverProfileContentState extends State<DriverProfileContent> {
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
                                       Text('John Doe',style: kStyleNormal.copyWith(
-                                          color: Color(0xff1285E3)),),
+                                          fontWeight: FontWeight.w500),),
                                       const SizedBox(height: 8,),
                                       Row(
                                         crossAxisAlignment: CrossAxisAlignment.start,
                                         children:  [
-                                          const Icon(Icons.email_outlined,color: Color(0xff1B9AFA),
+                                          const Icon(Icons.email_outlined,color: Colors.black,
                                             size: 20,),
                                           const SizedBox(width: 4,),
                                           Expanded(
@@ -84,7 +84,7 @@ class _DriverProfileContentState extends State<DriverProfileContent> {
                                       Row(
                                         crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
-                                          const Icon(Icons.phone_outlined,color: Color(0xff1B9AFA),
+                                          const Icon(Icons.phone_outlined,color: Colors.black,
                                             size: 20,),
                                           const SizedBox(width: 4,),
                                           Text('9876543210',style: kStyleNormal.copyWith(
@@ -122,9 +122,10 @@ class _DriverProfileContentState extends State<DriverProfileContent> {
               ],
             ),
             const SizedBox(height: 12,),
-            const ArrowButton(
+            ArrowButton(
               text: 'LOGOUT',
-              color: Color(0xffFF3D3D),
+              color: const Color(0xffFF3D3D),
+              onPress: (){},
               arrow: 'assets/Profile/forwardarrowred.png',
             )
           ],

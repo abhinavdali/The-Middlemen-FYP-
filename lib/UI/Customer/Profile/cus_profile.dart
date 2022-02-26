@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 import 'package:the_middlemen/Constants/const.dart';
+import 'package:the_middlemen/UI/Select%20User/select_user.dart';
 import 'package:the_middlemen/Widgets/appbars.dart';
 import 'package:the_middlemen/Widgets/buttons.dart';
 import 'package:the_middlemen/Widgets/extracted_widgets.dart';
@@ -113,9 +115,14 @@ class _CusProfileContentState extends State<CusProfileContent> {
             ),
           ),
 
-          const ArrowButton(
+          ArrowButton(
             text: 'LOGOUT',
             color: Color(0xffFF3D3D),
+            onPress: ()async{
+              final SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+              sharedPreferences.remove('username');
+              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context){return SelectUser();}));
+            },
             arrow: 'assets/Profile/forwardarrowred.png',
           )
         ],

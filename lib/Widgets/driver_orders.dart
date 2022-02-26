@@ -18,7 +18,7 @@ class pendingOrder extends StatelessWidget {
           Expanded(
             child: Container(
               decoration: BoxDecoration(
-                  color: Colors.white,
+                  color: kStyleAppColor,
                   borderRadius: BorderRadius.circular(12),
                   boxShadow: [
                     boxShadowBlue

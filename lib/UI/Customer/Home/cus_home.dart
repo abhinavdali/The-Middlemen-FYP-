@@ -78,7 +78,7 @@ class _CusHomeContentState extends State<CusHomeContent> {
                     const SizedBox(
                       height: 16,
                     ),
-                    ArrowButton(text: 'TRACK NOW', color: const Color(0xff00A6FB), arrow: 'assets/Profile/buttonarrow.png')
+                    ArrowButton(text: 'TRACK NOW', color: const Color(0xff00A6FB),onPress: (){}, arrow: 'assets/Profile/buttonarrow.png')
                   ],
                 ),
               ),

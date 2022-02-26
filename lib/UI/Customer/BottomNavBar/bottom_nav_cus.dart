@@ -15,9 +15,9 @@ class _BottomNavigationCusState extends State<BottomNavigationCus> {
   int _currentIndex = 0;
 
   final _children = [
-    CusHome(),
-    CusProfile(),
-    CusSettings()
+    const CusHome(),
+    const CusProfile(),
+    const CusSettings()
   ];
 
   void _onChanged(int index) {
@@ -57,7 +57,7 @@ class _BottomNavigationCusState extends State<BottomNavigationCus> {
             icon: Icon(
               Icons.settings_outlined
             ),
-            label: 'Profile',
+            label: 'Settings',
             backgroundColor: Colors.black,
           ),
         ],

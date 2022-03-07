@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
+import 'package:the_middlemen/UI/Select%20User/select_user.dart';
 
+import 'Change Notifier/change_notifier.dart';
 import 'Constants/const.dart';
 import 'UI/Splashscreen/splashscreen.dart';
 
@@ -26,12 +29,14 @@ class TheMiddlemen extends StatelessWidget {
 
     return Sizer(
       builder: (context, orientation, deviceType) {
-        return MaterialApp(
+        return ChangeNotifierProvider<DataProvider>(
+            create: (context) => DataProvider(),
+        child:MaterialApp(
           initialRoute: '/1',
           routes: <String, WidgetBuilder>{
 
             '/1': (context) => const SplashScreen(),
-            '/': (context) => const SplashScreen(),
+            '/': (context) => const SelectUser(),
 
           },
           theme: Theme.of(context).copyWith(
@@ -40,7 +45,7 @@ class TheMiddlemen extends StatelessWidget {
                 .copyWith(brightness: Brightness.light),
           ),
           debugShowCheckedModeBanner: false,
-        );
+        ),);
       },
     );
   }

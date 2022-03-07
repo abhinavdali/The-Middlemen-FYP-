@@ -60,3 +60,42 @@ var boxShadowBlue = BoxShadow(
     spreadRadius: 0,
     offset: Offset(0, 2),
     color: Color(0xff00A6FB).withOpacity(0.2));
+
+var kStyleFocused = OutlineInputBorder(
+  borderSide: const BorderSide(
+    width: 1,
+    color:kStyleAppColor,
+  ),
+  borderRadius: BorderRadius.circular(24.0),
+);
+
+var kStyleEnabled = OutlineInputBorder(
+  borderSide: const BorderSide(
+    width: 1,
+    color: kStyleAppColor,
+  ),
+  borderRadius: BorderRadius.circular(24.0),
+);
+
+var kStyleError = OutlineInputBorder(
+  borderSide: const BorderSide(
+    width: 1,
+    color: Colors.red,
+  ),
+  borderRadius: BorderRadius.circular(24.0),
+);
+
+var kStyleFocusedError = OutlineInputBorder(
+  borderSide: const BorderSide(
+    width: 1,
+    color: kStyleAppColor,
+  ),
+  borderRadius: BorderRadius.circular(24.0),
+);
+
+var kStyleHintStyle = TextStyle(
+  fontFamily: 'NutinoSansReg',
+  fontSize: 16,
+  fontWeight: FontWeight.w400,
+  color: Color(0xff777777),
+);

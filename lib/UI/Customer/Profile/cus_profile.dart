@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
+import 'package:the_middlemen/Change%20Notifier/change_notifier.dart';
 import 'package:the_middlemen/Constants/const.dart';
 import 'package:the_middlemen/UI/Select%20User/select_user.dart';
 import 'package:the_middlemen/Widgets/appbars.dart';
@@ -30,8 +32,15 @@ class CusProfileContent extends StatefulWidget {
 }
 
 class _CusProfileContentState extends State<CusProfileContent> {
+
   @override
   Widget build(BuildContext context) {
+    late String fName =
+        Provider.of<DataProvider>(context, listen: false).fName;
+    late String lName =
+        Provider.of<DataProvider>(context, listen: false).lName;
+    late String phoneNumber =
+        Provider.of<DataProvider>(context, listen: false).phoneNumber;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
       child: ListView(
@@ -61,7 +70,7 @@ class _CusProfileContentState extends State<CusProfileContent> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Jane Doe',
+                          '$fName $lName',
                           style: kStyleNormal.copyWith(
                               fontSize: 14.sp,
                               fontWeight: FontWeight.w700,
@@ -71,7 +80,7 @@ class _CusProfileContentState extends State<CusProfileContent> {
                           height: 4,
                         ),
                         Text(
-                          'No. 123, Sub Street',
+                          '$phoneNumber',
                           style: kStyleButton,
                         ),
                         const SizedBox(
@@ -102,7 +111,7 @@ class _CusProfileContentState extends State<CusProfileContent> {
                 ContentItems(
                   onTap: () {},
                   image: 'assets/Profile/shipment.png',
-                  label: 'Shipments',
+                  label: 'Payment Options',
                   containerDesignType: 'both',
                 ),
                 itemDivider(),

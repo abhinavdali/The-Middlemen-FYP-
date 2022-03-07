@@ -4,6 +4,7 @@ import 'package:the_middlemen/Constants/const.dart';
 import 'package:the_middlemen/Models/Customer%20Models/login.dart';
 import 'package:the_middlemen/Nerwork/network_helper.dart';
 import 'package:the_middlemen/UI/Customer/BottomNavBar/bottom_nav_cus.dart';
+import 'package:the_middlemen/UI/Customer/SignUp/sign_up.dart';
 import 'package:the_middlemen/UI/Driver/BottomNavBar/bottom_nav_driver.dart';
 import 'package:the_middlemen/Widgets/extracted_widgets.dart';
 import 'package:the_middlemen/Widgets/login_field.dart';
@@ -48,18 +49,15 @@ class _SelectUserState extends State<SelectUser> {
                   children: [
                     Text('Welcome, User',style: kStyleTitle,),
                     const SizedBox(height: 16,),
-                    Text('Let\'s start with what you want\n to use this app for',
-                      style: kStyleNormal,
-                      textAlign: TextAlign.center,),
+                    // Text('Let\'s start with what you want\n to use this app for',
+                    //   style: kStyleNormal,
+                    //   textAlign: TextAlign.center,),
                   ],
                 ),
-
-
-
                 Column(
                   children: [
-                    const SizedBox(height: 24),
-                    Text('Select User Type',style: kStyleTitle,),
+                    const SizedBox(height: 50),
+                    Text('Please Select User Type',style: kStyleTitle,),
                     const SizedBox(height: 16),
                     Align(
                       alignment: Alignment.topCenter,
@@ -102,7 +100,8 @@ class _SelectUserState extends State<SelectUser> {
                     Padding(
                       padding: const EdgeInsets.only(top: 16.0),
                       child: Container(
-                        height: 280,
+                        height: 320,
+
                         child: TabBarView(children: [
                           //Customer Login(TAB 1)
                           Form(
@@ -173,8 +172,9 @@ class _SelectUserState extends State<SelectUser> {
                               }
                             ),
                           ),
+                          
                           //Driver Login(TAB 2)
-                          LoginField(emailController: emailController,
+                          LoginFieldDriver(emailController: emailController,
                             widget: PasswordTextFormField(passController: passwordController,isHiddenPassword: isHiddenPassword,icon: IconButton(
                             icon: Icon(
                               // Based on passwordVisible state choose the icon

@@ -1,7 +1,9 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:provider/src/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:the_middlemen/Change%20Notifier/change_notifier.dart';
 import 'package:the_middlemen/Constants/const.dart';
 import 'package:the_middlemen/UI/Customer/BottomNavBar/bottom_nav_cus.dart';
 import 'package:the_middlemen/UI/Select%20User/select_user.dart';
@@ -24,14 +26,13 @@ class _SplashScreenState extends State<SplashScreen> {
       Timer(
         const Duration(seconds: 3),
             () {
-          print(finalUN);
           finalUN == null ?
-          Navigator.push(context,
+          Navigator.pushReplacement(context,
               MaterialPageRoute(
                   builder: (context) {
                     return const SelectUser();
                   })) :
-          Navigator.push(context,
+          Navigator.pushReplacement(context,
               MaterialPageRoute(
                   builder: (context) {
                     return const BottomNavigationCus();
@@ -45,6 +46,12 @@ class _SplashScreenState extends State<SplashScreen> {
     final SharedPreferences sharedPreferences = await SharedPreferences
         .getInstance();
     var username = sharedPreferences.getString('username');
+    var fName = sharedPreferences.getString('fName');
+    var lName = sharedPreferences.getString('lName');
+    var phone = sharedPreferences.getString('phone');
+    context.read<DataProvider>().firstName(fName);
+    context.read<DataProvider>().lastName(lName);
+    context.read<DataProvider>().pNumber(phone);
     setState(() {
       finalUN = username;
     });
@@ -53,6 +60,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       body: Container(
         height: double.infinity,

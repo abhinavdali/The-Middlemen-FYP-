@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 import 'package:the_middlemen/Constants/const.dart';
+import 'package:the_middlemen/UI/Customer/Profile/cus_edit_profile.dart';
 
 class SelectUserButton extends StatelessWidget {
   const SelectUserButton({required this.text,required this.onPress,required this.color});
@@ -74,9 +75,9 @@ class EditProfileButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       onPressed: () {
-        // Navigator.push(context, MaterialPageRoute(builder: (context) {
-        //   return EditProfile();
-        // }));
+        Navigator.push(context, MaterialPageRoute(builder: (context) {
+          return EditProfile();
+        }));
       },
       style: ButtonStyle(
           backgroundColor: MaterialStateProperty.all(Colors.transparent),
@@ -151,6 +152,74 @@ class ArrowButton extends StatelessWidget {
             shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                 RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(24)))),
+      ),
+    );
+  }
+}
+
+class NextBtn extends StatefulWidget {
+  NextBtn(this.onPress);
+
+  final onPress;
+
+  @override
+  State<NextBtn> createState() => _NextBtnState();
+}
+
+class _NextBtnState extends State<NextBtn> {
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: SizedBox(
+        width: 92,
+        child: ElevatedButton(
+          onPressed: widget.onPress,
+          child: Text('Next'),
+          style: ButtonStyle(
+              backgroundColor: MaterialStateProperty.all(Color(0xff3F84FC)),
+              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(24),
+                  ))),
+        ),
+      ),
+    );
+  }
+}
+
+class PreviousBtn extends StatefulWidget {
+  PreviousBtn(this.onPress);
+
+  final onPress;
+
+  @override
+  State<PreviousBtn> createState() => _PreviousBtnState();
+}
+
+class _PreviousBtnState extends State<PreviousBtn> {
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: SizedBox(
+        width: 92,
+        child: ElevatedButton(
+          onPressed: widget.onPress,
+          child: Text(
+            'Previous',
+            style: TextStyle(color: Color(0xffFFFFFF)),
+          ),
+          style: ButtonStyle(
+              backgroundColor: MaterialStateProperty.all(Color(0xffA3A3A3)),
+              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(24.0),
+                ),
+              ),
+              side: MaterialStateProperty.all(
+                  BorderSide(color: Color(0xffA3A3A3)))),
+        ),
       ),
     );
   }

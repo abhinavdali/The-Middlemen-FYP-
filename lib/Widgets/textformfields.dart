@@ -264,10 +264,10 @@ class SignUpPass extends StatelessWidget {
         if (value.length < 8) {
           return "Your password must be at least 8 character";
         }
-        if (!value.contains(RegExp(
-            r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$'))) {
-          return "Your password must contain certain letters eg:(Aa9@)";
-        }
+        // if (!value.contains(RegExp(
+        //     r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$'))) {
+        //   return "Your password must contain certain letters eg:(Aa9@)";
+        // }
         return null;
       },
     );

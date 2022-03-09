@@ -6,9 +6,11 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:the_middlemen/Change%20Notifier/change_notifier.dart';
 import 'package:the_middlemen/Constants/const.dart';
 import 'package:the_middlemen/UI/Customer/BottomNavBar/bottom_nav_cus.dart';
+import 'package:the_middlemen/UI/Driver/BottomNavBar/bottom_nav_driver.dart';
 import 'package:the_middlemen/UI/Select%20User/select_user.dart';
 
 String? finalUN;
+bool isCustomer = true;
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -23,6 +25,7 @@ class _SplashScreenState extends State<SplashScreen> {
     // TODO: implement initState
     super.initState();
     getValidationData().whenComplete(() {
+
       Timer(
         const Duration(seconds: 3),
             () {
@@ -32,12 +35,16 @@ class _SplashScreenState extends State<SplashScreen> {
                   builder: (context) {
                     return const SelectUser();
                   })) :
-          Navigator.pushReplacement(context,
+           isCustomer ? Navigator.pushReplacement(context,
               MaterialPageRoute(
                   builder: (context) {
                     return const BottomNavigationCus();
+                  })) : Navigator.pushReplacement(context,
+              MaterialPageRoute(
+                  builder: (context) {
+                    return const BottomNavigationDriver();
                   }));
-        },
+            },
       );
     });
   }
@@ -45,15 +52,30 @@ class _SplashScreenState extends State<SplashScreen> {
   Future getValidationData() async {
     final SharedPreferences sharedPreferences = await SharedPreferences
         .getInstance();
+    // late bool is_Customer =
+    //     Provider.of<DataProvider>(context, listen: false).isCustomer;
     var username = sharedPreferences.getString('username');
+    var d_username = sharedPreferences.getString('d_username');
     var fName = sharedPreferences.getString('fName');
     var lName = sharedPreferences.getString('lName');
     var phone = sharedPreferences.getString('phone');
+    var email = sharedPreferences.getString('email');
     context.read<DataProvider>().firstName(fName);
     context.read<DataProvider>().lastName(lName);
     context.read<DataProvider>().pNumber(phone);
     setState(() {
-      finalUN = username;
+      if(username != null) {
+        finalUN = username;
+        print(finalUN);
+        setState(() {
+          isCustomer = true;
+        });
+      }else if(d_username != null){
+        finalUN = d_username;
+        print(finalUN);
+
+      }
+      // isCustomer = is_Customer;
     });
   }
 

@@ -7,29 +7,41 @@ const String _jsonKeySignUpUserId = 'id';
 const String _jsonKeySignUpUserPassword = 'password';
 const String _jsonKeySignUpUserLastLogin = 'last_login';
 const String _jsonKeySignUpUserIsSuperuser = 'is_superuser';
-const String _jsonKeySignUpUserUsername = 'username';
 const String _jsonKeySignUpUserFirstName = 'first_name';
 const String _jsonKeySignUpUserLastName = 'last_name';
 const String _jsonKeySignUpUserEmail = 'email';
 const String _jsonKeySignUpUserIsStaff = 'is_staff';
 const String _jsonKeySignUpUserIsActive = 'is_active';
 const String _jsonKeySignUpUserDateJoined = 'date_joined';
+const String _jsonKeySignUpUserIsCustomer = 'is_customer';
+const String _jsonKeySignUpUserIsDriver = 'is_driver';
+const String _jsonKeySignUpUserIsApproved = 'is_approved';
+const String _jsonKeySignUpUserUsername = 'username';
+const String _jsonKeySignUpUserPhone = 'phone';
+const String _jsonKeySignUpUserLicense = 'license';
+const String _jsonKeySignUpUserVehicleNumber = 'vehicle_number';
 const String _jsonKeySignUpUserGroups = 'groups';
 const String _jsonKeySignUpUserUserPermissions = 'user_permissions';
 class SignUpUser {
 /*
 {
-  "id": 7,
-  "password": "pbkdf2_sha256$320000$LSt1YlSozkllyDC2jBp3B7$li1bbREY13Z7IJo3mZW/x4sjt7mC2EQC5UjSxGcG7WU=",
+  "id": 56,
+  "password": "pbkdf2_sha256$320000$3Ydi0uXlsHsAU6flVJ774N$f5wrfRPPOaejYKiBgdb3v8yht8nXaE89LOhkwO7Bxc4=",
   "last_login": null,
   "is_superuser": false,
-  "username": "user",
-  "first_name": "user",
-  "last_name": "user",
-  "email": "user@user.com",
+  "first_name": "test",
+  "last_name": "test",
+  "email": "test@gmail.com",
   "is_staff": false,
-  "is_active": true,
-  "date_joined": "2022-03-06T04:07:38.999133Z",
+  "is_active": false,
+  "date_joined": "2022-03-08T14:22:12.788000Z",
+  "is_customer": false,
+  "is_driver": true,
+  "is_approved": false,
+  "username": "test01",
+  "phone": "3542351234",
+  "license": "134342142",
+  "vehicle_number": "24145436",
   "groups": [
     null
   ],
@@ -43,15 +55,21 @@ class SignUpUser {
   String? password;
   String? lastLogin;
   bool? isSuperuser;
-  String? username;
   String? firstName;
   String? lastName;
   String? email;
   bool? isStaff;
   bool? isActive;
   String? dateJoined;
+  bool? isCustomer;
+  bool? isDriver;
+  bool? isApproved;
+  String? username;
+  String? phone;
+  String? license;
+  String? vehicleNumber;
   List<SignUpUser?>? groups;
-  List<SignUpUser>? userPermissions;
+  List<SignUpUser?>? userPermissions;
   Map<String, dynamic> __origJson = {};
 
   SignUpUser({
@@ -59,13 +77,19 @@ class SignUpUser {
     this.password,
     this.lastLogin,
     this.isSuperuser,
-    this.username,
     this.firstName,
     this.lastName,
     this.email,
     this.isStaff,
     this.isActive,
     this.dateJoined,
+    this.isCustomer,
+    this.isDriver,
+    this.isApproved,
+    this.username,
+    this.phone,
+    this.license,
+    this.vehicleNumber,
     this.groups,
     this.userPermissions,
   });
@@ -75,13 +99,20 @@ class SignUpUser {
     password = json[_jsonKeySignUpUserPassword]?.toString();
     lastLogin = json[_jsonKeySignUpUserLastLogin]?.toString();
     isSuperuser = json[_jsonKeySignUpUserIsSuperuser];
-    username = json[_jsonKeySignUpUserUsername]?.toString();
     firstName = json[_jsonKeySignUpUserFirstName]?.toString();
     lastName = json[_jsonKeySignUpUserLastName]?.toString();
     email = json[_jsonKeySignUpUserEmail]?.toString();
     isStaff = json[_jsonKeySignUpUserIsStaff];
     isActive = json[_jsonKeySignUpUserIsActive];
     dateJoined = json[_jsonKeySignUpUserDateJoined]?.toString();
+    isCustomer = json[_jsonKeySignUpUserIsCustomer];
+    isDriver = json[_jsonKeySignUpUserIsDriver];
+    isApproved = json[_jsonKeySignUpUserIsApproved];
+    username = json[_jsonKeySignUpUserUsername]?.toString();
+    phone = json[_jsonKeySignUpUserPhone]?.toString();
+    license = json[_jsonKeySignUpUserLicense]?.toString();
+    vehicleNumber = json[_jsonKeySignUpUserVehicleNumber]?.toString();
+
     }
   Map<String, dynamic> toJson() {
     final data = <String, dynamic>{};
@@ -89,13 +120,20 @@ class SignUpUser {
     data[_jsonKeySignUpUserPassword] = password;
     data[_jsonKeySignUpUserLastLogin] = lastLogin;
     data[_jsonKeySignUpUserIsSuperuser] = isSuperuser;
-    data[_jsonKeySignUpUserUsername] = username;
     data[_jsonKeySignUpUserFirstName] = firstName;
     data[_jsonKeySignUpUserLastName] = lastName;
     data[_jsonKeySignUpUserEmail] = email;
     data[_jsonKeySignUpUserIsStaff] = isStaff;
     data[_jsonKeySignUpUserIsActive] = isActive;
     data[_jsonKeySignUpUserDateJoined] = dateJoined;
+    data[_jsonKeySignUpUserIsCustomer] = isCustomer;
+    data[_jsonKeySignUpUserIsDriver] = isDriver;
+    data[_jsonKeySignUpUserIsApproved] = isApproved;
+    data[_jsonKeySignUpUserUsername] = username;
+    data[_jsonKeySignUpUserPhone] = phone;
+    data[_jsonKeySignUpUserLicense] = license;
+    data[_jsonKeySignUpUserVehicleNumber] = vehicleNumber;
+
     return data;
   }
   Map<String, dynamic> origJson() => __origJson;
@@ -105,17 +143,23 @@ class SignUp {
 /*
 {
   "user": {
-    "id": 7,
-    "password": "pbkdf2_sha256$320000$LSt1YlSozkllyDC2jBp3B7$li1bbREY13Z7IJo3mZW/x4sjt7mC2EQC5UjSxGcG7WU=",
+    "id": 56,
+    "password": "pbkdf2_sha256$320000$3Ydi0uXlsHsAU6flVJ774N$f5wrfRPPOaejYKiBgdb3v8yht8nXaE89LOhkwO7Bxc4=",
     "last_login": null,
     "is_superuser": false,
-    "username": "user",
-    "first_name": "user",
-    "last_name": "user",
-    "email": "user@user.com",
+    "first_name": "test",
+    "last_name": "test",
+    "email": "test@gmail.com",
     "is_staff": false,
-    "is_active": true,
-    "date_joined": "2022-03-06T04:07:38.999133Z",
+    "is_active": false,
+    "date_joined": "2022-03-08T14:22:12.788000Z",
+    "is_customer": false,
+    "is_driver": true,
+    "is_approved": false,
+    "username": "test01",
+    "phone": "3542351234",
+    "license": "134342142",
+    "vehicle_number": "24145436",
     "groups": [
       null
     ],
@@ -123,7 +167,7 @@ class SignUp {
       null
     ]
   },
-  "token": "694316293e565c4119d4b3a39d0a92c606689a010990de75ab9842ee0117ba1c"
+  "token": "15e7852a2f6735b751767b9484b9079b310ef7f3fd574db5432da806139ee8c2"
 }
 */
 

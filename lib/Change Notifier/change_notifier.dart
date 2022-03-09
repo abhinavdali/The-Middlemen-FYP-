@@ -4,6 +4,7 @@ class DataProvider extends ChangeNotifier {
   var fName;
   var lName;
   var phoneNumber;
+  late bool isCustomer;
 
   void firstName(var firstName) {
     fName = firstName;
@@ -17,6 +18,11 @@ class DataProvider extends ChangeNotifier {
 
   void pNumber(var pNumber) {
     phoneNumber = pNumber;
+    notifyListeners();
+  }
+
+  void isCus(var isCus) {
+    isCustomer = isCus;
     notifyListeners();
   }
 

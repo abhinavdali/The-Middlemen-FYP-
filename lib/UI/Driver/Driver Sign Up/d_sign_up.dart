@@ -14,12 +14,14 @@ import 'package:the_middlemen/Widgets/snackbar.dart';
 import 'package:provider/src/provider.dart';
 import 'package:the_middlemen/Widgets/textformfields.dart';
 
-class SignupPage extends StatefulWidget {
+class DSignupPage extends StatefulWidget {
+  const DSignupPage({Key? key}) : super(key: key);
+
   @override
-  _SignupPageState createState() => _SignupPageState();
+  _DSignupPageState createState() => _DSignupPageState();
 }
 
-class _SignupPageState extends State<SignupPage> {
+class _DSignupPageState extends State<DSignupPage> {
   bool isHiddenPassword = true;
   bool isConfirmHiddenPassword = true;
   bool isChecked = false;
@@ -29,6 +31,8 @@ class _SignupPageState extends State<SignupPage> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController fNameController = TextEditingController();
   final TextEditingController lNameController = TextEditingController();
+  final TextEditingController licenseController = TextEditingController();
+  final TextEditingController vehicleController = TextEditingController();
   final TextEditingController phoneNoController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController confirmPasswordController = TextEditingController();
@@ -60,6 +64,7 @@ class _SignupPageState extends State<SignupPage> {
                             const SizedBox(
                               height: 32.00,
                             ),
+                            //USERNAME
                             BlueTextFormField(
                               hintText: 'Username',
                               icon: Icons.person_outline,
@@ -71,9 +76,8 @@ class _SignupPageState extends State<SignupPage> {
                                 return null;
                               },
                             ),
-                            const SizedBox(
-                              height: 16.0,
-                            ),
+                            const SizedBox16(),
+                            //EMAIL
                             BlueTextFormField(
                               hintText: 'Email',
                               icon: Icons.email_outlined,
@@ -90,9 +94,8 @@ class _SignupPageState extends State<SignupPage> {
                                 return null;
                               },
                             ),
-                            const SizedBox(
-                              height: 16.0,
-                            ),
+                            const SizedBox16(),
+                            //FIRST NAME
                             BlueTextFormField(
                               hintText: 'First Name',
                               icon: Icons.person_outline,
@@ -104,9 +107,8 @@ class _SignupPageState extends State<SignupPage> {
                                 return null;
                               },
                             ),
-                            const SizedBox(
-                              height: 16.0,
-                            ),
+                            const SizedBox16(),
+                            //LAST NAME
                             BlueTextFormField(
                               hintText: 'Last Name',
                               icon: Icons.person_outline,
@@ -118,16 +120,15 @@ class _SignupPageState extends State<SignupPage> {
                                 return null;
                               },
                             ),
-                            const SizedBox(
-                              height: 16.0,
-                            ),
+                            const SizedBox16(),
+                            //PHONE NUMBER
                             BlueTextFormFieldPN(
                               'Phone no.',
                               'assets/SignUp/phone.png',
                               phoneNoController,
                                   (String? value) {
                                 if (value!.isEmpty) {
-                                  return "Please enter your phone number";
+                                  return "Please enter phone number";
                                 }
                                 if (value.length < 10) {
                                   return "Please enter valid phone number";
@@ -135,34 +136,59 @@ class _SignupPageState extends State<SignupPage> {
                                 return null;
                               },
                             ),
-                            const SizedBox(
-                              height: 16.0,
+                            const SizedBox16(),
+                            //LICENSE NUMBER
+                            BlueTextFormField(
+                              hintText: 'License No.',
+                              icon: Icons.featured_video_sharp,
+                              controller: licenseController,
+                              validator: (String? value) {
+                                if (value!.isEmpty) {
+                                  return "Please enter your License Number";
+                                }
+                                return null;
+                              },
                             ),
+                            const SizedBox16(),
+                            //VEHICLE NUMBER
+                            BlueTextFormField(
+                              hintText: 'Vehicle No.',
+                              icon: Icons.directions_bike,
+                              controller: vehicleController,
+                              validator: (String? value) {
+                                if (value!.isEmpty) {
+                                  return "Please enter your Vehicle Number";
+                                }
+                                return null;
+                              },
+                            ),
+                            const SizedBox16(),
+                            //PASSWORD
                             SignUpPass(
                               passwordController: passwordController,
                               isHiddenPassword: isHiddenPassword,
                               isConfirmHiddenPassword: isConfirmHiddenPassword,
                               onPress: (){
-                              setState(() {
-                                isHiddenPassword = !isHiddenPassword;
-                              });
-                            },),
-                            const SizedBox(
-                              height: 16.0,
-                            ),
+                                setState(() {
+                                  isHiddenPassword = !isHiddenPassword;
+                                });
+                              },),
+                            const SizedBox16(),
+                            //CONFIRM PASSWORD
                             ConfirmPassword(
                               confirmPasswordController: confirmPasswordController,
                               isConfirmHiddenPassword: isConfirmHiddenPassword,
                               passwordController: passwordController,
                               onPress: (){
-                              setState(() {
-                                isConfirmHiddenPassword = !isConfirmHiddenPassword;
-                              });
-                            },),
+                                setState(() {
+                                  isConfirmHiddenPassword = !isConfirmHiddenPassword;
+                                });
+                              },),
                             const SizedBox(
                               height: 32.0,
                             ),
-                            LoginButton(text: 'Sign Up', onPress: () async{
+                            //SIGN UP BUTTON
+                            LoginButton(text: 'REGISTER', onPress: () async{
                               result =
                               await Connectivity().checkConnectivity();
                               if (result == ConnectivityResult.mobile ||
@@ -175,12 +201,21 @@ class _SignupPageState extends State<SignupPage> {
                                   final last_name = lNameController.text;
                                   final phone = phoneNoController.text;
                                   final password = passwordController.text;
+                                  final license = licenseController.text;
+                                  final vehicle = vehicleController.text;
+                                  SharedPreferences sp = await SharedPreferences.getInstance();
                                   try {
                                     SignUp? signup = await NetworkHelper()
-                                        .getCusSignUpData(username, email, first_name,last_name,
-                                        password,phone);
+                                        .getDriverSignUpData(username, email, first_name,last_name,
+                                        password, phone, license, vehicle);
                                     var token = signup?.token;
                                     if (token != null) {
+                                      sp.setString('fName', first_name);
+                                      sp.setString('lName', last_name);
+                                      sp.setString('phone', phone);
+                                      context.read<DataProvider>().firstName(first_name);
+                                      context.read<DataProvider>().lastName(last_name);
+                                      context.read<DataProvider>().pNumber(phone);
                                       showSnackBar(
                                         context,
                                         "Success",
@@ -233,8 +268,8 @@ class _SignupPageState extends State<SignupPage> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Text(
-                                  'Already have an account?  ',
-                                  style: kStyleNormal.copyWith(color: Colors.grey)
+                                    'Already have an account?  ',
+                                    style: kStyleNormal.copyWith(color: Colors.grey)
                                 ),
                                 GestureDetector(
                                   onTap: () {
@@ -247,8 +282,8 @@ class _SignupPageState extends State<SignupPage> {
                                     );
                                   },
                                   child: Text(
-                                    'Log In',
-                                    style: kStyleNormal.copyWith(color: Color(0xff3F84FC),fontWeight: FontWeight.w500)
+                                      'Log In',
+                                      style: kStyleNormal.copyWith(color: Color(0xff3F84FC),fontWeight: FontWeight.w500)
                                   ),
                                 ),
                               ],
@@ -264,6 +299,19 @@ class _SignupPageState extends State<SignupPage> {
           ),
         ),
       ),
+    );
+  }
+}
+
+class SizedBox16 extends StatelessWidget {
+  const SizedBox16({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return const SizedBox(
+      height: 16.0,
     );
   }
 }

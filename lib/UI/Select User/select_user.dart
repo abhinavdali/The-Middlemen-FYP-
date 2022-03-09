@@ -1,5 +1,7 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/src/provider.dart';
+import 'package:the_middlemen/Change%20Notifier/change_notifier.dart';
 import 'package:the_middlemen/Constants/const.dart';
 import 'package:the_middlemen/Models/Customer%20Models/login.dart';
 import 'package:the_middlemen/Nerwork/network_helper.dart';
@@ -23,13 +25,13 @@ class _SelectUserState extends State<SelectUser> {
   bool isHiddenPassword = true;
   bool isChecked = false;
 
-
-
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
   ConnectivityResult result = ConnectivityResult.none;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> _formKeyD = GlobalKey<FormState>();
+  // bool isCustomer = true;
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -38,17 +40,28 @@ class _SelectUserState extends State<SelectUser> {
         backgroundColor: Colors.white,
         body: ListView(
           children: [
-            SizedBox(height: 30,),
-            Image.asset('assets/Logo/applogo.png'
-                ,height: 150,
-                width: 150,),
-            const SizedBox(height: 30,),
+            const SizedBox(
+              height: 30,
+            ),
+            Image.asset(
+              'assets/Logo/applogo.png',
+              height: 150,
+              width: 150,
+            ),
+            const SizedBox(
+              height: 30,
+            ),
             Column(
               children: [
                 Column(
                   children: [
-                    Text('Welcome, User',style: kStyleTitle,),
-                    const SizedBox(height: 16,),
+                    Text(
+                      'Welcome, User',
+                      style: kStyleTitle,
+                    ),
+                    const SizedBox(
+                      height: 16,
+                    ),
                     // Text('Let\'s start with what you want\n to use this app for',
                     //   style: kStyleNormal,
                     //   textAlign: TextAlign.center,),
@@ -57,13 +70,16 @@ class _SelectUserState extends State<SelectUser> {
                 Column(
                   children: [
                     const SizedBox(height: 50),
-                    Text('Please Select User Type',style: kStyleTitle,),
+                    Text(
+                      'Please Select User Type',
+                      style: kStyleTitle,
+                    ),
                     const SizedBox(height: 16),
                     Align(
                       alignment: Alignment.topCenter,
                       child: Container(
                         height: 40,
-                        margin: EdgeInsets.symmetric(horizontal: 24),
+                        margin: const EdgeInsets.symmetric(horizontal: 24),
                         decoration: BoxDecoration(
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(
@@ -74,7 +90,7 @@ class _SelectUserState extends State<SelectUser> {
                                   blurRadius: 2,
                                   spreadRadius: 1,
                                   color: Colors.grey.withOpacity(0.3),
-                                  offset: Offset(0, 3))
+                                  offset: const Offset(0, 3))
                             ]),
                         child: TabBar(
                             isScrollable: true,
@@ -88,62 +104,160 @@ class _SelectUserState extends State<SelectUser> {
                             // Tabbar tabs
                             tabs: [
                               TabBarTabs(
-                                text: 'Customer',
-                                image: Icons.person_outline
-                              ),
+                                  text: 'Customer',
+                                  image: Icons.person_outline),
                               TabBarTabs(
                                 text: 'Driver',
-                                image: Icons.delivery_dining_outlined,)
+                                image: Icons.directions_bike_outlined,
+                              )
                             ]),
                       ),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(top: 16.0),
-                      child: Container(
+                      child: SizedBox(
                         height: 320,
-
                         child: TabBarView(children: [
                           //Customer Login(TAB 1)
                           Form(
                             key: _formKey,
                             child: LoginField(
                                 emailController: emailController,
-                                widget: PasswordTextFormField(passController: passwordController,isHiddenPassword: isHiddenPassword,icon: IconButton(
-                              icon: Icon(
-                                // Based on passwordVisible state choose the icon
-                                isHiddenPassword
-                                    ? Icons.visibility
-                                    : Icons.visibility_off,
-                                color: kStyleAppColor,
-                              ), onPressed: () {
-                              setState(() {
-                                isHiddenPassword = !isHiddenPassword;
-                              });
-                            },
-                            ),),
-                            loginText: 'Customer Log In',
-                              onPress: ()async {
-                                /*    if (internetConnection())*/
-                                result =
-                                await Connectivity().checkConnectivity();
+                                widget: PasswordTextFormField(
+                                  passController: passwordController,
+                                  isHiddenPassword: isHiddenPassword,
+                                  icon: IconButton(
+                                    icon: Icon(
+                                      // Based on passwordVisible state choose the icon
+                                      isHiddenPassword
+                                          ? Icons.visibility
+                                          : Icons.visibility_off,
+                                      color: kStyleAppColor,
+                                    ),
+                                    onPressed: () {
+                                      setState(() {
+                                        isHiddenPassword = !isHiddenPassword;
+                                      });
+                                    },
+                                  ),
+                                ),
+                                loginText: 'Customer Log In',
+                                onPress: () async {
+                                  /*    if (internetConnection())*/
+                                  result =
+                                      await Connectivity().checkConnectivity();
+                                  if (result == ConnectivityResult.mobile ||
+                                      result == ConnectivityResult.wifi) {
+                                    if (_formKey.currentState!.validate()) {
+                                      final username = emailController.text;
+                                      final password = passwordController.text;
+                                      try {
+                                        Login login = await NetworkHelper()
+                                            .getCusLoginData(username, password);
+
+                                        var token = login.data?.token;
+                                        var fName = login.data?.user?[0]?[0]?.firstName;
+                                        var lName = login.data?.user?[0]?[0]?.lastName;
+                                        var phone = login.data?.user?[0]?[0]?.phone;
+                                        var email =login.data?.user?[0]?[0]?.email;
+
+                                        if (token != null) {
+                                          // print(fName);
+                                          final SharedPreferences sp = await SharedPreferences.getInstance();
+                                          sp.setString('username', username);
+                                          sp.setString('fName', fName!);
+                                          sp.setString('lName', lName!);
+                                          sp.setString('phone', phone!);
+                                          sp.setString('email', email!);
+                                          // sp.setBool('is_Customer', isCustomer);
+                                          context.read<DataProvider>().firstName(fName);
+                                          context.read<DataProvider>().lastName(lName);
+                                          context.read<DataProvider>().pNumber(phone);
+                                          // setState(() {
+                                          //   isCustomer = true;
+                                          //   context.read<DataProvider>().isCus(isCustomer);
+                                          // });
+                                          Navigator.of(context).push(
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  const BottomNavigationCus(),
+                                            ),
+                                          );
+                                        }
+                                      } catch (e) {
+                                        showSnackBar(
+                                          context,
+                                          "Attention",
+                                          Colors.red,
+                                          Icons.info,
+                                          "Credentials does not matched.",
+                                        );
+                                        print(e);
+                                      }
+                                    } else {
+                                      return print("Unsuccessful");
+                                    }
+                                  } else {
+                                    showSnackBar(
+                                      context,
+                                      "Attention",
+                                      Colors.blue,
+                                      Icons.info,
+                                      "You must be connected to the internet.",
+                                    );
+                                  }
+                                }, isCustomer: true,),
+                          ),
+
+                          //Driver Login(TAB 2)
+                          Form(
+                            key: _formKeyD,
+                            child: LoginField(
+                              emailController: emailController,
+                              widget: PasswordTextFormField(
+                                passController: passwordController,
+                                isHiddenPassword: isHiddenPassword,
+                                icon: IconButton(
+                                  icon: Icon(
+                                    // Based on passwordVisible state choose the icon
+                                    isHiddenPassword
+                                        ? Icons.visibility
+                                        : Icons.visibility_off,
+                                    color: kStyleAppColor,
+                                  ),
+                                  onPressed: () {
+                                    setState(() {
+                                      isHiddenPassword = !isHiddenPassword;
+                                    });
+                                  },
+                                ),
+                              ),
+                              loginText: 'Driver Log In',
+                              onPress: () async {
+                                result = await Connectivity().checkConnectivity();
                                 if (result == ConnectivityResult.mobile ||
                                     result == ConnectivityResult.wifi) {
-                                  if (_formKey.currentState!.validate()) {
+                                  if (_formKeyD.currentState!.validate()) {
                                     final username = emailController.text;
                                     final password = passwordController.text;
                                     try {
-                                      Login login = await NetworkHelper()
-                                          .getLoginData(username, password);
+                                      Login login = await NetworkHelper().getDriverLoginData(username, password);
 
-                                      var token = login.token;
+                                      var token = login.data?.token;
                                       if (token != null) {
-                                        final SharedPreferences sp = await SharedPreferences.getInstance();
-                                        sp.setString('username', username);
-                                        Navigator.of(context)
-                                            .push(
+                                        final SharedPreferences sp =
+                                        await SharedPreferences
+                                            .getInstance();
+                                        sp.setString('d_username', username);
+                                        // setState(() {
+                                        //   isCustomer = false;
+                                        //   context.read<DataProvider>().isCus(isCustomer);
+                                        // });
+                                        Navigator.of(context).push(
                                           MaterialPageRoute(
                                             /*            settings: RouteSettings(name: '/1'),*/
-                                            builder: (context) => BottomNavigationCus(),
+                                            builder: (context) =>
+                                                const BottomNavigationDriver(),
                                           ),
                                         );
                                       }
@@ -155,7 +269,6 @@ class _SelectUserState extends State<SelectUser> {
                                         Icons.info,
                                         "Credentials does not matched.",
                                       );
-                                      print(e);
                                     }
                                   } else {
                                     return print("Unsuccessful");
@@ -169,36 +282,11 @@ class _SelectUserState extends State<SelectUser> {
                                     "You must be connected to the internet.",
                                   );
                                 }
-                              }
-                            ),
-                          ),
-                          
-                          //Driver Login(TAB 2)
-                          LoginFieldDriver(emailController: emailController,
-                            widget: PasswordTextFormField(passController: passwordController,isHiddenPassword: isHiddenPassword,icon: IconButton(
-                            icon: Icon(
-                              // Based on passwordVisible state choose the icon
-                              isHiddenPassword
-                                  ? Icons.visibility
-                                  : Icons.visibility_off,
-                              color: kStyleAppColor,
-                            ), onPressed: () {
-                            setState(() {
-                              isHiddenPassword = !isHiddenPassword;
-                            });
-                          },
-                          ),),
-                            loginText: 'Driver Log In',
-                            onPress: (){
-                              Navigator.push(context, MaterialPageRoute(builder: (context){return BottomNavigationDriver();}));
-                            },
+                              }, isCustomer: false,),
                           ),
                         ]),
                       ),
                     )
-
-
-
                   ],
                 )
               ],
@@ -209,7 +297,3 @@ class _SelectUserState extends State<SelectUser> {
     );
   }
 }
-
-
-
-

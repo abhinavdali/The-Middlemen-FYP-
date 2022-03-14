@@ -5,6 +5,9 @@ class DataProvider extends ChangeNotifier {
   var lName;
   var phoneNumber;
   late bool isCustomer;
+  var license;
+  var vehicle;
+  late var parcelType;
 
   void firstName(var firstName) {
     fName = firstName;
@@ -26,4 +29,14 @@ class DataProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  void licenseN(var licenseN, var vehicleN){
+    license = licenseN;
+    vehicle = vehicleN;
+    notifyListeners();
+  }
+
+  void type(var type){
+    parcelType = type;
+    notifyListeners();
+  }
 }

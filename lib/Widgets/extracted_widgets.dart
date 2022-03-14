@@ -192,3 +192,149 @@ class profileContent extends StatelessWidget {
     );
   }
 }
+
+//Select Type (Ship Now)
+class SelectTypeContainer extends StatelessWidget {
+  SelectTypeContainer({required this.type, required this.image,required this.onPress,required this.isSelected});
+
+  final type;
+  final image;
+  final onPress;
+  final isSelected;
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        GestureDetector(
+          onTap: onPress,
+          child: Container(
+            padding: EdgeInsets.symmetric(horizontal: 16),
+            margin: const EdgeInsets.symmetric(horizontal: 8),
+            height: MediaQuery.of(context).size.height * 0.27,
+            width: MediaQuery.of(context).size.width * 0.4,
+            decoration: BoxDecoration(
+                color: isSelected ? kStyleAppColor : Colors.white,
+                borderRadius: BorderRadius.circular(20),
+                boxShadow: [boxShadowBlue]
+            ),
+            child: Image.asset(image),
+          ),
+        ),
+        const SizedBox16(),
+        Center(child: Text(type,style: kStyleNormal,))
+      ],
+    );
+  }
+}
+//Dropdown menu (SelectType)
+class DropDown extends StatelessWidget {
+  const DropDown({
+    Key? key,
+    required this.weight,
+    required String? weightChoose,
+    required this.onTap,
+  }) : _weightChoose = weightChoose, super(key: key);
+
+  final List<String> weight;
+  final String? _weightChoose;
+  final onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: Container(
+        padding:
+        EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+        decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(12),
+            boxShadow: [boxShadowBlue]),
+        child: DropdownButton(
+          dropdownColor: kStyleAppColor,
+          icon: Icon(Icons.wysiwyg_rounded),
+          isExpanded: true,
+          style: kStyleNormal,
+          items: weight.map((item) {
+            return DropdownMenuItem<String>(
+                value: item, child: Text(item));
+          }).toList(),
+          onChanged: onTap,
+          value: _weightChoose,
+        ),
+      ),
+    );
+  }
+}
+
+//PackageOption (Select Package ShipNow)
+class PackageOption extends StatelessWidget {
+  const PackageOption({
+    Key? key,
+    required this.packageIcon,
+    required this.onTap,
+    required this.isSelected,
+    required this.title,
+    required this.desc
+  }) : super(key: key);
+
+  final packageIcon;
+  final onTap;
+  final isSelected;
+  final title;
+  final desc;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        margin: const EdgeInsets.symmetric(vertical: 10),
+        height: MediaQuery.of(context).size.height * 0.36,
+        width: MediaQuery.of(context).size.width * 0.7,
+        decoration: BoxDecoration(
+            color: isSelected ? kStyleAppColor : Colors.white,
+            boxShadow: [boxShadowBlue],
+            borderRadius: BorderRadius.circular(12)
+        ),
+        child: Column(
+          children: [
+            Image.asset(packageIcon,height: 150,width: 200 ,),
+            SizedBox32(),
+            Text(title,style: kStyleTitle,),
+            SizedBox16(),
+            Text(desc,style: kStyleNormal,)
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+//Navigation Animator
+class CustomPageRoute extends PageRouteBuilder{
+  final Widget child;
+  final AxisDirection direction;
+
+  CustomPageRoute({required this.child, this.direction = AxisDirection.left }) : super(
+    transitionDuration: Duration(milliseconds: 500),
+    pageBuilder: (context, animation, secondaryAnimation) => child
+  );
+
+  @override
+  Widget buildTransitions (BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation, Widget child) =>
+      SlideTransition( position: Tween<Offset>(
+        begin: getBeginOffset(),
+        end: Offset.zero,
+      ).animate(animation),
+      child: child,);
+
+  getBeginOffset(){
+    switch (direction){
+      case AxisDirection.left:
+        return Offset(1, 0);
+      case AxisDirection.right:
+        return Offset(-1,0);
+    }
+  }
+}

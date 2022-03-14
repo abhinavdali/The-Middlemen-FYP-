@@ -303,17 +303,6 @@ class _DSignupPageState extends State<DSignupPage> {
   }
 }
 
-class SizedBox16 extends StatelessWidget {
-  const SizedBox16({
-    Key? key,
-  }) : super(key: key);
 
-  @override
-  Widget build(BuildContext context) {
-    return const SizedBox(
-      height: 16.0,
-    );
-  }
-}
 
 

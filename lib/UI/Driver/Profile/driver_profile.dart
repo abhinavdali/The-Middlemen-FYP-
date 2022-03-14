@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
+import 'package:the_middlemen/Change%20Notifier/change_notifier.dart';
 import 'package:the_middlemen/Constants/const.dart';
 import 'package:the_middlemen/UI/Select%20User/select_user.dart';
 import 'package:the_middlemen/Widgets/appbars.dart';
@@ -30,6 +32,16 @@ class DriverProfileContent extends StatefulWidget {
 }
 
 class _DriverProfileContentState extends State<DriverProfileContent> {
+  late String fName =
+      Provider.of<DataProvider>(context, listen: false).fName;
+  late String lName =
+      Provider.of<DataProvider>(context, listen: false).lName;
+  late String phoneNumber =
+      Provider.of<DataProvider>(context, listen: false).phoneNumber;
+  late String license =
+      Provider.of<DataProvider>(context, listen: false).license;
+  late String vehicle =
+      Provider.of<DataProvider>(context, listen: false).vehicle;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -65,7 +77,7 @@ class _DriverProfileContentState extends State<DriverProfileContent> {
                                   child: Column(
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
-                                      Text('John Doe',style: kStyleNormal.copyWith(
+                                      Text('$fName $lName',style: kStyleNormal.copyWith(
                                           fontWeight: FontWeight.w500),),
                                       const SizedBox(height: 8,),
                                       Row(
@@ -89,7 +101,7 @@ class _DriverProfileContentState extends State<DriverProfileContent> {
                                           const Icon(Icons.phone_outlined,color: Colors.black,
                                             size: 20,),
                                           const SizedBox(width: 4,),
-                                          Text('9876543210',style: kStyleNormal.copyWith(
+                                          Text('$phoneNumber',style: kStyleNormal.copyWith(
                                               color: const Color(0xff292929),
                                               fontSize: 14,
                                               fontWeight: FontWeight.w400),)
@@ -110,12 +122,12 @@ class _DriverProfileContentState extends State<DriverProfileContent> {
             ),
             Row(
               children: [
-                Expanded(child: profileContent(icon: 'assets/DriverProfile/license.png',desc: 'License no.',value: '01-06-00816317',)),
+                Expanded(child: profileContent(icon: 'assets/DriverProfile/license.png',desc: 'License no.',value: '$license',)),
               ],
             ),
             Row(
               children: [
-                Expanded(child: profileContent(icon: 'assets/DriverProfile/vehicleno.png',desc: 'Vehicle no.',value: 'State 2-B DE 1234',)),
+                Expanded(child: profileContent(icon: 'assets/DriverProfile/vehicleno.png',desc: 'Vehicle no.',value: '$vehicle',)),
               ],
             ),
             Row(

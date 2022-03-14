@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 import 'package:the_middlemen/Constants/const.dart';
+import 'package:the_middlemen/UI/Customer/ShipNow/select_type.dart';
 import 'package:the_middlemen/UI/Customer/ShipNow/ship_now.dart';
 import 'package:the_middlemen/Widgets/appbars.dart';
 import 'package:the_middlemen/Widgets/buttons.dart';
@@ -48,20 +49,17 @@ class _CusHomeContentState extends State<CusHomeContent> {
                 ),
                 child: Column(
                   children: [
-                    Row(
-                      children: [
-                        Text(
-                          'Welcome to The Middlemen!',
-                          style: kStyleTitle,
-                        ),
-                      ],
+                    Text(
+                      'Welcome to The Middlemen!',
+                      style: kStyleTitle,
+                      textAlign: TextAlign.left,
                     ),
                     const SizedBox(
                       height: 16,
                     ),
                     Text(
                       'Ready to ship your package?',
-                      style: kStyleNormal.copyWith(letterSpacing: 1.5),
+                      style: kStyleNormal.copyWith(letterSpacing: 1),
                       textAlign: TextAlign.left,
                     ),
                     Image.asset('assets/Home/rider.png',height: 200,),
@@ -69,7 +67,7 @@ class _CusHomeContentState extends State<CusHomeContent> {
                         text: 'SHIP NOW',
                         color: const Color(0xff00A6FB),
                         onPress: (){
-                          Navigator.push(context, MaterialPageRoute(builder: (context){return const ShipNow();}));
+                          Navigator.push(context, MaterialPageRoute(builder: (context){return SelectType();}));
                         },
                         arrow: 'assets/Profile/buttonarrow.png'),
                     const SizedBox(
@@ -77,7 +75,8 @@ class _CusHomeContentState extends State<CusHomeContent> {
                     ),
                     Text(
                       'To track your package please enter your tracking number',
-                      style: kStyleNormal.copyWith(letterSpacing: 1.5),
+                      style: kStyleNormal.copyWith(letterSpacing: 1),
+                      textAlign: TextAlign.center,
                     ),
                     const SizedBox(
                       height: 24,
@@ -91,7 +90,9 @@ class _CusHomeContentState extends State<CusHomeContent> {
                     const SizedBox(
                       height: 16,
                     ),
-                    ArrowButton(text: 'TRACK NOW', color: const Color(0xff00A6FB),onPress: (){}, arrow: 'assets/Profile/buttonarrow.png'),
+                    ArrowButton(text: 'TRACK NOW', color: const Color(0xff00A6FB),onPress: (){
+                      ;
+                    }, arrow: 'assets/Profile/buttonarrow.png'),
                     const SizedBox(
                       height: 16,
                     ),

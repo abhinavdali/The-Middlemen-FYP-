@@ -244,11 +244,28 @@ class _SelectUserState extends State<SelectUser> {
                                       Login login = await NetworkHelper().getDriverLoginData(username, password);
 
                                       var token = login.data?.token;
+                                      var fName = login.data?.user?[0]?[0]?.firstName;
+                                      var lName = login.data?.user?[0]?[0]?.lastName;
+                                      var email = login.data?.user?[0]?[0]?.email;
+                                      var phone = login.data?.user?[0]?[0]?.phone;
+                                      var license = login.data?.user?[0]?[0]?.license;
+                                      var vehicle = login.data?.user?[0]?[0]?.vehicleNumber;
                                       if (token != null) {
                                         final SharedPreferences sp =
                                         await SharedPreferences
                                             .getInstance();
                                         sp.setString('d_username', username);
+                                        sp.setString('fName', fName!);
+                                        sp.setString('lName', lName!);
+                                        sp.setString('phone', phone!);
+                                        sp.setString('email', email!);
+                                        sp.setString('license', license!);
+                                        sp.setString('vehicle', vehicle!);
+                                        // sp.setBool('is_Customer', isCustomer);
+                                        context.read<DataProvider>().firstName(fName);
+                                        context.read<DataProvider>().lastName(lName);
+                                        context.read<DataProvider>().pNumber(phone);
+                                        context.read<DataProvider>().licenseN(license, vehicle);
                                         // setState(() {
                                         //   isCustomer = false;
                                         //   context.read<DataProvider>().isCus(isCustomer);

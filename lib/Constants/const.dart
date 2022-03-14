@@ -31,7 +31,7 @@ var kStyleNormal = TextStyle(
   fontWeight: FontWeight.w400
 );
 
-const TabText = const TextStyle(
+const TabText = TextStyle(
   fontFamily: 'NunitoSans',
   fontSize: 14.4,
 );
@@ -93,9 +93,35 @@ var kStyleFocusedError = OutlineInputBorder(
   borderRadius: BorderRadius.circular(24.0),
 );
 
-var kStyleHintStyle = TextStyle(
+var kStyleHintStyle = const TextStyle(
   fontFamily: 'NutinoSansReg',
   fontSize: 16,
   fontWeight: FontWeight.w400,
   color: Color(0xff777777),
 );
+
+class SizedBox16 extends StatelessWidget {
+  const SizedBox16({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return const SizedBox(
+      height: 16.0,
+    );
+  }
+}
+
+class SizedBox32 extends StatelessWidget {
+  const SizedBox32({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return const SizedBox(
+      height: 32.0,
+    );
+  }
+}

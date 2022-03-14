@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
+import 'package:the_middlemen/Change%20Notifier/change_notifier.dart';
 import 'package:the_middlemen/Constants/const.dart';
 import 'package:the_middlemen/UI/Customer/ShipNow/select_destination.dart';
 import 'package:the_middlemen/UI/Customer/ShipNow/select_package_option.dart';
@@ -18,30 +20,16 @@ class ShipNow extends StatefulWidget {
 
 class _ShipNowState extends State<ShipNow> {
   int _currentIndex = 0;
-  bool _isSelectedPrev = false;
-  bool _isSelectedNext = true;
   final _children = [
-    SelectType(),
+    const SelectType(),
     SelectDestination(),
-    SelectPackage(),
-    SelectPayment(),
-    TrackingLabel(),
+    const SelectPackage(),
+    const SelectPayment(),
+    const TrackingLabel(),
   ];
-
-  void _onChanged(int index) {
-    if(_isSelectedPrev == true){
-     setState(() {
-       _currentIndex--;
-     });
-    }else if(_isSelectedNext == true){
-      setState(() {
-        _currentIndex++;
-      });
-      print(_currentIndex);
-      print(_isSelectedNext);
-    }
-  }
-
+  // late List selectedParcelType =
+  //     Provider.of<DataProvider>(context, listen: false).parcelType;
+  // late bool isSelected = context.watch<DataProvider>().type();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -52,7 +40,7 @@ class _ShipNowState extends State<ShipNow> {
       body: _children[_currentIndex],
       bottomNavigationBar: Container(
         height: MediaQuery.of(context).size.width * 0.15.sp,
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           color: Colors.white,
         ),
         child: Row(
@@ -64,22 +52,22 @@ class _ShipNowState extends State<ShipNow> {
                   _currentIndex--;
                 });
               }),
-            if(_currentIndex!= (_currentIndex - 1) &&
-    _currentIndex != 0)
+            if(_currentIndex!= (_currentIndex - 1) && _currentIndex != 0)
               Expanded(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     NextBtn(() {
                       setState(() {
-                        _currentIndex++;
+                        if(_currentIndex != 4){
+                          _currentIndex++;
+                        }
                       });
                       }),
                   ],
                 ),
               ),
             if ( _currentIndex == 0)
-
               Expanded(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
@@ -95,43 +83,6 @@ class _ShipNowState extends State<ShipNow> {
           ],
         ),
       ),
-      // bottomNavigationBar: BottomNavigationBar(
-      //   currentIndex: _currentIndex,
-      //   backgroundColor: Colors.white,
-      //   showSelectedLabels: true,
-      //   showUnselectedLabels: true,
-      //   fixedColor: kStyleAppColor,
-      //   unselectedItemColor: Colors.grey.shade700,
-      //   items: [
-      //     BottomNavigationBarItem(
-      //       icon: IconButton(
-      //         onPressed: () {
-      //           setState(() {
-      //             _isSelectedNext = !_isSelectedNext;
-      //             _isSelectedPrev = !_isSelectedPrev;
-      //           });
-      //         },
-      //         icon: Icon(Icons.arrow_back_ios),
-      //       ),
-      //       label: 'Previous',
-      //       backgroundColor: Colors.black,
-      //     ),
-      //     BottomNavigationBarItem(
-      //       icon: IconButton(
-      //         onPressed: () {
-      //           setState(() {
-      //             _isSelectedNext = !_isSelectedNext;
-      //             _isSelectedPrev = !_isSelectedPrev;
-      //           });
-      //         },
-      //         icon: Icon(Icons.arrow_forward_ios),
-      //       ),
-      //       label: 'Next',
-      //       backgroundColor: Colors.black,
-      //     ),
-      //   ],
-      //   onTap: _onChanged,
-      // ),
     );
   }
 }

@@ -36,6 +36,14 @@ dependencies:
   shared_preferences: ^2.0.8
   provider: ^6.0.1
   curved_navigation_bar: ^1.0.2
+  flutter_typeahead: ^3.2.4
+  google_maps_flutter: ^2.1.2
+  geolocator: ^7.0.3
+  geocoding: ^2.0.0
+  flutter_polyline_points: ^1.0.0
+  places_service: ^0.1.0
+  uuid: ^3.0.6
+
   flutter:
     sdk: flutter
 
@@ -76,6 +84,7 @@ flutter:
     - assets/DriverProfile/
     - assets/SignUp/
     - assets/Home/
+    - assets/ShipNow/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

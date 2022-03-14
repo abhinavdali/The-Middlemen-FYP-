@@ -224,3 +224,30 @@ class _PreviousBtnState extends State<PreviousBtn> {
     );
   }
 }
+
+class MyLocationButton extends StatelessWidget {
+  const MyLocationButton({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return ClipOval(
+      child: Material(
+        color: Colors.orange.shade100, // button color
+        child: InkWell(
+          splashColor: Colors.orange, // inkwell color
+          child: SizedBox(
+            width: 56,
+            height: 56,
+            child: Icon(Icons.my_location),
+          ),
+          onTap: () {
+            // TODO: Add the operation to be performed
+            // on button tap
+          },
+        ),
+      ),
+    );
+  }
+}

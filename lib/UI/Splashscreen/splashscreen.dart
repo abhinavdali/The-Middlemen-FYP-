@@ -6,6 +6,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:the_middlemen/Change%20Notifier/change_notifier.dart';
 import 'package:the_middlemen/Constants/const.dart';
 import 'package:the_middlemen/UI/Customer/BottomNavBar/bottom_nav_cus.dart';
+import 'package:the_middlemen/UI/Customer/Home/cus_home.dart';
+import 'package:the_middlemen/UI/Customer/ShipNow/ship_now.dart';
 import 'package:the_middlemen/UI/Driver/BottomNavBar/bottom_nav_driver.dart';
 import 'package:the_middlemen/UI/Select%20User/select_user.dart';
 
@@ -33,7 +35,7 @@ class _SplashScreenState extends State<SplashScreen> {
           Navigator.pushReplacement(context,
               MaterialPageRoute(
                   builder: (context) {
-                    return const SelectUser();
+                    return const CusHome();
                   })) :
            isCustomer ? Navigator.pushReplacement(context,
               MaterialPageRoute(
@@ -60,20 +62,23 @@ class _SplashScreenState extends State<SplashScreen> {
     var lName = sharedPreferences.getString('lName');
     var phone = sharedPreferences.getString('phone');
     var email = sharedPreferences.getString('email');
+    var license = sharedPreferences.getString('license');
+    var vehicle = sharedPreferences.getString('vehicle');
     context.read<DataProvider>().firstName(fName);
     context.read<DataProvider>().lastName(lName);
     context.read<DataProvider>().pNumber(phone);
+    context.read<DataProvider>().licenseN(license,vehicle);
     setState(() {
       if(username != null) {
         finalUN = username;
-        print(finalUN);
         setState(() {
           isCustomer = true;
         });
       }else if(d_username != null){
         finalUN = d_username;
-        print(finalUN);
-
+        setState(() {
+          isCustomer = false;
+        });
       }
       // isCustomer = is_Customer;
     });

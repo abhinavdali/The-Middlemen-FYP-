@@ -57,9 +57,7 @@ class _SignupPageState extends State<SignupPage> {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            const SizedBox(
-                              height: 32.00,
-                            ),
+                            const SizedBox32(),
                             BlueTextFormField(
                               hintText: 'Username',
                               icon: Icons.person_outline,
@@ -71,9 +69,7 @@ class _SignupPageState extends State<SignupPage> {
                                 return null;
                               },
                             ),
-                            const SizedBox(
-                              height: 16.0,
-                            ),
+                            const SizedBox16(),
                             BlueTextFormField(
                               hintText: 'Email',
                               icon: Icons.email_outlined,
@@ -90,9 +86,7 @@ class _SignupPageState extends State<SignupPage> {
                                 return null;
                               },
                             ),
-                            const SizedBox(
-                              height: 16.0,
-                            ),
+                            const SizedBox16(),
                             BlueTextFormField(
                               hintText: 'First Name',
                               icon: Icons.person_outline,
@@ -104,9 +98,7 @@ class _SignupPageState extends State<SignupPage> {
                                 return null;
                               },
                             ),
-                            const SizedBox(
-                              height: 16.0,
-                            ),
+                            const SizedBox16(),
                             BlueTextFormField(
                               hintText: 'Last Name',
                               icon: Icons.person_outline,
@@ -118,9 +110,7 @@ class _SignupPageState extends State<SignupPage> {
                                 return null;
                               },
                             ),
-                            const SizedBox(
-                              height: 16.0,
-                            ),
+                            const SizedBox16(),
                             BlueTextFormFieldPN(
                               'Phone no.',
                               'assets/SignUp/phone.png',
@@ -135,9 +125,7 @@ class _SignupPageState extends State<SignupPage> {
                                 return null;
                               },
                             ),
-                            const SizedBox(
-                              height: 16.0,
-                            ),
+                            const SizedBox16(),
                             SignUpPass(
                               passwordController: passwordController,
                               isHiddenPassword: isHiddenPassword,
@@ -147,9 +135,7 @@ class _SignupPageState extends State<SignupPage> {
                                 isHiddenPassword = !isHiddenPassword;
                               });
                             },),
-                            const SizedBox(
-                              height: 16.0,
-                            ),
+                            const SizedBox16(),
                             ConfirmPassword(
                               confirmPasswordController: confirmPasswordController,
                               isConfirmHiddenPassword: isConfirmHiddenPassword,
@@ -159,9 +145,7 @@ class _SignupPageState extends State<SignupPage> {
                                 isConfirmHiddenPassword = !isConfirmHiddenPassword;
                               });
                             },),
-                            const SizedBox(
-                              height: 32.0,
-                            ),
+                            const SizedBox32(),
                             LoginButton(text: 'Sign Up', onPress: () async{
                               result =
                               await Connectivity().checkConnectivity();

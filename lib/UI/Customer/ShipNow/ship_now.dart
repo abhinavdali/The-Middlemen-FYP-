@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
-import 'package:the_middlemen/Change%20Notifier/change_notifier.dart';
 import 'package:the_middlemen/Constants/const.dart';
 import 'package:the_middlemen/UI/Customer/ShipNow/select_destination.dart';
 import 'package:the_middlemen/UI/Customer/ShipNow/select_package_option.dart';

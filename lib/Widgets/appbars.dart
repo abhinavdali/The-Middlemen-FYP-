@@ -37,9 +37,14 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       backgroundColor: Colors.white,
-      leading: const Icon(
-        Icons.arrow_back_ios,
-        color: Colors.black,
+      leading: GestureDetector(
+        onTap: (){
+          Navigator.pop(context);
+        },
+        child: const Icon(
+          Icons.arrow_back_ios,
+          color: Colors.black,
+        ),
       ),
       title: Text(
         title,

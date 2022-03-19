@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:provider/src/provider.dart';
 import 'package:sizer/sizer.dart';
 import 'package:the_middlemen/Change%20Notifier/change_notifier.dart';
@@ -22,17 +21,19 @@ class _SelectTypeState extends State<SelectType> {
 
   List<String> weight = [
     'Select weight',
-    '1-5 kg',
-    '5-10 kg',
-    '10-20 kg',
-    '20-50 kg',
-    '50-100 kg',
+    '<1kg',
+    '1-4 kg',
+    '5-9 kg',
+    '10-19 kg',
+    '20-49 kg',
+    '50-99 kg',
     '100+ kg',
   ];
   List<String> size = [
     'Select size',
-    '1-5 m',
-    '5-10 m',
+    '<1 m',
+    '1-4 m',
+    '4-9 m',
     '10-15 m',
   ];
 
@@ -40,9 +41,6 @@ class _SelectTypeState extends State<SelectType> {
 
   List<String> typeImg = ['assets/ShipNow/mail.png', 'assets/ShipNow/parcel.png'];
 
-  List parcelType(){
-    return _selectedType;
-  }
   final List _selectedType = [];
 
   @override
@@ -59,7 +57,7 @@ class _SelectTypeState extends State<SelectType> {
               child: Column(
                 children: [
                   Text(
-                    'Step 1 of 5',
+                    'Step 1 of 6',
                     style: kStyleTitle,
                   ),
                   const SizedBox16(),
@@ -71,14 +69,12 @@ class _SelectTypeState extends State<SelectType> {
                   const SizedBox16(),
                   SizedBox(
                     height: MediaQuery.of(context).size.height * 0.34,
+                    //Select Parcel Type
                     child: ListView.builder(
                         itemCount: 2,
                         scrollDirection: Axis.horizontal,
                         itemBuilder: (ctx, index) {
                           final _isSelectedParcelType = _selectedType.contains(index);
-                          if(_selectedType.isNotEmpty){
-                            context.read<DataProvider>().type;
-                          }
                           return SelectTypeContainer(
                               type: type[index],
                               image: typeImg[index],
@@ -114,7 +110,8 @@ class _SelectTypeState extends State<SelectType> {
                   ),
                   // SizedBox16(),
                   // Image.asset('assets/ShipNow/weight.png'),
-                  SizedBox16(),
+                  const SizedBox16(),
+                  //Dropdown menus to select size and weight
                   DropDown(weight: weight, weightChoose: _weightChoose,onTap: (item) {
                     setState(() {
                       _weightChoose = item as String?;
@@ -138,7 +135,9 @@ class _SelectTypeState extends State<SelectType> {
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             if(_selectedType.isNotEmpty && _weightChoose != 'Select weight' && _sizeChoose != 'Select size')
-            NextBtn(() {
+            NextBtn(()
+            {
+              context.read<DataProvider>().partype(_selectedType, _weightChoose,_sizeChoose);
               Navigator.of(context).pushReplacement(CustomPageRoute(child: SelectDestination()));
             }),
           ],

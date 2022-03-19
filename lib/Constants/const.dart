@@ -113,6 +113,19 @@ class SizedBox16 extends StatelessWidget {
   }
 }
 
+class SizedBox8 extends StatelessWidget {
+  const SizedBox8({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return const SizedBox(
+      height: 8.0,
+    );
+  }
+}
+
 class SizedBox32 extends StatelessWidget {
   const SizedBox32({
     Key? key,

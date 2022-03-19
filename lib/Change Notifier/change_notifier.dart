@@ -8,6 +8,10 @@ class DataProvider extends ChangeNotifier {
   var license;
   var vehicle;
   late var parcelType;
+  var weightT;
+  var sizeT;
+  var dist;
+  var pacType;
 
   void firstName(var firstName) {
     fName = firstName;
@@ -35,8 +39,20 @@ class DataProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void type(var type){
-    parcelType = type;
+  void partype(var partype, var weight, var size){
+    parcelType = partype;
+    weightT = weight;
+    sizeT = size;
+    notifyListeners();
+  }
+
+  void distance(var distance){
+    dist = distance;
+    notifyListeners();
+  }
+
+  void packageType(var packageType){
+    pacType = packageType;
     notifyListeners();
   }
 }

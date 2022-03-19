@@ -25,7 +25,7 @@ class _TrackingLabelState extends State<TrackingLabel> {
             padding: const EdgeInsets.symmetric(vertical: 40.0,horizontal: 24),
             child: Column(
               children: [
-                Text('Step 5 of 5 ',style: kStyleTitle,),
+                Text('Step 6 of 6 ',style: kStyleTitle,),
                 const SizedBox16(),
                 Text('View your Shipping Label',style: kStyleNormal,)
               ],

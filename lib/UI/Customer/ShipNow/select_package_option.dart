@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/src/provider.dart';
 import 'package:sizer/sizer.dart';
+import 'package:the_middlemen/Change%20Notifier/change_notifier.dart';
 import 'package:the_middlemen/Constants/const.dart';
+import 'package:the_middlemen/UI/Customer/ShipNow/receiver_details.dart';
 import 'package:the_middlemen/UI/Customer/ShipNow/select_destination.dart';
 import 'package:the_middlemen/UI/Customer/ShipNow/select_payment.dart';
 import 'package:the_middlemen/Widgets/appbars.dart';
@@ -33,7 +36,7 @@ class _SelectPackageState extends State<SelectPackage> {
     'Cheap Package'
   ];
 
-  List _selectedIndexs = [];
+  final List _selectedIndexs = [];
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +48,7 @@ class _SelectPackageState extends State<SelectPackage> {
             padding: const EdgeInsets.symmetric(vertical: 40.0,horizontal: 24),
             child: Column(
               children: [
-                Text('Step 3 of 5',style: kStyleTitle,),
+                Text('Step 3 of 6',style: kStyleTitle,),
                 const SizedBox32(),
                 Text('Please select your package type',style: kStyleTitle.copyWith(fontSize: 12.sp),textAlign: TextAlign.center,),
                 const SizedBox16(),
@@ -97,7 +100,8 @@ class _SelectPackageState extends State<SelectPackage> {
             }),
             if(_selectedIndexs.isNotEmpty)
             NextBtn(() {
-              Navigator.of(context).pushReplacement(CustomPageRoute(child: SelectPayment()));
+              context.read<DataProvider>().packageType(_selectedIndexs);
+              Navigator.of(context).pushReplacement(CustomPageRoute(child: ReceiverDetails()));
             }),
           ],
         ),

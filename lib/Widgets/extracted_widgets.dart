@@ -300,9 +300,9 @@ class PackageOption extends StatelessWidget {
         child: Column(
           children: [
             Image.asset(packageIcon,height: 150,width: 200 ,),
-            SizedBox32(),
+            const SizedBox32(),
             Text(title,style: kStyleTitle,),
-            SizedBox16(),
+            const SizedBox16(),
             Text(desc,style: kStyleNormal,)
           ],
         ),
@@ -336,5 +336,79 @@ class CustomPageRoute extends PageRouteBuilder{
       case AxisDirection.right:
         return Offset(-1,0);
     }
+  }
+}
+
+//Pricing Details (Select Payment)
+class PricingContent extends StatelessWidget {
+  PricingContent({required this.title, required this.amt,required this.titleStyle,required this.amtStyle});
+
+  final title;
+  final amt;
+  final titleStyle;
+  final amtStyle;
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(title,
+        style: titleStyle,),
+        Text(amt,
+        style: amtStyle,)
+      ],
+    );
+  }
+}
+
+//Payment Options (Select Payment)
+class PaymentOptions extends StatelessWidget {
+  PaymentOptions({required this.icon, required this.name, required this.onTap,required this.isSelected});
+
+  final icon;
+  final name;
+  final onTap;
+  final isSelected;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        margin: EdgeInsets.symmetric(vertical: 8),
+        padding: EdgeInsets.all(10),
+        height: MediaQuery.of(context).size.height * 0.07,
+        decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(12),
+            boxShadow: [boxShadowBlue]),
+        child: Row(
+          children: [
+            Image.asset(
+              icon,
+              height: 23,
+            ),
+            SizedBox(
+              width: 12,
+            ),
+            Expanded(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    name,
+                    style: kStyleNormal,
+                  ),
+                  Icon(
+                    isSelected? Icons.check_circle : Icons.circle,
+                    color: isSelected ? Colors.blue : Color(0xFFA3A3A3),
+                  )
+                ],
+              ),
+            )
+          ],
+        ),
+      ),
+    );
   }
 }

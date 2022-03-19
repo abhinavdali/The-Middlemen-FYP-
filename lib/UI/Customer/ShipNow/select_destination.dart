@@ -5,7 +5,9 @@ import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:provider/src/provider.dart';
 import 'package:sizer/sizer.dart';
+import 'package:the_middlemen/Change%20Notifier/change_notifier.dart';
 import 'package:the_middlemen/Constants/const.dart';
 import 'package:the_middlemen/UI/Customer/ShipNow/select_package_option.dart';
 import 'package:the_middlemen/UI/Customer/ShipNow/select_type.dart';
@@ -14,13 +16,14 @@ import 'package:the_middlemen/Widgets/buttons.dart';
 import 'package:the_middlemen/Widgets/extracted_widgets.dart';
 
 class SelectDestination extends StatefulWidget {
+  const SelectDestination({Key? key}) : super(key: key);
 
   @override
   State<SelectDestination> createState() => _SelectDestinationState();
 }
 
 class _SelectDestinationState extends State<SelectDestination> {
-  CameraPosition _initialLocation = CameraPosition(target: LatLng(27.6772, 0.0));
+  final CameraPosition _initialLocation = const CameraPosition(target: LatLng(27.6772, 0.0));
   late GoogleMapController mapController;
 
   late Position _currentPosition;
@@ -54,7 +57,7 @@ class _SelectDestinationState extends State<SelectDestination> {
     Widget? suffixIcon,
     required Function(String) locationCallback,
   }) {
-    return Container(
+    return SizedBox(
       width: width * 0.8,
       child: TextField(
         onChanged: (value) {
@@ -70,7 +73,7 @@ class _SelectDestinationState extends State<SelectDestination> {
           fillColor: Colors.white,
           enabledBorder: kStyleEnabled,
           focusedBorder: kStyleFocused,
-          contentPadding: EdgeInsets.all(15),
+          contentPadding: const EdgeInsets.all(15),
           hintText: hint,
         ),
       ),
@@ -184,12 +187,12 @@ class _SelectDestinationState extends State<SelectDestination> {
       markers.add(startMarker);
       markers.add(destinationMarker);
 
-      print(
-        'START COORDINATES: ($startLatitude, $startLongitude)',
-      );
-      print(
-        'DESTINATION COORDINATES: ($destinationLatitude, $destinationLongitude)',
-      );
+      // print(
+      //   'START COORDINATES: ($startLatitude, $startLongitude)',
+      // );
+      // print(
+      //   'DESTINATION COORDINATES: ($destinationLatitude, $destinationLongitude)',
+      // );
 
       // Calculating to check that the position relative
       // to the frame, and pan & zoom the camera accordingly.
@@ -224,14 +227,6 @@ class _SelectDestinationState extends State<SelectDestination> {
         ),
       );
 
-      // Calculating the distance between the start and the end positions
-      // with a straight path, without considering any route
-      // double distanceInMeters = await Geolocator().bearingBetween(
-      //   startCoordinates.latitude,
-      //   startCoordinates.longitude,
-      //   destinationCoordinates.latitude,
-      //   destinationCoordinates.longitude,
-      // );
 
       await _createPolylines(startLatitude, startLongitude, destinationLatitude,
           destinationLongitude);
@@ -262,7 +257,6 @@ class _SelectDestinationState extends State<SelectDestination> {
   }
 
   // Formula for calculating distance between two coordinates
-  // https://stackoverflow.com/a/54138876/11910277
   double _coordinateDistance(lat1, lon1, lat2, lon2) {
     var p = 0.017453292519943295;
     var c = cos;
@@ -288,12 +282,12 @@ class _SelectDestinationState extends State<SelectDestination> {
     );
 
     if (result.points.isNotEmpty) {
-      result.points.forEach((PointLatLng point) {
+      for (var point in result.points) {
         polylineCoordinates.add(LatLng(point.latitude, point.longitude));
-      });
+      }
     }
 
-    PolylineId id = PolylineId('poly');
+    PolylineId id = const PolylineId('poly');
     Polyline polyline = Polyline(
       polylineId: id,
       color: Colors.red,
@@ -313,7 +307,7 @@ class _SelectDestinationState extends State<SelectDestination> {
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
-    return Container(
+    return SizedBox(
       height: height,
       width: width,
       child: Scaffold(
@@ -360,13 +354,13 @@ class _SelectDestinationState extends State<SelectDestination> {
                         ),
                       ),
                     ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     ClipOval(
                       child: Material(
                         color: Colors.blue.shade100, // button color
                         child: InkWell(
                           splashColor: Colors.blue, // inkwell color
-                          child: SizedBox(
+                          child: const SizedBox(
                             width: 50,
                             height: 50,
                             child: Icon(Icons.remove),
@@ -391,7 +385,7 @@ class _SelectDestinationState extends State<SelectDestination> {
                 child: Padding(
                   padding: const EdgeInsets.only(top: 10.0),
                   child: Container(
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       color: Colors.white70,
                       borderRadius: BorderRadius.all(
                         Radius.circular(20.0),
@@ -404,7 +398,7 @@ class _SelectDestinationState extends State<SelectDestination> {
                         mainAxisSize: MainAxisSize.min,
                         children: <Widget>[
                           Text(
-                            'Step 2 of 5',
+                            'Step 2 of 6',
                             style: kStyleTitle,
                           ),
                           Text(
@@ -415,9 +409,9 @@ class _SelectDestinationState extends State<SelectDestination> {
                           _textField(
                               label: 'Start',
                               hint: 'Choose starting point',
-                              prefixIcon: Icon(Icons.looks_one),
+                              prefixIcon: const Icon(Icons.looks_one),
                               suffixIcon: IconButton(
-                                icon: Icon(Icons.my_location),
+                                icon: const Icon(Icons.my_location),
                                 onPressed: () {
                                   startAddressController.text = _currentAddress;
                                   _startAddress = _currentAddress;
@@ -431,7 +425,7 @@ class _SelectDestinationState extends State<SelectDestination> {
                                   _startAddress = value;
                                 });
                               }),
-                          SizedBox(height: 10),
+                          const SizedBox(height: 10),
                           _textField(
                               label: 'Destination',
                               hint: 'Choose destination',
@@ -444,18 +438,18 @@ class _SelectDestinationState extends State<SelectDestination> {
                                   _destinationAddress = value;
                                 });
                               }),
-                          SizedBox(height: 10),
+                          const SizedBox(height: 10),
                           Visibility(
                             visible: _placeDistance == null ? false : true,
                             child: Text(
                               'DISTANCE: $_placeDistance km',
-                              style: TextStyle(
+                              style: const TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
                           ),
-                          SizedBox(height: 5),
+                          const SizedBox(height: 5),
                           ElevatedButton(
                             onPressed: (_startAddress != '' &&
                                 _destinationAddress != '')
@@ -477,9 +471,9 @@ class _SelectDestinationState extends State<SelectDestination> {
                                 if (isCalculated) {
                                   ScaffoldMessenger.of(context)
                                       .showSnackBar(
-                                    SnackBar(
+                                     SnackBar(
                                       content: Text(
-                                          'Distance Calculated Sucessfully'),
+                                          'Distance Calculated Sucessfully',style: kStyleNormal,),
                                     ),
                                   );
                                 } else {
@@ -487,7 +481,7 @@ class _SelectDestinationState extends State<SelectDestination> {
                                       .showSnackBar(
                                     SnackBar(
                                       content: Text(
-                                          'Error Calculating Distance'),
+                                          'Error Calculating Distance',style: kStyleNormal,),
                                     ),
                                   );
                                 }
@@ -524,7 +518,7 @@ class _SelectDestinationState extends State<SelectDestination> {
                       color: Colors.orange.shade100, // button color
                       child: InkWell(
                         splashColor: Colors.orange, // inkwell color
-                        child: SizedBox(
+                        child: const SizedBox(
                           width: 56,
                           height: 56,
                           child: Icon(Icons.my_location),
@@ -559,11 +553,13 @@ class _SelectDestinationState extends State<SelectDestination> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               PreviousBtn(() {
-                Navigator.of(context).pushReplacement(CustomPageRoute(child: SelectType(),direction: AxisDirection.right));
+                Navigator.of(context).pushReplacement(CustomPageRoute(child: const SelectType(),direction: AxisDirection.right));
               }),
               if(_placeDistance != null)
               NextBtn(() {
-                Navigator.of(context).pushReplacement(CustomPageRoute(child: SelectPackage()));
+                context.read<DataProvider>().distance(_placeDistance);
+                print(_placeDistance);
+                Navigator.of(context).pushReplacement(CustomPageRoute(child: const SelectPackage()));
               }),
             ],
           ),

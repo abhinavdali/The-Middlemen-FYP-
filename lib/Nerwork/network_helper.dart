@@ -1,13 +1,12 @@
 import 'dart:convert';
 import 'dart:io';
-
-import 'package:flutter/material.dart';
 import 'package:the_middlemen/Models/Customer%20Models/login.dart';
 import 'package:http/http.dart' as http;
+import 'package:the_middlemen/Models/Customer%20Models/pricing.dart';
 import 'package:the_middlemen/Models/Customer%20Models/signup.dart';
 
 class NetworkHelper{
-  final baseurl = 'http://10.0.2.2:8000';
+  final baseurl = 'http://192.168.100.66:8000';
 
   Future<dynamic> getDriverLoginData(
       String username,
@@ -115,6 +114,26 @@ class NetworkHelper{
       Model = SignUp.fromJson(jsonMap);
     }
     return Model;
+  }
+
+  Future<dynamic> getPricingData() async {
+    var pricing;
+    var response = await http.get(
+      Uri.parse('$baseurl/api/pricing'),
+    );
+    if (response.statusCode == 200){
+      // List<Pricing> list = parseAgents(response.body);
+      var data = response.body;
+
+      var jsonMap = jsonDecode(data);
+      pricing = Pricing.fromJson(jsonMap);
+      return pricing;
+    }
+
+  }
+  static List<Pricing> parseAgents(String responseBody) {
+    final parsed = json.decode(responseBody).cast<Map<String, dynamic>>();
+    return parsed.map<Pricing>((json) => Pricing.fromJson(json)).toList();
   }
 }
 

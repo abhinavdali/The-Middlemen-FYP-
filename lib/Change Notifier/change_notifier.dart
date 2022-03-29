@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 
 class DataProvider extends ChangeNotifier {
-  var fName;
-  var lName;
-  var phoneNumber;
+  var fName, lName, phoneNumber;
   late bool isCustomer;
   var license;
   var vehicle;
@@ -14,6 +12,7 @@ class DataProvider extends ChangeNotifier {
   var pacType;
   var startAd,destAd;
   var reName,rePhone,reEmail;
+  var token;
 
   void firstName(var firstName) {
     fName = firstName;
@@ -68,5 +67,9 @@ class DataProvider extends ChangeNotifier {
     reName = rname;
     rePhone = rphone;
     reEmail = remail;
+  }
+
+  void tokenCus(var tokenCus){
+    token = tokenCus;
   }
 }

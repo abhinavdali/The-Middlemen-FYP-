@@ -5,6 +5,7 @@ import 'package:http/http.dart' as http;
 import 'package:the_middlemen/Models/Customer%20Models/pricing.dart';
 import 'package:the_middlemen/Models/Customer%20Models/shipment.dart';
 import 'package:the_middlemen/Models/Customer%20Models/signup.dart';
+import 'package:the_middlemen/Models/Customer%20Models/view_shipment.dart';
 
 class NetworkHelper{
   final baseurl = 'http://10.0.2.2:8000';
@@ -136,6 +137,22 @@ class NetworkHelper{
     }
   }
 
+  Future<dynamic> getViewShipmentData(String token) async {
+    var ship;
+    var response = await http.get(
+      Uri.parse('$baseurl/api/shipmentView'),
+      headers: {HttpHeaders.contentTypeHeader: "application/json",
+        "Authorization" : "Token $token",
+      },
+    );
+    if (response.statusCode == 200){
+      var data = response.body;
+      var jsonMap = jsonDecode(data);
+      ship = ViewShipment.fromJson(jsonMap);
+      return ship;
+    }
+  }
+
   Future<dynamic> getShipmentData(
       String of_type,
       String weight,
@@ -148,13 +165,14 @@ class NetworkHelper{
       String destination,
       String status,
       String payment_type,
-      String email
+      String email,
+      String token
       ) async {
     var Model;
     var response = await http.post(
       Uri.parse('$baseurl/api/shipment'),
       headers: {HttpHeaders.contentTypeHeader: "application/json",
-        "Authorization" : "Token 80704fde6341760aeac10848e15a8a311e17a1545b8eb3310989c3a05ec755b7",
+        "Authorization" : "Token $token",
       },
       body: jsonEncode(<String, dynamic>{
         "of_type" : of_type,
@@ -171,21 +189,8 @@ class NetworkHelper{
         "email" : email,
       }),
     );
-    // print(of_type.runtimeType);
-    // print(weight.runtimeType);
-    // print(size.runtimeType);
-    // print(price.runtimeType);
-    // print(receiver.runtimeType);
-    // print(package_type.runtimeType);
-    // print(phone_number.runtimeType);
-    // print(start.runtimeType);
-    // print(destination.runtimeType);
-    // print(payment_type.runtimeType);
-    // print(email.runtimeType);
-    print(response.statusCode);
     if (response.statusCode == 201 || response.statusCode == 200){
       var data = response.body;
-      print(data);
       var jsonMap = jsonDecode(data);
       Model = Shipment.fromJson(jsonMap);
     }

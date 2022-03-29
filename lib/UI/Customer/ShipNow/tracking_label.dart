@@ -8,8 +8,8 @@ import 'package:the_middlemen/Widgets/buttons.dart';
 import 'package:the_middlemen/Widgets/extracted_widgets.dart';
 
 class TrackingLabel extends StatefulWidget {
-  TrackingLabel({required this.id,required this.type, required this.weight, required this.size, required this.package_type, required this.rname, required this.rphone, required this.remail, required this.start, required this.dest, required this.status, required this.payment, required this.trackingid});
-  final id,type,weight,size,package_type,rname,rphone,remail,start,dest,status,payment,trackingid;
+  TrackingLabel({required this.id,required this.type, required this.weight, required this.size, required this.package_type, required this.rname, required this.rphone, required this.remail, required this.start, required this.dest, required this.status,required this.price, required this.payment, required this.trackingid});
+  final id,type,weight,size,package_type,rname,rphone,remail,start,dest,status,price,payment,trackingid;
 
   @override
   State<TrackingLabel> createState() => _TrackingLabelState();
@@ -61,6 +61,8 @@ class _TrackingLabelState extends State<TrackingLabel> {
                       ShippingDetails(label: 'Destination :',value: widget.dest),
                       itemDivider(),
                       ShippingDetails(label: 'Status :',value: widget.status),
+                      itemDivider(),
+                      ShippingDetails(label: 'Price :',value: 'Rs. ${widget.price}'),
                       itemDivider(),
                       ShippingDetails(label: 'Payment Method :',value: widget.payment),
                       itemDivider(),

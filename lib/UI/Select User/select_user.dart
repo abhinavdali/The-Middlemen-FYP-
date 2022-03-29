@@ -6,11 +6,11 @@ import 'package:the_middlemen/Constants/const.dart';
 import 'package:the_middlemen/Models/Customer%20Models/login.dart';
 import 'package:the_middlemen/Nerwork/network_helper.dart';
 import 'package:the_middlemen/UI/Customer/BottomNavBar/bottom_nav_cus.dart';
-import 'package:the_middlemen/UI/Customer/SignUp/sign_up.dart';
 import 'package:the_middlemen/UI/Driver/BottomNavBar/bottom_nav_driver.dart';
 import 'package:the_middlemen/Widgets/extracted_widgets.dart';
 import 'package:the_middlemen/Widgets/login_field.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:the_middlemen/Widgets/show_dialog.dart';
 import 'package:the_middlemen/Widgets/snackbar.dart';
 import 'package:the_middlemen/Widgets/textformfields.dart';
 
@@ -149,6 +149,7 @@ class _SelectUserState extends State<SelectUser> {
                                   if (result == ConnectivityResult.mobile ||
                                       result == ConnectivityResult.wifi) {
                                     if (_formKey.currentState!.validate()) {
+                                      showWaitDialog(context, 'Please Wait...');
                                       final username = emailController.text;
                                       final password = passwordController.text;
                                       try {
@@ -159,17 +160,19 @@ class _SelectUserState extends State<SelectUser> {
                                         var fName = login.data?.user?[0]?[0]?.firstName;
                                         var lName = login.data?.user?[0]?[0]?.lastName;
                                         var phone = login.data?.user?[0]?[0]?.phone;
-                                        var email =login.data?.user?[0]?[0]?.email;
+                                        var email = login.data?.user?[0]?[0]?.email;
 
                                         if (token != null) {
                                           // print(fName);
                                           final SharedPreferences sp = await SharedPreferences.getInstance();
                                           sp.setString('username', username);
+                                          sp.setString('token', token);
                                           sp.setString('fName', fName!);
                                           sp.setString('lName', lName!);
                                           sp.setString('phone', phone!);
                                           sp.setString('email', email!);
                                           // sp.setBool('is_Customer', isCustomer);
+                                          context.read<DataProvider>().tokenCus(token);
                                           context.read<DataProvider>().firstName(fName);
                                           context.read<DataProvider>().lastName(lName);
                                           context.read<DataProvider>().pNumber(phone);
@@ -177,21 +180,31 @@ class _SelectUserState extends State<SelectUser> {
                                           //   isCustomer = true;
                                           //   context.read<DataProvider>().isCus(isCustomer);
                                           // });
-                                          Navigator.of(context).push(
-                                            MaterialPageRoute(
-                                              builder: (context) =>
-                                                  const BottomNavigationCus(),
-                                            ),
+                                          Future.delayed(
+                                            const Duration(seconds: 3),
+                                              (){
+                                                Navigator.of(context).pushReplacement(
+                                                  MaterialPageRoute(
+                                                    builder: (context) =>
+                                                    const BottomNavigationCus(),
+                                                  ),
+                                                );
+                                              }
                                           );
                                         }
                                       } catch (e) {
-                                        showSnackBar(
-                                          context,
-                                          "Attention",
-                                          Colors.red,
-                                          Icons.info,
-                                          "Credentials does not matched.",
-                                        );
+                                        Future.delayed(const Duration(milliseconds: 3000),
+                                            (){
+                                              Navigator.pop(context);
+                                              FocusScope.of(context).requestFocus(FocusNode());
+                                              showSnackBar(
+                                                context,
+                                                "Attention",
+                                                Colors.red,
+                                                Icons.info,
+                                                "Credentials does not matched.",
+                                              );
+                                            });
                                         print(e);
                                       }
                                     } else {
@@ -208,6 +221,9 @@ class _SelectUserState extends State<SelectUser> {
                                   }
                                 }, isCustomer: true,),
                           ),
+
+
+
 
                           //Driver Login(TAB 2)
                           Form(
@@ -238,6 +254,7 @@ class _SelectUserState extends State<SelectUser> {
                                 if (result == ConnectivityResult.mobile ||
                                     result == ConnectivityResult.wifi) {
                                   if (_formKeyD.currentState!.validate()) {
+                                    showWaitDialog(context, 'Please Wait...');
                                     final username = emailController.text;
                                     final password = passwordController.text;
                                     try {
@@ -270,22 +287,35 @@ class _SelectUserState extends State<SelectUser> {
                                         //   isCustomer = false;
                                         //   context.read<DataProvider>().isCus(isCustomer);
                                         // });
-                                        Navigator.of(context).push(
-                                          MaterialPageRoute(
-                                            /*            settings: RouteSettings(name: '/1'),*/
-                                            builder: (context) =>
-                                                const BottomNavigationDriver(),
-                                          ),
+                                        Future.delayed(
+                                          const Duration(seconds: 3),
+                                            (){
+                                              Navigator.of(context).pushReplacement(
+                                                MaterialPageRoute(
+                                                  /*            settings: RouteSettings(name: '/1'),*/
+                                                  builder: (context) =>
+                                                  const BottomNavigationDriver(),
+                                                ),
+                                              );
+                                            }
                                         );
                                       }
                                     } catch (e) {
-                                      showSnackBar(
-                                        context,
-                                        "Attention",
-                                        Colors.red,
-                                        Icons.info,
-                                        "Credentials does not matched.",
+                                      Future.delayed(
+                                          const Duration(seconds: 3),
+                                          (){
+                                            Navigator.pop(context);
+                                            FocusScope.of(context).requestFocus(FocusNode());
+                                            showSnackBar(
+                                              context,
+                                              "Attention",
+                                              Colors.red,
+                                              Icons.info,
+                                              "Credentials does not matched.",
+                                            );
+                                          }
                                       );
+
                                     }
                                   } else {
                                     return print("Unsuccessful");

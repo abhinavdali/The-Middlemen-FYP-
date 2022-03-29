@@ -4,6 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 import 'package:the_middlemen/Change%20Notifier/change_notifier.dart';
 import 'package:the_middlemen/Constants/const.dart';
+import 'package:the_middlemen/UI/Customer/Profile/orders_list.dart';
 import 'package:the_middlemen/UI/Select%20User/select_user.dart';
 import 'package:the_middlemen/Widgets/appbars.dart';
 import 'package:the_middlemen/Widgets/buttons.dart';
@@ -102,6 +103,7 @@ class _CusProfileContentState extends State<CusProfileContent> {
               children: [
                 ContentItems(
                   onTap: () {
+                    Navigator.push(context, MaterialPageRoute(builder: (context){return OrderLists();}));
                   },
                   image: 'assets/Profile/menu.png',
                   label: 'My Orders List',

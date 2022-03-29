@@ -54,9 +54,9 @@ class _SplashScreenState extends State<SplashScreen> {
   Future getValidationData() async {
     final SharedPreferences sharedPreferences = await SharedPreferences
         .getInstance();
-    // late bool is_Customer =
-    //     Provider.of<DataProvider>(context, listen: false).isCustomer;
+    //getting saved values
     var username = sharedPreferences.getString('username');
+    var token = sharedPreferences.getString('token');
     var d_username = sharedPreferences.getString('d_username');
     var fName = sharedPreferences.getString('fName');
     var lName = sharedPreferences.getString('lName');
@@ -64,6 +64,9 @@ class _SplashScreenState extends State<SplashScreen> {
     var email = sharedPreferences.getString('email');
     var license = sharedPreferences.getString('license');
     var vehicle = sharedPreferences.getString('vehicle');
+
+    //Passing saved values
+    context.read<DataProvider>().tokenCus(token);
     context.read<DataProvider>().firstName(fName);
     context.read<DataProvider>().lastName(lName);
     context.read<DataProvider>().pNumber(phone);

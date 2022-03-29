@@ -43,6 +43,7 @@ dependencies:
   flutter_polyline_points: ^1.0.0
   places_service: ^0.1.0
   uuid: ^3.0.6
+  esewa_pnp: ^2.0.0
 
   flutter:
     sdk: flutter

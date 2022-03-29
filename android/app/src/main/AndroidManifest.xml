@@ -3,7 +3,8 @@
    <application
         android:label="The Middlemen"
         android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/ic_launcher"
+        android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -32,6 +33,7 @@
             android:value="2" />
        <meta-data android:name="com.google.android.geo.API_KEY"
            android:value="AIzaSyCZlT3ggpM7Ij_LDztXPJ91QnFxd77zp_k"/>
+
     </application>
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
 </manifest>

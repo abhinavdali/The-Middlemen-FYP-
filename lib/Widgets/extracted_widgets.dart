@@ -106,7 +106,7 @@ Widget itemDivider() {
     height: 0,
     child: Divider(
       color: Colors.black,
-      thickness: 1,
+      thickness: 0.5,
     ),
   );
 }

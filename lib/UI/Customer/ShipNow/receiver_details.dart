@@ -1,5 +1,9 @@
+
+
 import 'package:flutter/material.dart';
+import 'package:provider/src/provider.dart';
 import 'package:sizer/sizer.dart';
+import 'package:the_middlemen/Change%20Notifier/change_notifier.dart';
 import 'package:the_middlemen/Constants/const.dart';
 import 'package:the_middlemen/UI/Customer/ShipNow/select_package_option.dart';
 import 'package:the_middlemen/UI/Customer/ShipNow/select_payment.dart';
@@ -25,6 +29,7 @@ class _ReceiverDetailsState extends State<ReceiverDetails> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: kStyleBackground,
       appBar: CustomAppBar(title: 'Ship Now',),
       body: ListView(
         children: [
@@ -101,6 +106,7 @@ class _ReceiverDetailsState extends State<ReceiverDetails> {
               if(nameController.text.isNotEmpty && phoneNoController.text.isNotEmpty && emailController.text.isNotEmpty)
               NextBtn(() {
                 Navigator.of(context).pushReplacement(CustomPageRoute(child: SelectPayment()));
+                context.read<DataProvider>().receiverInfo(nameController.text,phoneNoController.text,emailController.text);
               }),
 
           ],

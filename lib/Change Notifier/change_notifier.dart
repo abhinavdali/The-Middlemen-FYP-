@@ -12,6 +12,8 @@ class DataProvider extends ChangeNotifier {
   var sizeT;
   var dist;
   var pacType;
+  var startAd,destAd;
+  var reName,rePhone,reEmail;
 
   void firstName(var firstName) {
     fName = firstName;
@@ -54,5 +56,17 @@ class DataProvider extends ChangeNotifier {
   void packageType(var packageType){
     pacType = packageType;
     notifyListeners();
+  }
+
+  void startDest(var start,var dest){
+    startAd = start;
+    destAd = dest;
+    notifyListeners();
+  }
+
+  void receiverInfo(var rname,var rphone, remail){
+    reName = rname;
+    rePhone = rphone;
+    reEmail = remail;
   }
 }

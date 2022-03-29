@@ -21,7 +21,7 @@ class _SelectTypeState extends State<SelectType> {
 
   List<String> weight = [
     'Select weight',
-    '<1kg',
+    'Less than 1 kg',
     '1-4 kg',
     '5-9 kg',
     '10-19 kg',
@@ -31,7 +31,7 @@ class _SelectTypeState extends State<SelectType> {
   ];
   List<String> size = [
     'Select size',
-    '<1 m',
+    'Less than 1 m',
     '1-4 m',
     '4-9 m',
     '10-15 m',
@@ -112,16 +112,20 @@ class _SelectTypeState extends State<SelectType> {
                   // Image.asset('assets/ShipNow/weight.png'),
                   const SizedBox16(),
                   //Dropdown menus to select size and weight
-                  DropDown(weight: weight, weightChoose: _weightChoose,onTap: (item) {
-                    setState(() {
-                      _weightChoose = item as String?;
-                    });
-                  },),
-                  DropDown(weight: size, weightChoose: _sizeChoose,onTap: (item) {
-                    setState(() {
-                      _sizeChoose = item as String?;
-                    });
-                  },)
+                  Column(
+                    children: [
+                      DropDown(weight: weight, weightChoose: _weightChoose,onTap: (item) {
+                        setState(() {
+                          _weightChoose = item as String?;
+                        });
+                      },),
+                      DropDown(weight: size, weightChoose: _sizeChoose,onTap: (item) {
+                        setState(() {
+                          _sizeChoose = item as String?;
+                        });
+                      },)
+                    ],
+                  )
                 ],
               ))
         ],

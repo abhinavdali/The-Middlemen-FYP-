@@ -41,6 +41,7 @@ class _SelectPackageState extends State<SelectPackage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: kStyleBackground,
       appBar: CustomAppBar(title: 'Ship Now',),
       body: ListView(
         children: [
@@ -101,6 +102,7 @@ class _SelectPackageState extends State<SelectPackage> {
             if(_selectedIndexs.isNotEmpty)
             NextBtn(() {
               context.read<DataProvider>().packageType(_selectedIndexs);
+              print(_selectedIndexs);
               Navigator.of(context).pushReplacement(CustomPageRoute(child: ReceiverDetails()));
             }),
           ],

@@ -558,7 +558,7 @@ class _SelectDestinationState extends State<SelectDestination> {
               if(_placeDistance != null)
               NextBtn(() {
                 context.read<DataProvider>().distance(_placeDistance);
-                print(_placeDistance);
+                context.read<DataProvider>().startDest(startAddressController.text,destinationAddressController.text);
                 Navigator.of(context).pushReplacement(CustomPageRoute(child: const SelectPackage()));
               }),
             ],

@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sizer/sizer.dart';
 import 'package:the_middlemen/Change%20Notifier/change_notifier.dart';
 import 'package:the_middlemen/Constants/const.dart';
 import 'package:the_middlemen/Models/Customer%20Models/view_shipment.dart';
 import 'package:the_middlemen/Nerwork/network_helper.dart';
+import 'package:the_middlemen/UI/Customer/ShipNow/select_type.dart';
 import 'package:the_middlemen/Widgets/appbars.dart';
+import 'package:the_middlemen/Widgets/buttons.dart';
+import 'package:the_middlemen/Widgets/extracted_widgets.dart';
 
 class OrderLists extends StatefulWidget {
   const OrderLists({Key? key}) : super(key: key);
@@ -36,6 +40,7 @@ class _OrderListsState extends State<OrderLists> {
       ),
       body: ListView(
         shrinkWrap: true,
+        physics: NeverScrollableScrollPhysics(),
         children: [
           Padding(
             padding: const EdgeInsets.only(top: 40.0),
@@ -61,35 +66,28 @@ class _OrderListsState extends State<OrderLists> {
                             boxShadow: [boxShadowBlue],
                             borderRadius: const BorderRadius.only(topLeft: Radius.circular(30),topRight: Radius.circular(30)),
                           ),
-                          height: MediaQuery.of(context).size.height * 1,
+                          height: MediaQuery.of(context).size.height * 0.55,
                           child: ListView.builder(
                               shrinkWrap: true,
-                              physics: const ClampingScrollPhysics(),
-                              itemCount:def?.length,
+                              itemCount: def?.length == 0 ? 1 : def?.length,
                               itemBuilder: (context,index){
-                                return Container(
-                                  margin: const EdgeInsets.all(12),
-                                  padding: const EdgeInsets.all(20),
-                                  decoration: BoxDecoration(
-                                    color: kStyleBackground,
-                                    borderRadius: BorderRadius.circular(12),
-                                    boxShadow: [boxShadowBlue],
-                                  ),
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                if(def?.isNotEmpty == true){
+                                return OrdersListContent(
+                                  trackingNo: '${def?[index]?.trackingNumber}',
+                                  image: def?[index]?.ofType == 'parcel'? 'assets/ShipNow/parcel.png': 'assets/ShipNow/mail.png',
+                                  receiver: '${def?[index]?.receiver}',
+                                  price: '${def?[index]?.price}',
+                                );}else{
+                                  return Center(child: Column(
                                     children: [
-                                      Text('${def?[index]?.trackingNumber}'),
-                                      Text('Receiver: '),
-                                      const SizedBox16(),
-                                      Row(
-                                        children: [
-                                          Text('From: '),
-                                          Text('To: ')
-                                        ],
-                                      )
+                                      Text('You haven\'t made an order yet\nPlease make an order to continue',textAlign: TextAlign.center,style: kStyleTitle,),
+                                      const SizedBox32(),
+                                      ArrowButton(text: 'Order Now', color: Colors.blue, onPress: (){
+                                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context){return SelectType();}));
+                                      }, arrow: 'assets/Profile/forwardarrow.png')
                                     ],
-                                  ),
-                                );
+                                  ));
+                                }
                               }),
                         );
                       }else{
@@ -104,3 +102,5 @@ class _OrderListsState extends State<OrderLists> {
     );
   }
 }
+
+

@@ -14,7 +14,7 @@ class SelectUserButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Container(
+        SizedBox(
           height: 49,
           width: 156,
           child: ElevatedButton(
@@ -76,7 +76,7 @@ class EditProfileButton extends StatelessWidget {
     return ElevatedButton(
       onPressed: () {
         Navigator.push(context, MaterialPageRoute(builder: (context) {
-          return EditProfile();
+          return const EditProfile();
         }));
       },
       style: ButtonStyle(
@@ -86,7 +86,7 @@ class EditProfileButton extends StatelessWidget {
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
           ),
           side: MaterialStateProperty.all<BorderSide>(
-              BorderSide(color: Color(0xffBBBFC2)))),
+              const BorderSide(color: Color(0xffBBBFC2)))),
       child: Text(
         'EDIT PROFILE',
         style: kStyleButton,
@@ -109,7 +109,7 @@ class ArrowButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
 
       height: 40.sp,
       child: ElevatedButton(
@@ -158,9 +158,10 @@ class ArrowButton extends StatelessWidget {
 }
 
 class NextBtn extends StatefulWidget {
-  NextBtn(this.onPress);
+  NextBtn(this.onPress, this.text);
 
   final onPress;
+  final text;
 
   @override
   State<NextBtn> createState() => _NextBtnState();
@@ -175,9 +176,9 @@ class _NextBtnState extends State<NextBtn> {
         width: 92,
         child: ElevatedButton(
           onPressed: widget.onPress,
-          child: Text('Next'),
+          child: Text(widget.text),
           style: ButtonStyle(
-              backgroundColor: MaterialStateProperty.all(Color(0xff3F84FC)),
+              backgroundColor: MaterialStateProperty.all(const Color(0xff3F84FC)),
               shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                   RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(24),
@@ -206,19 +207,19 @@ class _PreviousBtnState extends State<PreviousBtn> {
         width: 92,
         child: ElevatedButton(
           onPressed: widget.onPress,
-          child: Text(
+          child: const Text(
             'Previous',
             style: TextStyle(color: Color(0xffFFFFFF)),
           ),
           style: ButtonStyle(
-              backgroundColor: MaterialStateProperty.all(Color(0xffA3A3A3)),
+              backgroundColor: MaterialStateProperty.all(const Color(0xffA3A3A3)),
               shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                 RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(24.0),
                 ),
               ),
               side: MaterialStateProperty.all(
-                  BorderSide(color: Color(0xffA3A3A3)))),
+                  BorderSide(color: const Color(0xffA3A3A3)))),
         ),
       ),
     );
@@ -237,7 +238,7 @@ class MyLocationButton extends StatelessWidget {
         color: Colors.orange.shade100, // button color
         child: InkWell(
           splashColor: Colors.orange, // inkwell color
-          child: SizedBox(
+          child: const SizedBox(
             width: 56,
             height: 56,
             child: Icon(Icons.my_location),

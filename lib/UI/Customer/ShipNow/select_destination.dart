@@ -560,7 +560,7 @@ class _SelectDestinationState extends State<SelectDestination> {
                 context.read<DataProvider>().distance(_placeDistance);
                 context.read<DataProvider>().startDest(startAddressController.text,destinationAddressController.text);
                 Navigator.of(context).pushReplacement(CustomPageRoute(child: const SelectPackage()));
-              }),
+              },'Next'),
             ],
           ),
         ),

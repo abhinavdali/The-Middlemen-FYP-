@@ -79,10 +79,8 @@ class NetworkHelper{
         'password': password,
       }),
     );
-    print(response.statusCode);
     if (response.statusCode == 200){
       var data = response.body;
-      print(data);
       var jsonMap = jsonDecode(data);
       model = SignUp.fromJson(jsonMap);
     }
@@ -166,7 +164,8 @@ class NetworkHelper{
       String status,
       String payment_type,
       String email,
-      String token
+      String token,
+      String deliveryDate
       ) async {
     var Model;
     var response = await http.post(
@@ -187,6 +186,7 @@ class NetworkHelper{
         "status" : 'Processing',
         "payment_type" : payment_type,
         "email" : email,
+        "delivery_date" : deliveryDate
       }),
     );
     if (response.statusCode == 201 || response.statusCode == 200){

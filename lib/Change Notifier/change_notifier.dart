@@ -13,6 +13,7 @@ class DataProvider extends ChangeNotifier {
   var startAd,destAd;
   var reName,rePhone,reEmail;
   var token;
+  var date;
 
   void firstName(var firstName) {
     fName = firstName;
@@ -71,5 +72,9 @@ class DataProvider extends ChangeNotifier {
 
   void tokenCus(var tokenCus){
     token = tokenCus;
+  }
+
+  void deliveryDate(var date){
+    this.date = date;
   }
 }

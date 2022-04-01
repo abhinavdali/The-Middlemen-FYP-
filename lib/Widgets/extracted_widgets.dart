@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:sizer/sizer.dart';
 import 'package:the_middlemen/Constants/const.dart';
 
@@ -286,11 +287,13 @@ class PackageOption extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+
     return GestureDetector(
       onTap: onTap,
       child: Container(
         margin: const EdgeInsets.symmetric(vertical: 10),
-        height: MediaQuery.of(context).size.height * 0.36,
+        height: MediaQuery.of(context).size.height * 0.43,
         width: MediaQuery.of(context).size.width * 0.7,
         decoration: BoxDecoration(
             color: isSelected ? kStyleAppColor : Colors.white,
@@ -303,7 +306,7 @@ class PackageOption extends StatelessWidget {
             const SizedBox32(),
             Text(title,style: kStyleTitle,),
             const SizedBox16(),
-            Text(desc,style: kStyleNormal,)
+            Text('$desc',style: kStyleNormal.copyWith(height: 1.5),textAlign: TextAlign.center,)
           ],
         ),
       ),
@@ -406,6 +409,89 @@ class PaymentOptions extends StatelessWidget {
                 ],
               ),
             )
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+//My Orders List Page
+class OrdersListContent extends StatelessWidget {
+  const OrdersListContent({
+    Key? key,
+    required this.trackingNo,
+    required this.image,
+    required this.receiver,
+    required this.price
+  }) : super(key: key);
+
+  final String trackingNo;
+  final image;
+  final receiver;
+  final price;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: (){
+        showDialog(barrierColor: Colors.blueAccent.withOpacity(0.3),
+        barrierDismissible: false,
+        context: context,
+        builder: (_) => Stack(
+        clipBehavior: Clip.none,
+        alignment: Alignment.center,
+        children: <Widget>[
+          Container(
+            height: MediaQuery.of(context).size.height * 0.7,
+            width: MediaQuery.of(context).size.width * 0.8,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(16)
+            ),
+            child: Column(
+              children: [],
+            ),
+          )
+        ],));
+      },
+      child: Container(
+        margin: const EdgeInsets.all(12),
+        padding: const EdgeInsets.all(12),
+        decoration: BoxDecoration(
+          color: kStyleBackground,
+          borderRadius: BorderRadius.circular(12),
+          boxShadow: [boxShadowBlue],
+        ),
+        child: Row(
+          children: [
+            CircleAvatar(
+              radius: 31,
+              backgroundColor: Colors.grey,
+              child: CircleAvatar(
+                  backgroundColor: Colors.white,
+                  radius: 30,
+                  child: Image.asset(image,height: 40,width: 40,)),
+            ),
+            const SizedBox(width: 16,),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text('Tracking Number:\n$trackingNo',style: kStyleNormal,),
+                  const SizedBox16(),
+                  Text('Receiver: $receiver',style: kStyleNormal,),
+                  const SizedBox16(),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text('Total Price: Rs. $price',style: kStyleNormal,),
+                      // Text('Tap to View Details',style: kStyleNormal.copyWith(fontSize: 10.sp,color: Colors.grey),)
+                    ],
+                  )
+                ],
+              ),
+            ),
           ],
         ),
       ),

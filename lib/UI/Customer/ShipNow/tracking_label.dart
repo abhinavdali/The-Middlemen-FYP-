@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 import 'package:the_middlemen/Constants/const.dart';
+import 'package:the_middlemen/UI/Customer/BottomNavBar/bottom_nav_cus.dart';
+import 'package:the_middlemen/UI/Customer/Home/cus_home.dart';
 import 'package:the_middlemen/UI/Customer/ShipNow/select_package_option.dart';
 import 'package:the_middlemen/UI/Customer/ShipNow/select_payment.dart';
 import 'package:the_middlemen/Widgets/appbars.dart';
@@ -8,8 +10,8 @@ import 'package:the_middlemen/Widgets/buttons.dart';
 import 'package:the_middlemen/Widgets/extracted_widgets.dart';
 
 class TrackingLabel extends StatefulWidget {
-  TrackingLabel({required this.id,required this.type, required this.weight, required this.size, required this.package_type, required this.rname, required this.rphone, required this.remail, required this.start, required this.dest, required this.status,required this.price, required this.payment, required this.trackingid});
-  final id,type,weight,size,package_type,rname,rphone,remail,start,dest,status,price,payment,trackingid;
+  TrackingLabel({required this.id,required this.type, required this.weight, required this.size, required this.package_type, required this.rname, required this.rphone, required this.remail, required this.start, required this.dest, required this.status,required this.price, required this.payment, required this.trackingid, required this.deliveryDate});
+  final id,type,weight,size,package_type,rname,rphone,remail,start,dest,status,price,payment,trackingid,deliveryDate;
 
   @override
   State<TrackingLabel> createState() => _TrackingLabelState();
@@ -62,6 +64,8 @@ class _TrackingLabelState extends State<TrackingLabel> {
                       itemDivider(),
                       ShippingDetails(label: 'Status :',value: widget.status),
                       itemDivider(),
+                      ShippingDetails(label: 'Delivery Date :',value: widget.deliveryDate),
+                      itemDivider(),
                       ShippingDetails(label: 'Price :',value: 'Rs. ${widget.price}'),
                       itemDivider(),
                       ShippingDetails(label: 'Payment Method :',value: widget.payment),
@@ -81,20 +85,18 @@ class _TrackingLabelState extends State<TrackingLabel> {
           color: Colors.white,
         ),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            PreviousBtn(() {
-              Navigator.of(context).pushReplacement(CustomPageRoute(child: SelectPayment(),direction: AxisDirection.right));
-            }),
             NextBtn(() {
-              // Navigator.of(context).push(CustomPageRoute(child: SelectPackage()));
-            }),
+              Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context){return BottomNavigationCus();}));
+            },'Finish'),
           ],
         ),
       ),
     );
   }
 }
+
 
 class ShippingDetails extends StatelessWidget {
   ShippingDetails({required this.label,required this.value});

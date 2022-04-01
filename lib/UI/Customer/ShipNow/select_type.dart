@@ -143,7 +143,7 @@ class _SelectTypeState extends State<SelectType> {
             {
               context.read<DataProvider>().partype(_selectedType, _weightChoose,_sizeChoose);
               Navigator.of(context).pushReplacement(CustomPageRoute(child: SelectDestination()));
-            }),
+            },'Next'),
           ],
         ),
       ),

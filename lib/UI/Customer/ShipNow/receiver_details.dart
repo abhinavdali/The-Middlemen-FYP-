@@ -107,8 +107,7 @@ class _ReceiverDetailsState extends State<ReceiverDetails> {
               NextBtn(() {
                 Navigator.of(context).pushReplacement(CustomPageRoute(child: SelectPayment()));
                 context.read<DataProvider>().receiverInfo(nameController.text,phoneNoController.text,emailController.text);
-              }),
-
+              },'Next'),
           ],
         ),
       ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/src/provider.dart';
 import 'package:sizer/sizer.dart';
 import 'package:the_middlemen/Change%20Notifier/change_notifier.dart';
@@ -16,8 +17,16 @@ class SelectPackage extends StatefulWidget {
   @override
   State<SelectPackage> createState() => _SelectPackageState();
 }
+  final now =   DateTime.now();
+  final tomorrow = DateTime(now.year, now.month, now.day + 1);
+  final cheap = DateTime(now.year, now.month, now.day + 3);
+  String formatter = DateFormat.yMMMMd('en_US').format(now);
+  String formatter2 = DateFormat.yMMMMd('en_US').format(tomorrow);
+  String formatter3 = DateFormat.yMMMMd('en_US').format(cheap);
 
 class _SelectPackageState extends State<SelectPackage> {
+
+
   List<String> packageIcon = [
     'assets/ShipNow/express.png',
     'assets/ShipNow/normal.png',
@@ -31,9 +40,9 @@ class _SelectPackageState extends State<SelectPackage> {
   ];
 
   List<String> desc = [
-    'Express Package',
-    'Normal Package',
-    'Cheap Package'
+    'Fast and Reliable Delivery\n Ship your package within a day\n Estimated delivery:  $formatter',
+    'Standard Delivery\n Ship your package in standard delivery times\n Estimated delivery:  $formatter2',
+    'Cheap Delivery Option\n Your package will be delivered within a few days\n Estimated delivery:  $formatter3',
   ];
 
   final List _selectedIndexs = [];
@@ -54,7 +63,7 @@ class _SelectPackageState extends State<SelectPackage> {
                 Text('Please select your package type',style: kStyleTitle.copyWith(fontSize: 12.sp),textAlign: TextAlign.center,),
                 const SizedBox16(),
                 SizedBox(
-                  height: MediaQuery.of(context).size.height * 1.15,
+                  height: MediaQuery.of(context).size.height * 1.35,
                   child: ListView.builder(
                       shrinkWrap: true,
                       itemCount: 3,
@@ -101,10 +110,19 @@ class _SelectPackageState extends State<SelectPackage> {
             }),
             if(_selectedIndexs.isNotEmpty)
             NextBtn(() {
+              getdate(){
+                if(_selectedIndexs.contains(0)){
+                  return formatter;
+                }else if(_selectedIndexs.contains(1)){
+                  return formatter2;
+                }else{
+                  return formatter3;
+                }
+              }
               context.read<DataProvider>().packageType(_selectedIndexs);
-              print(_selectedIndexs);
+              context.read<DataProvider>().deliveryDate(getdate());
               Navigator.of(context).pushReplacement(CustomPageRoute(child: ReceiverDetails()));
-            }),
+            },'Next'),
           ],
         ),
       ),

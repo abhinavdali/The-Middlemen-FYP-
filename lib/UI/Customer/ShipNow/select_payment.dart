@@ -53,6 +53,8 @@ class _SelectPaymentState extends State<SelectPayment> {
       Provider.of<DataProvider>(context, listen: false).destAd;
   late String token =
       Provider.of<DataProvider>(context, listen: false).token;
+  late String deliveryDate =
+      Provider.of<DataProvider>(context, listen: false).date;
   var p;
   
   //Function to differentiate parcel type
@@ -238,15 +240,12 @@ class _SelectPaymentState extends State<SelectPayment> {
               Navigator.of(context).pushReplacement(CustomPageRoute(child: ReceiverDetails(),direction: AxisDirection.right));
             }),
             if(_selectedPaymentT.isNotEmpty)
-            NextBtn(() async{
-              print(selectedPackage);
-              print(parType());
-              print(payType());
-              Shipment shipment = await NetworkHelper().getShipmentData(parType(), weight, size, p.toString(), rname, pacType(), rphone, start, dest, 'Processing', payType(), remail,token);
+              NextBtn(() async{
+              Shipment shipment = await NetworkHelper().getShipmentData(parType(), weight, size, p.toString(), rname, pacType(), rphone, start, dest, 'Processing', payType(), remail,token,deliveryDate);
               if(shipment.id != null) {
-                Navigator.of(context).pushReplacement(CustomPageRoute(child: TrackingLabel(id: shipment.id,type: shipment.ofType,weight: shipment.weight,size: shipment.size,package_type: shipment.packageType,rname: shipment.receiver,rphone: shipment.phoneNumber,remail: shipment.email,start: shipment.start,dest: shipment.destination,status: shipment.status,price: shipment.price,payment: shipment.paymentType,trackingid: shipment.trackingNumber,)));
+                Navigator.of(context).pushReplacement(CustomPageRoute(child: TrackingLabel(id: shipment.id,type: shipment.ofType,weight: shipment.weight,size: shipment.size,package_type: shipment.packageType,rname: shipment.receiver,rphone: shipment.phoneNumber,remail: shipment.email,start: shipment.start,dest: shipment.destination,status: shipment.status,price: shipment.price,payment: shipment.paymentType,trackingid: shipment.trackingNumber,deliveryDate: shipment.deliveryDate)));
               }
-            }),
+            },'Next'),
           ],
         ),
       ),

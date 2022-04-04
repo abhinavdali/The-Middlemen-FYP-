@@ -1,13 +1,17 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
+import 'package:syncfusion_flutter_pdf/pdf.dart';
+import 'package:the_middlemen/Change%20Notifier/change_notifier.dart';
 import 'package:the_middlemen/Constants/const.dart';
 import 'package:the_middlemen/UI/Customer/BottomNavBar/bottom_nav_cus.dart';
-import 'package:the_middlemen/UI/Customer/Home/cus_home.dart';
-import 'package:the_middlemen/UI/Customer/ShipNow/select_package_option.dart';
-import 'package:the_middlemen/UI/Customer/ShipNow/select_payment.dart';
 import 'package:the_middlemen/Widgets/appbars.dart';
 import 'package:the_middlemen/Widgets/buttons.dart';
 import 'package:the_middlemen/Widgets/extracted_widgets.dart';
+import 'package:the_middlemen/Widgets/mobile_save_pdf.dart';
 
 class TrackingLabel extends StatefulWidget {
   TrackingLabel({required this.id,required this.type, required this.weight, required this.size, required this.package_type, required this.rname, required this.rphone, required this.remail, required this.start, required this.dest, required this.status,required this.price, required this.payment, required this.trackingid, required this.deliveryDate});
@@ -18,8 +22,65 @@ class TrackingLabel extends StatefulWidget {
 }
 
 class _TrackingLabelState extends State<TrackingLabel> {
+  late String fName =
+      Provider.of<DataProvider>(context, listen: false).fName;
+  late String lName =
+      Provider.of<DataProvider>(context, listen: false).lName;
+  late String phoneNumber =
+      Provider.of<DataProvider>(context, listen: false).phoneNumber;
+
+  Future<Uint8List> _readImageData(String name) async{
+    final data = await rootBundle.load(name);
+    return data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
+  }
+
+  Future<void> _createPDF() async{
+
+    PdfDocument doc = PdfDocument();
+    final page = doc.pages.add();
+
+    PdfGrid grid = PdfGrid();
+    grid.style = PdfGridStyle(
+      font: PdfStandardFont(PdfFontFamily.helvetica, 18 ),
+      cellPadding: PdfPaddings(left: 5,right: 2,bottom: 2,top: 2)
+    );
+
+    // page.graphics.drawImage(PdfBitmap(await _readImageData('${QrImage(data: widget.trackingid ,version: QrVersions.auto,size: 200,)}')), Rect.fromLTWH(0, 100, 400, 400));
+
+
+    grid.columns.add(count: 2);
+
+    PdfGridRow row = grid.rows.add();
+    row.cells[0].value = 'FROM: $fName $lName\n$phoneNumber\n${widget.start}';
+    row.cells[1].value = 'SHIP DATE: ${widget.deliveryDate}\nWEIGHT: ${widget.weight}\nDIMMENSION: ${widget.size}';
+
+    row = grid.rows.add();
+    row.cells[0].value = 'TO: ${widget.rname}\n${widget.rphone}\n\n${widget.dest}\n ';
+
+    row = grid.rows.add();
+
+
+    grid.draw(page: page,bounds: const Rect.fromLTWH(0,0,0,0));
+
+    List<int> bytes = doc.save();
+    doc.dispose();
+
+    saveAndLauchFile(bytes, "Tracking Label");
+  }
+
+
+
+
+
+
+
   @override
   Widget build(BuildContext context) {
+    var data = [
+    ["FROM: $fName $lName\n$phoneNumber\n${widget.start}","SHIP DATE: ${widget.deliveryDate}\nWEIGHT: ${widget.weight}\nDIMMENSION: ${widget.size}"],
+      ["TO: ${widget.rname}\n${widget.rphone}\n\n${widget.dest}\n"],
+      ["TRACKING NUMBER: ${widget.trackingid}"]
+    ];
     return Scaffold(
       backgroundColor: kStyleBackground,
       appBar: CustomAppBar(title: 'Ship Now',),
@@ -32,7 +93,19 @@ class _TrackingLabelState extends State<TrackingLabel> {
                 Text('Step 6 of 6 ',style: kStyleTitle,),
                 const SizedBox16(),
                 Text('View your Shipping Label',style: kStyleNormal,),
-                const SizedBox32(),
+                const SizedBox16(),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    // QrImage(data: widget.trackingid ,version: QrVersions.auto,size: 200,),
+                    ElevatedButton(
+                        onPressed: ()async{
+                          final pdfFile = await PdfApi.generatePdf("Tracking Label",data,widget.trackingid);
+                        },
+                        child: Text('Show in PDF')),
+                  ],
+                ),
+                const SizedBox16(),
                 Container(
                   padding: const EdgeInsets.all(12),
                   decoration: BoxDecoration(

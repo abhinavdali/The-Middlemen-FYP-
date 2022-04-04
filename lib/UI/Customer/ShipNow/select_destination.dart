@@ -187,13 +187,6 @@ class _SelectDestinationState extends State<SelectDestination> {
       markers.add(startMarker);
       markers.add(destinationMarker);
 
-      // print(
-      //   'START COORDINATES: ($startLatitude, $startLongitude)',
-      // );
-      // print(
-      //   'DESTINATION COORDINATES: ($destinationLatitude, $destinationLongitude)',
-      // );
-
       // Calculating to check that the position relative
       // to the frame, and pan & zoom the camera accordingly.
       double miny = (startLatitude <= destinationLatitude)

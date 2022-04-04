@@ -1,5 +1,7 @@
 import 'dart:core';
 
+import 'package:esewa_pnp/esewa.dart';
+import 'package:esewa_pnp/esewa_pnp.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
@@ -26,12 +28,12 @@ class _SelectPaymentState extends State<SelectPayment> {
 
   List<String> images = [
     'assets/ShipNow/cod.png',
-    'assets/ShipNow/khalti.png'
+    'assets/ShipNow/esewa.png'
   ];
 
-  List<String> name = [
+  List name = [
     'Cash on Delivery',
-    'Khalti'
+    'eSewa'
   ];
   late List parcelType =
       Provider.of<DataProvider>(context, listen: false).parcelType;
@@ -73,7 +75,7 @@ class _SelectPaymentState extends State<SelectPayment> {
     if(_selectedPaymentT.contains(0)){
       payment = 'Cash On Delivery';
     }else{
-      payment = 'Khalti';
+      payment = 'eSewa';
     }
     return payment;
   }
@@ -198,6 +200,7 @@ class _SelectPaymentState extends State<SelectPayment> {
                           itemCount: 2,
                           itemBuilder: (context, i) {
                             final _isSelected = _selectedPaymentT.contains(i);
+                            var _isSelectedPay = name[i];
                             return PaymentOptions(
                               icon: images[i],
                               name: name[i],
@@ -214,6 +217,9 @@ class _SelectPaymentState extends State<SelectPayment> {
                                     }
                                   },
                                 );
+                                if(_selectedPaymentT.contains(1)) {
+                                  _initPayment(_isSelectedPay);
+                                }
                               },
                               isSelected: _isSelected,
                             );
@@ -224,7 +230,13 @@ class _SelectPaymentState extends State<SelectPayment> {
               ],
             );
           }
-          return const CircularProgressIndicator();
+          return Center(child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Image.asset('assets/UserType/loading.gif',width: 120,height: 120,),
+              Text('Please Wait',style: kStyleNormal,)
+            ],
+          ),);
 
         }
       ),
@@ -245,11 +257,33 @@ class _SelectPaymentState extends State<SelectPayment> {
               if(shipment.id != null) {
                 Navigator.of(context).pushReplacement(CustomPageRoute(child: TrackingLabel(id: shipment.id,type: shipment.ofType,weight: shipment.weight,size: shipment.size,package_type: shipment.packageType,rname: shipment.receiver,rphone: shipment.phoneNumber,remail: shipment.email,start: shipment.start,dest: shipment.destination,status: shipment.status,price: shipment.price,payment: shipment.paymentType,trackingid: shipment.trackingNumber,deliveryDate: shipment.deliveryDate)));
               }
+
             },'Next'),
           ],
         ),
       ),
     );
+  }
+  _initPayment(String product)async{
+    ESewaConfiguration _configuration = ESewaConfiguration(
+        clientID: "JB0BBQ4aD0UqIThFJwAKBgAXEUkEGQUBBAwdOgABHD4DChwUAB0R",
+        secretKey: "BhwIWQQADhIYSxILExMcAgFXFhcOBwAKBgAXEQ==",
+        environment: ESewaConfiguration.ENVIRONMENT_TEST
+    );
+
+    ESewaPnp _esewaPnp = ESewaPnp(configuration: _configuration);
+
+    ESewaPayment _payment = ESewaPayment(
+        amount: p,
+        productName: parType(),
+        productID: "1",
+        callBackURL: "http:example.com");
+    try {
+      final _res = await _esewaPnp.initPayment(payment: _payment);
+      // Handle success
+    } on ESewaPaymentException catch(e) {
+      // Handle error
+    }
   }
 }
 

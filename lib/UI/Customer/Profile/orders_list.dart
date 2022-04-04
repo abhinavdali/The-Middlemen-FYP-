@@ -60,7 +60,7 @@ class _OrderListsState extends State<OrderLists> {
                       if(snapshot.hasData){
                         var def = snapshot.data?.data;
                         return Container(
-                          padding: const EdgeInsets.only(top: 20,left: 20,right: 20,bottom: 0),
+                          padding: const EdgeInsets.only(top: 20,left: 20,right: 20,bottom: 30),
                           decoration:  BoxDecoration(
                             color: kStyleAppColor,
                             boxShadow: [boxShadowBlue],
@@ -68,7 +68,7 @@ class _OrderListsState extends State<OrderLists> {
                           ),
                           height: MediaQuery.of(context).size.height * 0.55,
                           child: ListView.builder(
-                              shrinkWrap: true,
+                              reverse: true,
                               itemCount: def?.length == 0 ? 1 : def?.length,
                               itemBuilder: (context,index){
                                 if(def?.isNotEmpty == true){
@@ -91,7 +91,12 @@ class _OrderListsState extends State<OrderLists> {
                               }),
                         );
                       }else{
-                        return const Center(child: CircularProgressIndicator(),);
+                        return Center(child: Column(
+                          children: [
+                            Image.asset('assets/UserType/loading.gif',width: 120,height: 120,),
+                            Text('Please Wait',style: kStyleNormal,)
+                          ],
+                        ),);
                       }
                 })
               ]

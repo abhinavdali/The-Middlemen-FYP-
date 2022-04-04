@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:the_middlemen/Constants/const.dart';
 import 'package:the_middlemen/Widgets/appbars.dart';
 import 'package:the_middlemen/Widgets/driver_orders.dart';
@@ -27,6 +29,34 @@ class DriverHomeContent extends StatefulWidget {
 }
 
 class _DriverHomeContentState extends State<DriverHomeContent> {
+  late GoogleMapController mapController;
+
+  late Position _currentPosition;
+
+  _getCurrentLocation() async {
+    await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high)
+        .then((Position position) async {
+      setState(() {
+        // Store the position in the variable
+        _currentPosition = position;
+
+        print('CURRENT POS: $_currentPosition');
+
+        // For moving the camera to current location
+        mapController.animateCamera(
+          CameraUpdate.newCameraPosition(
+            CameraPosition(
+              target: LatLng(position.latitude, position.longitude),
+              zoom: 18.0,
+            ),
+          ),
+        );
+      });
+    }).catchError((e) {
+      print(e);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -61,11 +91,11 @@ class _DriverHomeContentState extends State<DriverHomeContent> {
                               isScrollable: true,
                               unselectedLabelStyle: TabText,
                               indicator: BoxDecoration(
-                                  color: Color(0xff1285E3),
+                                  color: kStyleAppColor,
                                   borderRadius: BorderRadius.circular(4)),
                               labelColor: Colors.white,
                               labelStyle: TabText,
-                              unselectedLabelColor: Color(0xff1285E3),
+                              unselectedLabelColor: kStyleAppColor,
                               // Tabbar tabs
                               tabs: [
                                 TabBarTabs(
@@ -100,6 +130,9 @@ class _DriverHomeContentState extends State<DriverHomeContent> {
                                     return pendingOrder(name: 'John Doe', location: 'Gwarko,Lalitpur');
                                   }
                               ),
+                              // ElevatedButton(onPressed: (){
+                              //   _getCurrentLocation();
+                              // }, child: Text('Check'))
                             ],
                           ),
                         ),

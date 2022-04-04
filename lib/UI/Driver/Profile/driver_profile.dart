@@ -42,6 +42,8 @@ class _DriverProfileContentState extends State<DriverProfileContent> {
       Provider.of<DataProvider>(context, listen: false).license;
   late String vehicle =
       Provider.of<DataProvider>(context, listen: false).vehicle;
+  late String email =
+      Provider.of<DataProvider>(context, listen: false).Email;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -87,7 +89,7 @@ class _DriverProfileContentState extends State<DriverProfileContent> {
                                             size: 20,),
                                           const SizedBox(width: 4,),
                                           Expanded(
-                                            child: Text('johndoe@gmail.com',style: kStyleNormal.copyWith(
+                                            child: Text('$email',style: kStyleNormal.copyWith(
                                                 color: const Color(0xff292929),
                                                 fontSize: 10.sp,
                                                 fontWeight: FontWeight.w400),),

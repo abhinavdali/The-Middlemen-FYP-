@@ -70,6 +70,7 @@ class _SplashScreenState extends State<SplashScreen> {
     context.read<DataProvider>().firstName(fName);
     context.read<DataProvider>().lastName(lName);
     context.read<DataProvider>().pNumber(phone);
+    context.read<DataProvider>().email(email);
     context.read<DataProvider>().licenseN(license,vehicle);
     setState(() {
       if(username != null) {

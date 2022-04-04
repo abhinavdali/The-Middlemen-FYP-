@@ -281,6 +281,7 @@ class _SelectUserState extends State<SelectUser> {
                                         // sp.setBool('is_Customer', isCustomer);
                                         context.read<DataProvider>().firstName(fName);
                                         context.read<DataProvider>().lastName(lName);
+                                        context.read<DataProvider>().email(email);
                                         context.read<DataProvider>().pNumber(phone);
                                         context.read<DataProvider>().licenseN(license, vehicle);
                                         // setState(() {

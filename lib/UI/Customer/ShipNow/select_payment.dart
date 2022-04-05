@@ -39,7 +39,7 @@ class _SelectPaymentState extends State<SelectPayment> {
       Provider.of<DataProvider>(context, listen: false).parcelType;
   late String weight =
       Provider.of<DataProvider>(context, listen: false).weightT;
-  late String size =
+  late double size =
       Provider.of<DataProvider>(context, listen: false).sizeT;
   late String rname =
       Provider.of<DataProvider>(context, listen: false).reName;
@@ -57,7 +57,7 @@ class _SelectPaymentState extends State<SelectPayment> {
       Provider.of<DataProvider>(context, listen: false).token;
   late String deliveryDate =
       Provider.of<DataProvider>(context, listen: false).date;
-  var p;
+
   
   //Function to differentiate parcel type
   parType(){
@@ -70,6 +70,36 @@ class _SelectPaymentState extends State<SelectPayment> {
     return parcel;
   }
 
+  parcelCost(){
+    double p;
+    // var d = double.parse(size);
+    // var w = double.parse(weight);
+    if(parcelType.contains(0)){
+
+      p = 300;
+    }else{
+      if(size > double.parse(weight)){
+        p = 800;
+      }else{
+        p = 500;
+      }
+    }
+    return p;
+  }
+
+  packageCost(){
+    double pacCost = parcelCost();
+    if(selectedPackage.contains(0)){
+      pacCost = (pacCost + ((20/100)*pacCost));
+    }
+    else if(selectedPackage.contains(1)){
+      pacCost = (pacCost + ((5/100)*pacCost));
+    }
+    else{
+      pacCost;
+    }
+    return pacCost;
+  }
   payType(){
     String payment;
     if(_selectedPaymentT.contains(0)){
@@ -92,16 +122,12 @@ class _SelectPaymentState extends State<SelectPayment> {
     return package;
   }
 
-  Future<Pricing?>? _pricing;
-  Future<Pricing?> getPricing() async{
-    Pricing? list = await NetworkHelper().getPricingData();
-    return  list;
-  }
+
    @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    _pricing = getPricing();
+    // _pricing = getPricing();
   }
 
   @override
@@ -112,27 +138,7 @@ class _SelectPaymentState extends State<SelectPayment> {
     return Scaffold(
       backgroundColor: kStyleBackground,
       appBar: CustomAppBar(title: 'Ship Now',),
-      body: FutureBuilder<Pricing?>(
-        future: _pricing,
-        builder: (context,snapshot) {
-          if(snapshot.hasData){
-            var data = snapshot.data?.data?.where((element) => element?.weight == weight && element?.size == size && element?.typeOf == parType());
-            var initprice = data?.map((e) => e?.price).toString().replaceAll('(', '').replaceAll(')', '');
-            double price =  double.parse(initprice!);
-
-            //Func to calculate package cost
-            packageCost(){
-              if(selectedPackage.contains(0)){
-                  price = (price + ((20/100)*price));
-              }
-              else if(selectedPackage.contains(1)){
-                  price = (price + ((5/100)*price));
-              }
-              else{
-                price;
-              }
-              return price;
-            }
+      body:
 
             // var distRate;
             // distanceRate(){
@@ -151,11 +157,7 @@ class _SelectPaymentState extends State<SelectPayment> {
             //   }
             //   return distRate;
             // }
-
-            p = packageCost();
-            var pacCost = p - double.parse(initprice);
-            var totalAmt;
-            return ListView(
+            ListView(
               children: [
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 40.0, horizontal: 24),
@@ -181,13 +183,13 @@ class _SelectPaymentState extends State<SelectPayment> {
                       ),
                       child: Column(
                         children: [
-                          PricingContent(title: 'Price',amt: 'Rs. $initprice',titleStyle: kStyleNormal,amtStyle: kStyleNormal,),
+                          PricingContent(title: 'Price',amt: 'Rs. ${parcelCost()}',titleStyle: kStyleNormal,amtStyle: kStyleNormal,),
                           const SizedBox8(),
                           PricingContent(title: 'Distance',amt: '$distance KM',titleStyle: kStyleNormal,amtStyle: kStyleNormal),
                           const SizedBox8(),
-                          PricingContent(title: 'Package Type',amt: 'Rs. $pacCost',titleStyle: kStyleNormal,amtStyle: kStyleNormal),
+                          PricingContent(title: 'Package Type (${pacType()})',amt: 'Rs. ${packageCost() - parcelCost()}',titleStyle: kStyleNormal,amtStyle: kStyleNormal),
                           const SizedBox8(),
-                          PricingContent(title: 'Total Amount',amt: 'Rs. $p ',titleStyle: kStyleNormal.copyWith(color: Colors.blue),amtStyle: kStyleNormal.copyWith(color: Colors.blue)),
+                          PricingContent(title: 'Total Amount',amt: 'Rs. ${packageCost()} ',titleStyle: kStyleNormal.copyWith(color: Colors.blue),amtStyle: kStyleNormal.copyWith(color: Colors.blue)),
                         ],
                       ),
                     ),
@@ -228,18 +230,7 @@ class _SelectPaymentState extends State<SelectPayment> {
                   ]),
                 )
               ],
-            );
-          }
-          return Center(child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Image.asset('assets/UserType/loading.gif',width: 120,height: 120,),
-              Text('Please Wait',style: kStyleNormal,)
-            ],
-          ),);
-
-        }
-      ),
+            ),
       bottomNavigationBar: Container(
         height: MediaQuery.of(context).size.width * 0.15.sp,
         decoration: const BoxDecoration(
@@ -253,7 +244,7 @@ class _SelectPaymentState extends State<SelectPayment> {
             }),
             if(_selectedPaymentT.isNotEmpty)
               NextBtn(() async{
-              Shipment shipment = await NetworkHelper().getShipmentData(parType(), weight, size, p.toString(), rname, pacType(), rphone, start, dest, 'Processing', payType(), remail,token,deliveryDate);
+              Shipment shipment = await NetworkHelper().getShipmentData(parType(), weight, size.toString(), packageCost().toString(), rname, pacType(), rphone, start, dest, 'Processing', payType(), remail,token,deliveryDate);
               if(shipment.id != null) {
                 Navigator.of(context).pushReplacement(CustomPageRoute(child: TrackingLabel(id: shipment.id,type: shipment.ofType,weight: shipment.weight,size: shipment.size,package_type: shipment.packageType,rname: shipment.receiver,rphone: shipment.phoneNumber,remail: shipment.email,start: shipment.start,dest: shipment.destination,status: shipment.status,price: shipment.price,payment: shipment.paymentType,trackingid: shipment.trackingNumber,deliveryDate: shipment.deliveryDate)));
               }
@@ -274,7 +265,7 @@ class _SelectPaymentState extends State<SelectPayment> {
     ESewaPnp _esewaPnp = ESewaPnp(configuration: _configuration);
 
     ESewaPayment _payment = ESewaPayment(
-        amount: p,
+        amount: packageCost(),
         productName: parType(),
         productID: "1",
         callBackURL: "http:example.com");

@@ -47,6 +47,51 @@ class BlueTextFormField extends StatelessWidget {
   }
 }
 
+class WeightFormField extends StatelessWidget {
+  WeightFormField({
+    required this.hintText,required this.icon,required this.controller,required this.validator});
+
+  final controller;
+  final hintText;
+  final icon;
+  final validator;
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      enabled: false,
+      controller: controller,
+      validator: validator,
+      autocorrect: false,
+      keyboardType: TextInputType.visiblePassword,
+      style: TextStyle(
+        fontFamily: 'Lato',
+        fontSize: 10.sp,
+        fontWeight: FontWeight.w400,
+        color: Color(0xff777777),
+      ),
+      decoration: InputDecoration(
+          fillColor: Colors.white,
+          border: InputBorder.none,
+          filled: true,
+          focusedBorder: kStyleFocused,
+          disabledBorder: kStyleEnabled,
+          errorBorder: kStyleError,
+          focusedErrorBorder: kStyleFocusedError,
+          hintText: hintText,
+          hintStyle: kStyleHintStyle,
+          contentPadding: EdgeInsets.fromLTRB(8, 8, 16, 8),
+          prefixIcon: Padding(
+            padding: const EdgeInsets.only(left: 20, right: 12),
+            child: Icon(
+              icon,
+              size: 22,
+              color: kStyleAppColor,
+            ),
+          )),
+    );
+  }
+}
+
 class TrackingFormField extends StatelessWidget {
   TrackingFormField(
       this.hintText, this.icon, this.nameController, this.validator);

@@ -40,9 +40,9 @@ class _SelectPackageState extends State<SelectPackage> {
   ];
 
   List<String> desc = [
-    'Fast and Reliable Delivery\n Ship your package within a day\n Estimated delivery:  $formatter',
-    'Standard Delivery\n Ship your package in standard delivery times\n Estimated delivery:  $formatter2',
-    'Cheap Delivery Option\n Your package will be delivered within a few days\n Estimated delivery:  $formatter3',
+    '20% Extra Charge\nEstimated delivery:  $formatter',
+    '5% Extra Charge\nEstimated delivery:  $formatter2',
+    'No Extra Charge\nEstimated delivery:  $formatter3',
   ];
 
   final List _selectedIndexs = [];

@@ -60,7 +60,7 @@ class _DriverHomeContentState extends State<DriverHomeContent> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-        length: 2,
+        length: 3,
         child: Padding(
             padding: const EdgeInsets.only(top: 16.0),
             child: Container(
@@ -74,7 +74,7 @@ class _DriverHomeContentState extends State<DriverHomeContent> {
                         alignment: Alignment.topCenter,
                         child: Container(
                           height: 40,
-                          margin: EdgeInsets.symmetric(horizontal: 24),
+                          margin: EdgeInsets.symmetric(horizontal: 16),
                           decoration: BoxDecoration(
                               color: Colors.white,
                               borderRadius: BorderRadius.circular(
@@ -98,10 +98,13 @@ class _DriverHomeContentState extends State<DriverHomeContent> {
                               unselectedLabelColor: kStyleAppColor,
                               // Tabbar tabs
                               tabs: [
-                                TabBarTabs(
-                                  text: 'Pending', image: null,
+                                TabBarTabsD(
+                                  text: 'Available'
                                 ),
-                                TabBarTabs(text: 'Delivered', image: null,)
+                                TabBarTabsD(
+                                  text: 'Assigned'
+                                ),
+                                TabBarTabsD(text: 'Delivered')
                               ]),
                         ),
                       ),
@@ -110,6 +113,16 @@ class _DriverHomeContentState extends State<DriverHomeContent> {
                           padding: const EdgeInsets.only(top: 16.0),
                           child: TabBarView(
                             children: [
+                              ListView.builder(
+                                  shrinkWrap: true,
+                                  physics: ScrollPhysics(),
+                                  scrollDirection: Axis.vertical,
+                                  itemCount: 4,
+                                  itemBuilder: (BuildContext context,
+                                      int index){
+                                    return pendingOrder(name: 'John Doe', location: 'Gwarko,Lalitpur');
+                                  }
+                              ),
                               ListView.builder(
                                   shrinkWrap: true,
                                   physics: ScrollPhysics(),

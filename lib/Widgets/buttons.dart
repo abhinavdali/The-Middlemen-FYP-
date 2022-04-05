@@ -252,3 +252,22 @@ class MyLocationButton extends StatelessWidget {
     );
   }
 }
+
+class AddSubButton extends StatelessWidget {
+  AddSubButton({required this.onPress,required this.icon});
+  final onPress;
+  final icon;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 40,
+      width: 40,
+      child: FloatingActionButton(
+        onPressed: onPress,
+        child:   Icon(icon,
+            color: Colors.black),
+        backgroundColor: Colors.white,),
+    );
+  }
+}

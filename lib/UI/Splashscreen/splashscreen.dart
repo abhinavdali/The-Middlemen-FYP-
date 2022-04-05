@@ -27,7 +27,6 @@ class _SplashScreenState extends State<SplashScreen> {
     // TODO: implement initState
     super.initState();
     getValidationData().whenComplete(() {
-
       Timer(
         const Duration(seconds: 3),
             () {

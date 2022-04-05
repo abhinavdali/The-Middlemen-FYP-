@@ -47,10 +47,10 @@ class DataProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void partype(var partype, var weight, var size){
+  void partype(var partype, var weight, var dimweight){
     parcelType = partype;
     weightT = weight;
-    sizeT = size;
+    sizeT = dimweight;
     notifyListeners();
   }
 

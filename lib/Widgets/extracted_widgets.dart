@@ -32,6 +32,32 @@ class TabBarTabs extends StatelessWidget {
   }
 }
 
+class TabBarTabsD extends StatelessWidget {
+  String text;
+
+  TabBarTabsD({required this.text});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 80,
+      child: Padding(
+        padding: EdgeInsets.only(
+            left: 8, right: 8.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              text,
+              textAlign: TextAlign.center,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
 //For Profile Items
 class ContentItems extends StatelessWidget {
   const ContentItems(
@@ -293,20 +319,38 @@ class PackageOption extends StatelessWidget {
       onTap: onTap,
       child: Container(
         margin: const EdgeInsets.symmetric(vertical: 10),
-        height: MediaQuery.of(context).size.height * 0.43,
-        width: MediaQuery.of(context).size.width * 0.7,
+        padding: const EdgeInsets.symmetric(vertical: 12,horizontal: 12),
         decoration: BoxDecoration(
-            color: isSelected ? kStyleAppColor : Colors.white,
+            color: /*isSelected ? kStyleAppColor : */Colors.white,
             boxShadow: [boxShadowBlue],
             borderRadius: BorderRadius.circular(12)
         ),
-        child: Column(
+        child: Row(
           children: [
-            Image.asset(packageIcon,height: 150,width: 200 ,),
-            const SizedBox32(),
-            Text(title,style: kStyleTitle,),
-            const SizedBox16(),
-            Text('$desc',style: kStyleNormal.copyWith(height: 1.5),textAlign: TextAlign.center,)
+            Image.asset(packageIcon,height: 40,width: 40 ,),
+            SizedBox(width: 4.w,),
+            Expanded(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(title,style: kStyleTitle,),
+                      SizedBox(height: 8,),
+                      Text('$desc',style: kStyleNormal.copyWith(height: 1.5),textAlign: TextAlign.left,)
+                    ],
+                  ),
+                  // const SizedBox16(),
+                  // Text('$desc',style: kStyleNormal.copyWith(height: 1.5),textAlign: TextAlign.center,),
+                  Icon(
+                    isSelected? Icons.check_circle : Icons.circle,
+                    color: isSelected ? Colors.blue : Color(0xFFA3A3A3),
+                  )
+                ],
+              ),
+            )
+
           ],
         ),
       ),

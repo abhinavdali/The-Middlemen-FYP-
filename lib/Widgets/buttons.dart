@@ -271,3 +271,90 @@ class AddSubButton extends StatelessWidget {
     );
   }
 }
+
+class NavigateButton extends StatelessWidget {
+  NavigateButton({required this.onTap});
+  final onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        height: 32,
+        width: 110,
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(16),
+            color: const Color(0xff00A6FB),
+            border: Border.all(width: 2, color: const Color(0xff00A6FB))),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 12),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              const Icon(Icons.navigation,color: Colors.white,size: 15,),
+              Expanded(
+                child: FittedBox(
+                  child: Text(
+                    'Navigate',
+                    style: kStyleTitle.copyWith(
+                        fontSize: 14,
+                        color: Colors.white,
+                        fontFamily: 'Roboto',
+                        fontWeight: FontWeight.w300),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class CallButton extends StatelessWidget {
+  CallButton({required this.onPress});
+
+  final onPress;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onPress,
+      child: Container(
+        height: 32,
+        width: 78,
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(16),
+            color: Colors.white,
+            border: Border.all(width: 2, color: const Color(0xff00A6FB))),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 16),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              const Icon(
+                Icons.call_outlined,
+                color: Color(0xff00A6FB),
+                size: 15,
+              ),
+              Expanded(
+                child: FittedBox(
+                  child: Text(
+                    'Call',
+                    style: kStyleTitle.copyWith(
+                        fontSize: 14,
+                        color: Color(0xff00A6FB),
+                        fontFamily: 'Roboto',
+                        fontWeight: FontWeight.w300),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}

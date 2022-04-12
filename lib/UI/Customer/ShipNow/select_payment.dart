@@ -207,18 +207,18 @@ class _SelectPaymentState extends State<SelectPayment> {
                               icon: images[i],
                               name: name[i],
                               onTap: () {
-                                setState(
-                                      () {
-                                    if (_isSelected) {
-                                      _selectedPaymentT.remove(i);
-                                    } else if (_selectedPaymentT.isNotEmpty) {
-                                      _selectedPaymentT.clear();
-                                      _selectedPaymentT.add(i);
-                                    } else {
-                                      _selectedPaymentT.add(i);
-                                    }
-                                  },
-                                );
+                                  setState(
+                                        () {
+                                      if (_isSelected) {
+                                        _selectedPaymentT.remove(i);
+                                      } else if (_selectedPaymentT.isNotEmpty) {
+                                        _selectedPaymentT.clear();
+                                        _selectedPaymentT.add(i);
+                                      } else {
+                                        _selectedPaymentT.add(i);
+                                      }
+                                    },
+                                  );
                                 if(_selectedPaymentT.contains(1)) {
                                   _initPayment(_isSelectedPay);
                                 }

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart' ;
+import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 import 'package:the_middlemen/Constants/const.dart';
-import 'package:the_middlemen/UI/Driver/Home/driver_home.dart';
+import 'package:the_middlemen/UI/Driver/Home/driver_home/driver_home.dart';
 import 'package:the_middlemen/UI/Driver/Profile/driver_profile.dart';
+import 'package:the_middlemen/Widgets/show_dialog.dart';
 
 class BottomNavigationDriver extends StatefulWidget {
   const BottomNavigationDriver({Key? key}) : super(key: key);
@@ -26,33 +28,39 @@ class _BottomNavigationDriverState extends State<BottomNavigationDriver> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
-      body: _children[_currentIndex],
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _currentIndex,
-        backgroundColor: Colors.white,
-        showSelectedLabels: true,
-        showUnselectedLabels: true,
-        fixedColor: kStyleAppColor,
-        unselectedItemColor: Colors.grey.shade700,
-        items: const [
-          BottomNavigationBarItem(
-            icon: ImageIcon(
-              AssetImage('assets/BottomNav/home.png'),
+    return WillPopScope(
+      onWillPop: ()async{
+        if(_currentIndex != 0) {
+          _onChanged(0);
+        }else if(_currentIndex == 0){
+          await showBackDialog(context);
+        }
+        return false;
+      },
+      child: Scaffold(
+        resizeToAvoidBottomInset: false,
+        body: _children[_currentIndex],
+        bottomNavigationBar: SalomonBottomBar(
+          currentIndex: _currentIndex,
+          unselectedItemColor: Colors.grey.shade700,
+          items:  [
+            SalomonBottomBarItem(
+              icon: const ImageIcon(
+                AssetImage('assets/BottomNav/home.png'),
+              ),
+              title: const Text('Home'),
+              selectedColor: Color(0xff3FA5DF),
             ),
-            label: 'Home',
-            backgroundColor: Colors.black,
-          ),
-          BottomNavigationBarItem(
-            icon: ImageIcon(
-              AssetImage('assets/BottomNav/profile.png'),
+            SalomonBottomBarItem(
+              icon: const ImageIcon(
+                AssetImage('assets/BottomNav/profile.png'),
+              ),
+              title: const Text('Profile'),
+              selectedColor: Colors.pinkAccent,
             ),
-            label: 'Profile',
-            backgroundColor: Colors.black,
-          ),
-        ],
-        onTap: _onChanged,
+          ],
+          onTap: _onChanged,
+        ),
       ),
     );
   }

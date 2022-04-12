@@ -132,11 +132,11 @@ class _DriverProfileContentState extends State<DriverProfileContent> {
                 Expanded(child: profileContent(icon: 'assets/DriverProfile/vehicleno.png',desc: 'Vehicle no.',value: '$vehicle',)),
               ],
             ),
-            Row(
-              children: [
-                Expanded(child: profileContent(icon: 'assets/DriverProfile/passwordlock.png',desc: 'Password',value: '*********',)),
-              ],
-            ),
+            // Row(
+            //   children: [
+            //     Expanded(child: profileContent(icon: 'assets/DriverProfile/passwordlock.png',desc: 'Password',value: '*********',)),
+            //   ],
+            // ),
             const SizedBox(height: 12,),
             ArrowButton(
               text: 'LOGOUT',

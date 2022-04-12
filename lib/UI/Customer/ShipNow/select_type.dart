@@ -154,121 +154,126 @@ class _SelectTypeState extends State<SelectType> {
                     ),
                   ),
                   const SizedBox16(),
-                  Text(
-                    'What is your package weight?',
-                    style: kStyleTitle.copyWith(fontSize: 12.sp),
-                  ),
+
                   // SizedBox16(),
                   // Image.asset('assets/ShipNow/weight.png'),
-                  const SizedBox16(),
+
                   //Dropdown menus to select size and weight
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text('Weight:',style: kStyleNormal.copyWith(fontSize: 10.sp),),
-                      const SizedBox16(),
-                      Row(
-                        children: [
-                          SizedBox(
-                            width: 200,
-                            child: WeightFormField(
-                              hintText: '0 kg',
-                              icon: Icons.wysiwyg_rounded,
-                              controller: weightController,
-                              validator: (String? value) {
-                                if (value!.isEmpty) {
-                                  return "Please enter a valid weight";
-                                }
-                                return null;
-                              },
+                  Visibility(
+                    visible: _selectedType.contains(0) == true ? false : true,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'What is your package weight?',
+                          style: kStyleTitle.copyWith(fontSize: 12.sp),
+                        ),
+                        const SizedBox16(),
+                        Text('Weight:',style: kStyleNormal.copyWith(fontSize: 10.sp),),
+                        const SizedBox16(),
+                        Row(
+                          children: [
+                            SizedBox(
+                              width: 200,
+                              child: WeightFormField(
+                                hintText: '0 kg',
+                                icon: Icons.wysiwyg_rounded,
+                                controller: weightController,
+                                validator: (String? value) {
+                                  if (value!.isEmpty) {
+                                    return "Please enter a valid weight";
+                                  }
+                                  return null;
+                                },
+                              ),
                             ),
-                          ),
-                          SizedBox(width: 2.w,),
-                          AddSubButton(onPress: add,icon: Icons.add,),
-                          SizedBox(width: 2.w,),
-                          AddSubButton(onPress: minus,icon: Icons.remove),
-                        ],
-                      ),
-                      const SizedBox16(),
-                      Text('Calculate Dimensional Weight:',style: kStyleNormal,),
-                      const SizedBox16(),
-                      Text('Length:',style: kStyleNormal.copyWith(fontSize: 10.sp),),
-                      const SizedBox16(),
-                      Row(
-                        children: [
-                          SizedBox(
-                            width: 200,
-                            child: WeightFormField(
-                              hintText: '0 cm',
-                              icon: Icons.wysiwyg_rounded,
-                              controller: lengthController,
-                              validator: (String? value) {
-                                if (value!.isEmpty) {
-                                  return "Please enter a valid weight";
-                                }
-                                return null;
-                              },
+                            SizedBox(width: 2.w,),
+                            AddSubButton(onPress: add,icon: Icons.add,),
+                            SizedBox(width: 2.w,),
+                            AddSubButton(onPress: minus,icon: Icons.remove),
+                          ],
+                        ),
+                        const SizedBox16(),
+                        Text('Calculate Dimensional Weight:',style: kStyleNormal,),
+                        const SizedBox16(),
+                        Text('Length:',style: kStyleNormal.copyWith(fontSize: 10.sp),),
+                        const SizedBox16(),
+                        Row(
+                          children: [
+                            SizedBox(
+                              width: 200,
+                              child: WeightFormField(
+                                hintText: '0 cm',
+                                icon: Icons.wysiwyg_rounded,
+                                controller: lengthController,
+                                validator: (String? value) {
+                                  if (value!.isEmpty) {
+                                    return "Please enter a valid weight";
+                                  }
+                                  return null;
+                                },
+                              ),
                             ),
-                          ),
-                          SizedBox(width: 2.w,),
-                          AddSubButton(onPress: addl,icon: Icons.add,),
-                          SizedBox(width: 2.w,),
-                          AddSubButton(onPress: minusl,icon: Icons.remove),
-                        ],
-                      ),
-                      const SizedBox16(),
-                      Text('Breadth:',style: kStyleNormal.copyWith(fontSize: 10.sp),),
-                      const SizedBox16(),
-                      Row(
-                        children: [
-                          SizedBox(
-                            width: 200,
-                            child: WeightFormField(
-                              hintText: '0 cm',
-                              icon: Icons.wysiwyg_rounded,
-                              controller: breadthController,
-                              validator: (String? value) {
-                                if (value!.isEmpty) {
-                                  return "Please enter a valid weight";
-                                }
-                                return null;
-                              },
+                            SizedBox(width: 2.w,),
+                            AddSubButton(onPress: addl,icon: Icons.add,),
+                            SizedBox(width: 2.w,),
+                            AddSubButton(onPress: minusl,icon: Icons.remove),
+                          ],
+                        ),
+                        const SizedBox16(),
+                        Text('Breadth:',style: kStyleNormal.copyWith(fontSize: 10.sp),),
+                        const SizedBox16(),
+                        Row(
+                          children: [
+                            SizedBox(
+                              width: 200,
+                              child: WeightFormField(
+                                hintText: '0 cm',
+                                icon: Icons.wysiwyg_rounded,
+                                controller: breadthController,
+                                validator: (String? value) {
+                                  if (value!.isEmpty) {
+                                    return "Please enter a valid weight";
+                                  }
+                                  return null;
+                                },
+                              ),
                             ),
-                          ),
-                          SizedBox(width: 2.w,),
-                          AddSubButton(onPress: addb,icon: Icons.add,),
-                          SizedBox(width: 2.w,),
-                          AddSubButton(onPress: minusb,icon: Icons.remove),
-                        ],
-                      ),
-                      const SizedBox16(),
-                      Text('Height:',style: kStyleNormal.copyWith(fontSize: 10.sp),),
-                      const SizedBox16(),
-                      Row(
-                        children: [
-                          SizedBox(
-                            width: 200,
-                            child: WeightFormField(
-                              hintText: '0 cm',
-                              icon: Icons.wysiwyg_rounded,
-                              controller: heightController,
-                              validator: (String? value) {
-                                if (value!.isEmpty) {
-                                  return "Please enter a valid weight";
-                                }
-                                return null;
-                              },
+                            SizedBox(width: 2.w,),
+                            AddSubButton(onPress: addb,icon: Icons.add,),
+                            SizedBox(width: 2.w,),
+                            AddSubButton(onPress: minusb,icon: Icons.remove),
+                          ],
+                        ),
+                        const SizedBox16(),
+                        Text('Height:',style: kStyleNormal.copyWith(fontSize: 10.sp),),
+                        const SizedBox16(),
+                        Row(
+                          children: [
+                            SizedBox(
+                              width: 200,
+                              child: WeightFormField(
+                                hintText: '0 cm',
+                                icon: Icons.wysiwyg_rounded,
+                                controller: heightController,
+                                validator: (String? value) {
+                                  if (value!.isEmpty) {
+                                    return "Please enter a valid weight";
+                                  }
+                                  return null;
+                                },
+                              ),
                             ),
-                          ),
-                          SizedBox(width: 2.w,),
-                          AddSubButton(onPress: addh,icon: Icons.add,),
-                          SizedBox(width: 2.w,),
-                          AddSubButton(onPress: minush,icon: Icons.remove),
-                        ],
-                      ),
-                      const SizedBox16(),
-                      Text('The Dimensional Weight is: ${DimCalculator()} kg',style: kStyleNormal,)
-                    ],
+                            SizedBox(width: 2.w,),
+                            AddSubButton(onPress: addh,icon: Icons.add,),
+                            SizedBox(width: 2.w,),
+                            AddSubButton(onPress: minush,icon: Icons.remove),
+                          ],
+                        ),
+                        const SizedBox16(),
+                        Text('The Dimensional Weight is: ${DimCalculator()} kg',style: kStyleNormal,)
+                      ],
+                    ),
                   )
                 ],
               ))
@@ -282,7 +287,7 @@ class _SelectTypeState extends State<SelectType> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            if(_selectedType.isNotEmpty && weightController.text != '0 kg' && DimCalculator() != 0)
+            if(_selectedType.isNotEmpty && (_selectedType.contains(0) == true ? _selectedType.contains(0) : weightController.text != '0 kg' && DimCalculator() != 0))
               NextBtn(()
               {
                 context.read<DataProvider>().partype(_selectedType, weightController.text.replaceAll('kg', ''),DimCalculator());

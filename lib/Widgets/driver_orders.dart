@@ -2,17 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:the_middlemen/Constants/const.dart';
 
 class pendingOrder extends StatelessWidget {
-  pendingOrder({required this.name, required this.location,});
+  pendingOrder({required this.name, required this.location,required this.onTap});
 
   final name;
   final location;
+  final onTap;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-
-      },
+      onTap: onTap,
       child: Row(
         children: [
           Expanded(
@@ -57,7 +56,7 @@ class pendingOrder extends StatelessWidget {
                                   children: [
                                     const Icon(
                                       Icons.location_on,
-                                      color: kStyleContainer,
+                                      color: Color(0xff71777C),
                                       size: 16,
                                     ),
                                     Expanded(

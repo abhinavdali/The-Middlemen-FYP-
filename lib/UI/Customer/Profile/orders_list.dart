@@ -66,7 +66,7 @@ class _OrderListsState extends State<OrderLists> {
                             boxShadow: [boxShadowBlue],
                             borderRadius: const BorderRadius.only(topLeft: Radius.circular(30),topRight: Radius.circular(30)),
                           ),
-                          height: MediaQuery.of(context).size.height * 0.55,
+                          height: MediaQuery.of(context).size.height * 0.65,
                           child: ListView.builder(
                               reverse: true,
                               itemCount: def?.length == 0 ? 1 : def?.length,

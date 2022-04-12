@@ -47,8 +47,11 @@ dependencies:
   syncfusion_flutter_pdf: ^19.4.56-beta
   path_provider: ^2.0.9
   open_file: ^3.2.1
-#  qr_flutter: ^4.0.0
+  salomon_bottom_bar: ^3.3.0
+  qr_code_scanner: ^0.7.0
   pdf: ^3.7.3
+  url_launcher: ^6.0.20
+
 
   flutter:
     sdk: flutter

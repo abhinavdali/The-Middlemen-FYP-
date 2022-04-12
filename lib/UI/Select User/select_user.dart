@@ -163,7 +163,6 @@ class _SelectUserState extends State<SelectUser> {
                                         var email = login.data?.user?[0]?[0]?.email;
 
                                         if (token != null) {
-                                          // print(fName);
                                           final SharedPreferences sp = await SharedPreferences.getInstance();
                                           sp.setString('username', username);
                                           sp.setString('token', token);
@@ -171,15 +170,11 @@ class _SelectUserState extends State<SelectUser> {
                                           sp.setString('lName', lName!);
                                           sp.setString('phone', phone!);
                                           sp.setString('email', email!);
-                                          // sp.setBool('is_Customer', isCustomer);
                                           context.read<DataProvider>().tokenCus(token);
                                           context.read<DataProvider>().firstName(fName);
                                           context.read<DataProvider>().lastName(lName);
                                           context.read<DataProvider>().pNumber(phone);
-                                          // setState(() {
-                                          //   isCustomer = true;
-                                          //   context.read<DataProvider>().isCus(isCustomer);
-                                          // });
+
                                           Future.delayed(
                                             const Duration(seconds: 3),
                                               (){
@@ -272,22 +267,20 @@ class _SelectUserState extends State<SelectUser> {
                                         await SharedPreferences
                                             .getInstance();
                                         sp.setString('d_username', username);
+                                        sp.setString('token', token);
                                         sp.setString('fName', fName!);
                                         sp.setString('lName', lName!);
                                         sp.setString('phone', phone!);
                                         sp.setString('email', email!);
                                         sp.setString('license', license!);
                                         sp.setString('vehicle', vehicle!);
-                                        // sp.setBool('is_Customer', isCustomer);
                                         context.read<DataProvider>().firstName(fName);
+                                        context.read<DataProvider>().tokenCus(token);
                                         context.read<DataProvider>().lastName(lName);
                                         context.read<DataProvider>().email(email);
                                         context.read<DataProvider>().pNumber(phone);
                                         context.read<DataProvider>().licenseN(license, vehicle);
-                                        // setState(() {
-                                        //   isCustomer = false;
-                                        //   context.read<DataProvider>().isCus(isCustomer);
-                                        // });
+
                                         Future.delayed(
                                           const Duration(seconds: 3),
                                             (){

@@ -6,10 +6,13 @@ import 'package:the_middlemen/Models/Customer%20Models/pricing.dart';
 import 'package:the_middlemen/Models/Customer%20Models/shipment.dart';
 import 'package:the_middlemen/Models/Customer%20Models/signup.dart';
 import 'package:the_middlemen/Models/Customer%20Models/view_shipment.dart';
+import 'package:the_middlemen/Models/Driver%20Models/shipment_finish.dart';
+import 'package:the_middlemen/Models/Driver%20Models/shipment_list.dart';
+import 'package:the_middlemen/Models/Driver%20Models/shipment_update.dart';
 
 class NetworkHelper{
-  final baseurl = 'http://10.0.2.2:8000';
-  // final baseurl = 'http://10.3.5.106:8000';
+  // final baseurl = 'http://10.0.2.2:8000';
+  final baseurl = 'http://10.3.4.212:8000';
 
   Future<dynamic> getDriverLoginData(
       String username,
@@ -151,6 +154,23 @@ class NetworkHelper{
     }
   }
 
+  Future<dynamic> getShipmentList(String token) async {
+    var ship;
+    var response = await http.get(
+      Uri.parse('$baseurl/api/shipment'),
+      headers: {HttpHeaders.contentTypeHeader: "application/json",
+        "Authorization" : "Token $token",
+      },
+    );
+    if (response.statusCode == 200){
+      var data = response.body;
+      var jsonMap = jsonDecode(data);
+      ship = ShipmentList.fromJson(jsonMap);
+      return ship;
+    }
+  }
+
+
   Future<dynamic> getShipmentData(
       String of_type,
       String weight,
@@ -193,6 +213,50 @@ class NetworkHelper{
       var data = response.body;
       var jsonMap = jsonDecode(data);
       Model = Shipment.fromJson(jsonMap);
+    }
+    return Model;
+  }
+
+  Future<dynamic> shipmentUpdate(
+      String trackingNumber,
+      String token
+      ) async {
+    var Model;
+    var response = await http.patch(
+      Uri.parse('$baseurl/api/shipmentUpdate/$trackingNumber'),
+      headers: {HttpHeaders.contentTypeHeader: "application/json",
+        "Authorization" : "Token $token",
+      },
+      body: jsonEncode(<String, dynamic>{
+        'tracking_number': trackingNumber,
+      }),
+    );
+    if (response.statusCode == 200){
+      var data = response.body;
+      var jsonMap = jsonDecode(data);
+      Model = ShipmentUpdate.fromJson(jsonMap);
+    }
+    return Model;
+  }
+
+  Future<dynamic> shipmentFinish(
+      String trackingNumber,
+      String token
+      ) async {
+    var Model;
+    var response = await http.patch(
+      Uri.parse('$baseurl/api/shipmentFinish/$trackingNumber'),
+      headers: {HttpHeaders.contentTypeHeader: "application/json",
+        "Authorization" : "Token $token",
+      },
+      body: jsonEncode(<String, dynamic>{
+        'tracking_number': trackingNumber,
+      }),
+    );
+    if (response.statusCode == 200){
+      var data = response.body;
+      var jsonMap = jsonDecode(data);
+      Model = ShipmentFinish.fromJson(jsonMap);
     }
     return Model;
   }

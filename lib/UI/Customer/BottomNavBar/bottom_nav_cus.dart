@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart' ;
+import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 import 'package:the_middlemen/Constants/const.dart';
 import 'package:the_middlemen/UI/Customer/Home/cus_home.dart';
 import 'package:the_middlemen/UI/Customer/Profile/cus_profile.dart';
@@ -42,34 +43,30 @@ class _BottomNavigationCusState extends State<BottomNavigationCus> {
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         body: _children[_currentIndex],
-        bottomNavigationBar: BottomNavigationBar(
+        bottomNavigationBar: SalomonBottomBar(
           currentIndex: _currentIndex,
-          backgroundColor: Colors.white,
-          showSelectedLabels: true,
-          showUnselectedLabels: true,
-          fixedColor: kStyleAppColor,
           unselectedItemColor: Colors.grey.shade700,
-          items: const [
-            BottomNavigationBarItem(
-              icon: ImageIcon(
+          items:  [
+            SalomonBottomBarItem(
+              icon: const ImageIcon(
                 AssetImage('assets/BottomNav/home.png'),
               ),
-              label: 'Home',
-              backgroundColor: Colors.black,
+              title: const Text('Home'),
+              selectedColor: Color(0xff3FA5DF),
             ),
-            BottomNavigationBarItem(
-              icon: ImageIcon(
+            SalomonBottomBarItem(
+              icon: const ImageIcon(
                 AssetImage('assets/BottomNav/profile.png'),
               ),
-              label: 'Profile',
-              backgroundColor: Colors.black,
+              title: Text('Profile'),
+              selectedColor: Colors.orangeAccent,
             ),
-            BottomNavigationBarItem(
-              icon: Icon(
+            SalomonBottomBarItem(
+              icon: const Icon(
                 Icons.settings_outlined
               ),
-              label: 'Settings',
-              backgroundColor: Colors.black,
+              title: const Text('Settings'),
+              selectedColor: Colors.pinkAccent,
             ),
           ],
           onTap: _onChanged,

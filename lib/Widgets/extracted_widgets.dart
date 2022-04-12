@@ -467,38 +467,20 @@ class OrdersListContent extends StatelessWidget {
     required this.trackingNo,
     required this.image,
     required this.receiver,
-    required this.price
+    required this.price,
+    required this.onTap
   }) : super(key: key);
 
   final String trackingNo;
   final image;
   final receiver;
   final price;
+  final onTap;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: (){
-        showDialog(barrierColor: Colors.blueAccent.withOpacity(0.3),
-        barrierDismissible: false,
-        context: context,
-        builder: (_) => Stack(
-        clipBehavior: Clip.none,
-        alignment: Alignment.center,
-        children: <Widget>[
-          Container(
-            height: MediaQuery.of(context).size.height * 0.7,
-            width: MediaQuery.of(context).size.width * 0.8,
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(16)
-            ),
-            child: Column(
-              children: [],
-            ),
-          )
-        ],));
-      },
+      onTap: onTap,
       child: Container(
         margin: const EdgeInsets.all(12),
         padding: const EdgeInsets.all(12),

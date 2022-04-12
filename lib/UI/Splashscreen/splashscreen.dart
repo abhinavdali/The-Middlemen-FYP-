@@ -6,8 +6,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:the_middlemen/Change%20Notifier/change_notifier.dart';
 import 'package:the_middlemen/Constants/const.dart';
 import 'package:the_middlemen/UI/Customer/BottomNavBar/bottom_nav_cus.dart';
-import 'package:the_middlemen/UI/Customer/Home/cus_home.dart';
-import 'package:the_middlemen/UI/Customer/ShipNow/ship_now.dart';
 import 'package:the_middlemen/UI/Driver/BottomNavBar/bottom_nav_driver.dart';
 import 'package:the_middlemen/UI/Select%20User/select_user.dart';
 

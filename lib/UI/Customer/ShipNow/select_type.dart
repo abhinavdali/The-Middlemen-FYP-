@@ -290,7 +290,7 @@ class _SelectTypeState extends State<SelectType> {
             if(_selectedType.isNotEmpty && (_selectedType.contains(0) == true ? _selectedType.contains(0) : weightController.text != '0 kg' && DimCalculator() != 0))
               NextBtn(()
               {
-                context.read<DataProvider>().partype(_selectedType, weightController.text.replaceAll('kg', ''),DimCalculator());
+                context.read<DataProvider>().partype(_selectedType,_selectedType.contains(0) == true ? '0' : weightController.text.replaceAll('kg', ''),_selectedType.contains(0) == true ? 0.0 : DimCalculator());
                 Navigator.of(context).pushReplacement(CustomPageRoute(child: SelectDestination()));
               },'Next'),
           ],

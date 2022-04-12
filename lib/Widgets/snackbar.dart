@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:the_middlemen/Constants/const.dart';
 
 SnackBar customSnackBar(message, color, icon, bottomText) => SnackBar(
   content: SizedBox(
@@ -21,18 +22,18 @@ SnackBar customSnackBar(message, color, icon, bottomText) => SnackBar(
               Expanded(
                 child: Text(
                   message,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 16,
                     fontFamily: 'NutinoSansBold',
                     color: Colors.white,
                   ),
                 ),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               Expanded(
                 child: Text(
                   bottomText,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 14,
                     fontFamily: 'NutinoSansReg',
                     color: Colors.white,
@@ -46,7 +47,7 @@ SnackBar customSnackBar(message, color, icon, bottomText) => SnackBar(
     ),
   ),
   backgroundColor: color,
-  duration: Duration(seconds: 2),
+  duration: const Duration(seconds: 2),
   elevation: 0,
   behavior: SnackBarBehavior.floating,
 );
@@ -56,5 +57,34 @@ void showSnackBar(BuildContext context, String message, Color color,
   ScaffoldMessenger.of(context).removeCurrentSnackBar();
   ScaffoldMessenger.of(context).showSnackBar(
     customSnackBar(message, color, icon, bottomText),
+  );
+}
+
+SnackBar customSnackBar2(message, color) => SnackBar(
+  content: SizedBox(
+    height: 28,
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        Expanded(
+          child: Text(
+            message,
+            style: kStyleNormal
+          ),
+        ),
+        const Icon(Icons.check,color: Colors.black,)
+      ],
+    ),
+  ),
+  backgroundColor: color,
+  duration: const Duration(seconds: 2),
+  elevation: 0,
+  behavior: SnackBarBehavior.floating,
+);
+
+void showSnackBar2(BuildContext context, String message, Color color) {
+  ScaffoldMessenger.of(context).removeCurrentSnackBar();
+  ScaffoldMessenger.of(context).showSnackBar(
+    customSnackBar2(message, color),
   );
 }

@@ -36,7 +36,7 @@ class _QRScannerState extends State<QRScanner> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(title: 'Get Location',),
+      appBar: CustomAppBar(title: 'Scan Tracking Label',),
       body: Stack(
         alignment: Alignment.center,
         children: [

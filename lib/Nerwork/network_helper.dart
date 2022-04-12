@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:the_middlemen/Models/Customer%20Models/delete_shipment.dart';
 import 'package:the_middlemen/Models/Customer%20Models/login.dart';
 import 'package:http/http.dart' as http;
 import 'package:the_middlemen/Models/Customer%20Models/pricing.dart';
@@ -11,8 +12,8 @@ import 'package:the_middlemen/Models/Driver%20Models/shipment_list.dart';
 import 'package:the_middlemen/Models/Driver%20Models/shipment_update.dart';
 
 class NetworkHelper{
-  // final baseurl = 'http://10.0.2.2:8000';
-  final baseurl = 'http://10.3.4.212:8000';
+  final baseurl = 'http://10.0.2.2:8000';
+  // final baseurl = 'http://192.168.40.184:8000';
 
   Future<dynamic> getDriverLoginData(
       String username,
@@ -257,6 +258,28 @@ class NetworkHelper{
       var data = response.body;
       var jsonMap = jsonDecode(data);
       Model = ShipmentFinish.fromJson(jsonMap);
+    }
+    return Model;
+  }
+
+  Future<dynamic> shipmentDelete(
+      String trackingNumber,
+      String token
+      ) async {
+    var Model;
+    var response = await http.delete(
+      Uri.parse('$baseurl/api/shipmentDelete/$trackingNumber'),
+      headers: {HttpHeaders.contentTypeHeader: "application/json",
+        "Authorization" : "Token $token",
+      },
+      body: jsonEncode(<String, dynamic>{
+        'tracking_number': trackingNumber,
+      }),
+    );
+    if (response.statusCode == 200){
+      var data = response.body;
+      var jsonMap = jsonDecode(data);
+      Model = DeleteShipment.fromJson(jsonMap);
     }
     return Model;
   }

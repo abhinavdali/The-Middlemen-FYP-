@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 import 'package:the_middlemen/Constants/const.dart';
 import 'package:the_middlemen/UI/Customer/ShipNow/select_type.dart';
+import 'package:the_middlemen/UI/Customer/Tracking/tracking.dart';
 import 'package:the_middlemen/Widgets/appbars.dart';
 import 'package:the_middlemen/Widgets/buttons.dart';
 import 'package:the_middlemen/Widgets/extracted_widgets.dart';
@@ -89,8 +90,9 @@ class _CusHomeContentState extends State<CusHomeContent> {
                     const SizedBox(
                       height: 16,
                     ),
-                    ArrowButton(text: 'TRACK NOW', color: const Color(0xff00A6FB),onPress: (){
-                      ;
+                    ArrowButton(text: 'TRACK NOW', color: const Color(0xff00A6FB),
+                        onPress: (){
+                      Navigator.push(context, MaterialPageRoute(builder: (context){return Tracking(track: trackController.text);}));
                     }, arrow: 'assets/Profile/buttonarrow.png'),
                     const SizedBox(
                       height: 16,
@@ -99,7 +101,7 @@ class _CusHomeContentState extends State<CusHomeContent> {
                   ],
                 ),
               ),
-             const SizedBox(height: 80,),
+             const SizedBox(height: 60,),
              Column(
                children: [
                  Text(

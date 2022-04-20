@@ -4,6 +4,7 @@ import 'package:sizer/sizer.dart';
 import 'package:the_middlemen/Change%20Notifier/change_notifier.dart';
 import 'package:the_middlemen/Constants/const.dart';
 import 'package:the_middlemen/Models/Customer%20Models/view_shipment.dart';
+import 'package:the_middlemen/Models/Driver%20Models/shipment_list.dart';
 import 'package:the_middlemen/Nerwork/network_helper.dart';
 import 'package:the_middlemen/Widgets/appbars.dart';
 
@@ -21,9 +22,9 @@ class _TrackingState extends State<Tracking> {
   late String token =
       Provider.of<DataProvider>(context, listen: false).token;
 
-  Future<ViewShipment?>? _viewShip;
-  Future<ViewShipment?> getShipmentDetails() async{
-    ViewShipment? list = await NetworkHelper().getViewShipmentData(token);
+  Future<ShipmentList?>? _viewShip;
+  Future<ShipmentList?> getShipmentDetails() async{
+    ShipmentList? list = await NetworkHelper().getShipmentList(token);
     return  list;
   }
   Future<void> refreshCollectionItems() async {
@@ -38,24 +39,18 @@ class _TrackingState extends State<Tracking> {
   List<Step> getSteps() => [
     Step(
       isActive: currentStep >=0,
-      title: Text('Processing'),
-      content: Container(
-        child: Text('Your package is being processed.'),
-      )
+      title: Text('Processing',style: kStyleNormal,),
+      content: Text('Your package is being processed.',style: kStyleNormal)
     ),
     Step(
         isActive: currentStep >=1,
-        title: Text('On Route'),
-        content: Container(
-          child: Text('Our delivery team are on route to deliver your package'),
-        )
+        title: Text('On Route',style: kStyleNormal),
+        content: Text('Our delivery team is on route to deliver your package',style: kStyleNormal)
     ),
     Step(
         isActive: currentStep >=2,
-        title: Text('Delivered'),
-        content: Container(
-          child: Text('Your package has been delivered!'),
-        )
+        title: Text('Delivered',style: kStyleNormal),
+        content: Text('Your package has been delivered!',style: kStyleNormal)
     )
   ];
 
@@ -73,7 +68,7 @@ class _TrackingState extends State<Tracking> {
       appBar: CustomAppBar(title: 'Track Your Package',),
       body: ListView(
         children: [
-          FutureBuilder<ViewShipment?>(
+          FutureBuilder<ShipmentList?>(
               future: _viewShip,
               builder: (context,snapshot){
                 if(snapshot.hasData){
@@ -104,7 +99,7 @@ class _TrackingState extends State<Tracking> {
                       const SizedBox16(),
                       Container(
                         height: MediaQuery.of(context).size.height * 0.12,
-                        padding: EdgeInsets.all(16),
+                        padding: const EdgeInsets.all(16),
                         width: double.infinity,
                         decoration: BoxDecoration(
                           color: Colors.white,
@@ -114,8 +109,8 @@ class _TrackingState extends State<Tracking> {
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Icon(Icons.wysiwyg_rounded),
-                            SizedBox(width: 8,),
+                            const Icon(Icons.wysiwyg_rounded),
+                            const SizedBox(width: 8,),
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -129,8 +124,8 @@ class _TrackingState extends State<Tracking> {
                       ),
                       const SizedBox16(),
                       Container(
-                        height: MediaQuery.of(context).size.height * 0.5,
-                        padding: EdgeInsets.all(16),
+                        height: MediaQuery.of(context).size.height * 0.4,
+                        padding: const EdgeInsets.all(16),
                         width: double.infinity,
                         decoration: BoxDecoration(
                             color: Colors.white,
@@ -151,7 +146,7 @@ class _TrackingState extends State<Tracking> {
                             },
 
                         ),
-                      )
+                      ),
                     ],
                   ),
                 );

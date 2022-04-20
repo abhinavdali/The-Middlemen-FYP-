@@ -58,12 +58,6 @@ class PdfApi{
 
   }
 
-  // static Future<File> saveDocument({
-  //   required String name, required Document pdf
-  // })async{
-  //
-  // }
-
   static Future openFile(File file) async{
     final url = file.path;
 

@@ -10,10 +10,11 @@ import 'package:the_middlemen/Models/Customer%20Models/view_shipment.dart';
 import 'package:the_middlemen/Models/Driver%20Models/shipment_finish.dart';
 import 'package:the_middlemen/Models/Driver%20Models/shipment_list.dart';
 import 'package:the_middlemen/Models/Driver%20Models/shipment_update.dart';
+import 'package:the_middlemen/Models/Customer Models/edit_profile.dart';
 
 class NetworkHelper{
   final baseurl = 'http://10.0.2.2:8000';
-  // final baseurl = 'http://192.168.40.184:8000';
+  // final baseurl = 'http://100.64.210.223:8000';
 
   Future<dynamic> getDriverLoginData(
       String username,
@@ -214,6 +215,35 @@ class NetworkHelper{
       var data = response.body;
       var jsonMap = jsonDecode(data);
       Model = Shipment.fromJson(jsonMap);
+    }
+    return Model;
+  }
+
+  Future<dynamic> updateCusProfile(
+      String firstName,
+      String lastName,
+      String phone,
+      String email,
+      String token,
+      String username
+      ) async {
+    var Model;
+    var response = await http.post(
+      Uri.parse('$baseurl/api/update/$username'),
+      headers: {HttpHeaders.contentTypeHeader: "application/json",
+        "Authorization" : "Token $token",
+      },
+      body: jsonEncode(<String, dynamic>{
+        "first_name" : firstName,
+        "last_name" : lastName,
+        "phone" : phone,
+        "email" : email,
+      }),
+    );
+    if (response.statusCode == 201 || response.statusCode == 200){
+      var data = response.body;
+      var jsonMap = jsonDecode(data);
+      Model = EditProfileModel.fromJson(jsonMap);
     }
     return Model;
   }

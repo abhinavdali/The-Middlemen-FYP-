@@ -56,14 +56,14 @@ class _TrackingLabelState extends State<TrackingLabel> {
   Widget build(BuildContext context) {
     var data = [
       [
-        "FROM: $fName $lName\n$phoneNumber\n${widget.start}",
-        "SHIP DATE: ${widget.deliveryDate}\nWEIGHT: ${widget.weight} kg\nDIMMENSION: ${widget.size} kg"
+        "FROM: $fName $lName\nPhone: $phoneNumber\nPick Up: ${widget.start}\n\nTO: ${widget.rname}\nPhone: ${widget.rphone}\nDrop Off: ${widget.dest}\n ",
       ],
       [
-        "TO: ${widget.rname}\n${widget.rphone}\n\n${widget.dest}\n",
-        "TRACKING NUMBER: ${widget.trackingid}"
+        "SHIP DATE: ${widget.deliveryDate}\nWEIGHT: ${widget.weight} kg\nDIMMENSION: ${widget.size} kg",
       ],
-      []
+      [
+        "TRACKING NUMBER: ${widget.trackingid}"
+      ]
     ];
     return Scaffold(
       backgroundColor: kStyleBackground,

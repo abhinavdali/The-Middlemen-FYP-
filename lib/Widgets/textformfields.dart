@@ -395,11 +395,12 @@ class ConfirmPassword extends StatelessWidget {
 }
 
 class TextFormFieldForLoginRegister extends StatelessWidget {
-  const TextFormFieldForLoginRegister({this.label,this.imageName,this.textFieldDesignType, this.textFieldType}) : super();
+  const TextFormFieldForLoginRegister({this.label,this.imageName,this.textFieldDesignType, this.textFieldType,this.controller}) : super();
   final String? label;
   final String? imageName;
   final String? textFieldDesignType;
   final String? textFieldType;
+  final controller;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -415,6 +416,7 @@ class TextFormFieldForLoginRegister extends StatelessWidget {
           ]
       ),
       child: TextFormField(
+        controller: controller,
         cursorColor: Colors.black,
         obscureText: textFieldType == "password" ? true : false,
         decoration:  InputDecoration(

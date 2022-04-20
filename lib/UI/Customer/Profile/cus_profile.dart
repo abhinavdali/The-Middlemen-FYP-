@@ -10,6 +10,8 @@ import 'package:the_middlemen/Widgets/appbars.dart';
 import 'package:the_middlemen/Widgets/buttons.dart';
 import 'package:the_middlemen/Widgets/extracted_widgets.dart';
 
+import 'cus_edit_profile.dart';
+
 class CusProfile extends StatelessWidget {
   const CusProfile({Key? key}) : super(key: key);
 
@@ -42,6 +44,8 @@ class _CusProfileContentState extends State<CusProfileContent> {
         Provider.of<DataProvider>(context, listen: false).lName;
     late String phoneNumber =
         Provider.of<DataProvider>(context, listen: false).phoneNumber;
+    late String email =
+        Provider.of<DataProvider>(context, listen: false).Email;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
       child: ListView(
@@ -58,7 +62,7 @@ class _CusProfileContentState extends State<CusProfileContent> {
                   children: [
                     //Profile Picture
                     Image.asset(
-                      'assets/Profile/profileimg.png',
+                      'assets/Profile/profile.png',
                       height: 75,
                       width: 75,
                       fit: BoxFit.cover,
@@ -80,15 +84,29 @@ class _CusProfileContentState extends State<CusProfileContent> {
                         const SizedBox(
                           height: 4,
                         ),
-                        Text(
-                          '$phoneNumber',
-                          style: kStyleButton,
+                        Row(
+                          children: [
+                            Image.asset('assets/SignUp/phoneIcon.png',height: 18,width: 18,),
+                            const SizedBox(width: 8,),
+                            Text(
+                              '$phoneNumber',
+                              style: kStyleButton,
+                            ),
+                          ],
                         ),
                         const SizedBox(
                           height: 4,
                         ),
-                        //Edit Button
-                        const EditProfileButton(),
+                        Row(
+                          children: [
+                            Image.asset('assets/SignUp/email.png',height: 18,width: 18,),
+                            const SizedBox(width: 8,),
+                            Text(
+                              '$email',
+                              style: kStyleButton,
+                            ),
+                          ],
+                        ),
                       ],
                     ),
                   ],
@@ -111,9 +129,13 @@ class _CusProfileContentState extends State<CusProfileContent> {
                 ),
                 itemDivider(),
                 ContentItems(
-                  onTap: () {},
-                  image: 'assets/Profile/shipment.png',
-                  label: 'Payment Options',
+                  onTap: () {
+                    Navigator.push(context, MaterialPageRoute(builder: (context) {
+                      return const EditProfile();
+                    }));
+                  },
+                  image: 'assets/Profile/profileicon.png',
+                  label: 'Edit Profile',
                   containerDesignType: 'both',
                 ),
                 itemDivider(),

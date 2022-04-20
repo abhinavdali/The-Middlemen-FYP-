@@ -15,6 +15,7 @@ class DataProvider extends ChangeNotifier {
   var token;
   var date;
   var Email;
+  var username;
 
   void firstName(var firstName) {
     fName = firstName;
@@ -74,13 +75,20 @@ class DataProvider extends ChangeNotifier {
     reName = rname;
     rePhone = rphone;
     reEmail = remail;
+    notifyListeners();
   }
 
   void tokenCus(var tokenCus){
     token = tokenCus;
+    notifyListeners();
   }
 
   void deliveryDate(var date){
     this.date = date;
+    notifyListeners();
+  }
+  void userName(var uName){
+    this.username = uName;
+    notifyListeners();
   }
 }

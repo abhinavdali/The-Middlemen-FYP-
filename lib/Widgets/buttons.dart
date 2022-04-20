@@ -75,9 +75,7 @@ class EditProfileButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       onPressed: () {
-        Navigator.push(context, MaterialPageRoute(builder: (context) {
-          return const EditProfile();
-        }));
+
       },
       style: ButtonStyle(
           backgroundColor: MaterialStateProperty.all(Colors.transparent),
@@ -356,5 +354,36 @@ class CallButton extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+//Used in dialog box
+class dialogButton extends StatelessWidget {
+  const dialogButton({
+    Key? key,
+    required this.tn,
+    required this.onTap,
+    required this.text,
+    required this.color
+  }) : super(key: key);
+
+  final String? tn;
+  final onTap;
+  final text;
+  final color;
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+        width: 120,
+        child: ElevatedButton(
+            style: ButtonStyle(
+              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(24.0),
+                ),),
+              backgroundColor: MaterialStateProperty.all(color),
+            ),
+            onPressed: onTap,
+            child: Text(text,style: kStyleButton.copyWith(color: Colors.white),)));
   }
 }

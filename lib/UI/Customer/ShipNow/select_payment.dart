@@ -15,6 +15,7 @@ import 'package:the_middlemen/UI/Customer/ShipNow/tracking_label.dart';
 import 'package:the_middlemen/Widgets/appbars.dart';
 import 'package:the_middlemen/Widgets/buttons.dart';
 import 'package:the_middlemen/Widgets/extracted_widgets.dart';
+import 'package:the_middlemen/Widgets/snackbar.dart';
 
 class SelectPayment extends StatefulWidget {
   const SelectPayment({Key? key}) : super(key: key);
@@ -57,6 +58,8 @@ class _SelectPaymentState extends State<SelectPayment> {
       Provider.of<DataProvider>(context, listen: false).token;
   late String deliveryDate =
       Provider.of<DataProvider>(context, listen: false).date;
+  late String distance =
+      Provider.of<DataProvider>(context, listen: false).dist;
 
   
   //Function to differentiate parcel type
@@ -72,8 +75,7 @@ class _SelectPaymentState extends State<SelectPayment> {
 
   parcelCost(){
     double p;
-    // var d = double.parse(size);
-    // var w = double.parse(weight);
+
     if(parcelType.contains(0)){
 
       p = 300;
@@ -129,34 +131,34 @@ class _SelectPaymentState extends State<SelectPayment> {
     super.initState();
     // _pricing = getPricing();
   }
-
+  var distRate;
+  distanceRate(){
+    var dist = double.parse(distance);
+    if(dist <= 5){
+      dist = 40;
+    }else if (dist > 5 && dist <= 10){
+      dist = 400;
+    }else if (dist > 10 && dist <= 20){
+      dist = 600;
+    }else if (dist > 20 && dist <= 50){
+      dist = 1000;
+    }else if (dist > 50 && dist <= 100){
+      dist = 1500;
+    }else if (dist > 100){
+      dist = 2000;
+    }
+    return dist;
+  }
   @override
   Widget build(BuildContext context) {
 
-    late String distance =
-        Provider.of<DataProvider>(context, listen: false).dist;
+
     return Scaffold(
       backgroundColor: kStyleBackground,
       appBar: CustomAppBar(title: 'Ship Now',),
       body:
 
-            // var distRate;
-            // distanceRate(){
-            //   if(distance <= 5){
-            //     distRate = 200;
-            //   }else if (distance > 5 && distance <= 10){
-            //     distRate = 400;
-            //   }else if (distance > 10 && distance <= 20){
-            //     distRate = 600;
-            //   }else if (distance > 20 && distance <= 50){
-            //     distRate = 1000;
-            //   }else if (distance > 50 && distance <= 100){
-            //     distRate = 1500;
-            //   }else if (distance > 100){
-            //     distRate = 2000;
-            //   }
-            //   return distRate;
-            // }
+
             ListView(
               children: [
                 Padding(
@@ -185,11 +187,11 @@ class _SelectPaymentState extends State<SelectPayment> {
                         children: [
                           PricingContent(title: 'Price',amt: 'Rs. ${parcelCost()}',titleStyle: kStyleNormal,amtStyle: kStyleNormal,),
                           const SizedBox8(),
-                          PricingContent(title: 'Distance',amt: '$distance KM',titleStyle: kStyleNormal,amtStyle: kStyleNormal),
+                          PricingContent(title: 'Distance Rate',amt: 'Rs. ${distanceRate()}',titleStyle: kStyleNormal,amtStyle: kStyleNormal),
                           const SizedBox8(),
                           PricingContent(title: 'Package Type (${pacType()})',amt: 'Rs. ${packageCost() - parcelCost()}',titleStyle: kStyleNormal,amtStyle: kStyleNormal),
                           const SizedBox8(),
-                          PricingContent(title: 'Total Amount',amt: 'Rs. ${packageCost()} ',titleStyle: kStyleNormal.copyWith(color: Colors.blue),amtStyle: kStyleNormal.copyWith(color: Colors.blue)),
+                          PricingContent(title: 'Total Amount',amt: 'Rs. ${packageCost() + distanceRate()} ',titleStyle: kStyleNormal.copyWith(color: Colors.blue),amtStyle: kStyleNormal.copyWith(color: Colors.blue)),
                         ],
                       ),
                     ),
@@ -244,7 +246,7 @@ class _SelectPaymentState extends State<SelectPayment> {
             }),
             if(_selectedPaymentT.isNotEmpty)
               NextBtn(() async{
-              Shipment shipment = await NetworkHelper().getShipmentData(parType(), weight, size.toString(), packageCost().toString(), rname, pacType(), rphone, start, dest, 'Processing', payType(), remail,token,deliveryDate);
+                  Shipment shipment = await NetworkHelper().getShipmentData(parType(), weight, size.toString(), packageCost().toString(), rname, pacType(), rphone, start, dest, 'Processing', payType(), remail,token,deliveryDate);
               if(shipment.id != null) {
                 Navigator.of(context).pushReplacement(CustomPageRoute(child: TrackingLabel(id: shipment.id,type: shipment.ofType,weight: shipment.weight,size: shipment.size,package_type: shipment.packageType,rname: shipment.receiver,rphone: shipment.phoneNumber,remail: shipment.email,start: shipment.start,dest: shipment.destination,status: shipment.status,price: shipment.price,payment: shipment.paymentType,trackingid: shipment.trackingNumber,deliveryDate: shipment.deliveryDate)));
               }
@@ -263,14 +265,27 @@ class _SelectPaymentState extends State<SelectPayment> {
     );
 
     ESewaPnp _esewaPnp = ESewaPnp(configuration: _configuration);
-
+    var total =  packageCost() + distanceRate();
     ESewaPayment _payment = ESewaPayment(
-        amount: packageCost(),
+        amount: total,
         productName: parType(),
         productID: "1",
         callBackURL: "http:example.com");
     try {
       final _res = await _esewaPnp.initPayment(payment: _payment);
+      if(_res.status == "Complete"){
+        showSnackBar2(
+          context,
+          'Payment was successful',
+          Colors.green,
+        );
+      }else{
+        showSnackBar2(
+          context,
+          'Payment was successful',
+          Colors.green,
+        );
+      }
       // Handle success
     } on ESewaPaymentException catch(e) {
       // Handle error

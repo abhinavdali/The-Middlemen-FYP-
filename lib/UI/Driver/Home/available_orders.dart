@@ -43,7 +43,7 @@ class _AvailableOrdersState extends State<AvailableOrders> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: kStyleBackground,
-      appBar: CustomAppBar(title: 'Available Orders',),
+      appBar: CustomAppBar(title: 'Available Order',),
       body: FutureBuilder<ShipmentList?>(
           future: _shipmentList,
           builder: (context,snapshot){
@@ -168,7 +168,7 @@ class _AvailableOrdersState extends State<AvailableOrders> {
                                             crossAxisAlignment: CrossAxisAlignment.start,
                                             children: [
                                               CircleAvatar(
-                                                child: Image.asset('assets/Profile/profileimg.png'),
+                                                child: Image.asset('assets/Profile/profile.png'),
                                               ),
                                               const SizedBox(
                                                 width: 16,
@@ -284,11 +284,46 @@ class _AvailableOrdersState extends State<AvailableOrders> {
                       ArrowButton(
                           text: 'BEGIN SHIPMENT',
                           color: const Color(0xff00A6FB),
-                          onPress: ()async{
-                            ShipmentUpdate update = await NetworkHelper().shipmentUpdate(widget.code, token);
-                            if(update.data !=  null )
-                              // showBackDialog(context)
-                              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context){return BottomNavigationDriver();}));
+                          onPress: (){
+                            showDialog(barrierColor: Colors.blueAccent.withOpacity(0.3),
+                                barrierDismissible: false,
+                                context: context,
+                                builder: (_) => Stack(
+                                  clipBehavior: Clip.none,
+                                  alignment: Alignment.center,
+                                  children: <Widget>[
+                                    Container(
+                                      padding: const EdgeInsets.all(16),
+                                      height: MediaQuery.of(context).size.height * 0.2,
+                                      width: MediaQuery.of(context).size.width * 0.8,
+                                      decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          borderRadius: BorderRadius.circular(16)
+                                      ),
+                                      child: Column(
+                                        children: [
+                                          Text('Begin Shipment?',style: kStyleNormal,),
+                                          const SizedBox(
+                                            height: 50,
+                                          ),
+                                          Row(
+                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              dialogButton(tn: 'tn', onTap: ()async{
+                                                ShipmentUpdate update = await NetworkHelper().shipmentUpdate(widget.code, token);
+                                                if(update.data !=  null ) {
+                                                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context){return BottomNavigationDriver();}));
+                                                }
+                                              }, text: 'Yes', color: Colors.green),
+                                              dialogButton(tn: 'tn', onTap: (){
+                                                Navigator.pop(context);
+                                              }, text: 'No', color: Colors.red),
+                                            ],
+                                          )
+                                        ],
+                                      )
+                                    )
+                                  ],));
                           },
                           arrow: 'assets/Profile/buttonarrow.png'),
                     ],

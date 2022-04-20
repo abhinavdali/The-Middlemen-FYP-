@@ -143,9 +143,6 @@ class _SelectDestinationState extends State<SelectDestination> {
       List<Location>? destinationPlacemark =
       await locationFromAddress(_destinationAddress);
 
-      // Use the retrieved coordinates of the current position,
-      // instead of the address if the start position is user's
-      // current position, as it results in better accuracy.
       double? startLatitude = _startAddress == _currentAddress
           ? _currentPosition.latitude
           : startPlacemark[0].latitude;
@@ -466,7 +463,7 @@ class _SelectDestinationState extends State<SelectDestination> {
                                       .showSnackBar(
                                      SnackBar(
                                       content: Text(
-                                          'Distance Calculated Sucessfully',style: kStyleNormal,),
+                                          'Distance Calculated Sucessfully',style: kStyleNormal.copyWith(color: Colors.white),),
                                     ),
                                   );
                                 } else {
@@ -474,17 +471,13 @@ class _SelectDestinationState extends State<SelectDestination> {
                                       .showSnackBar(
                                     SnackBar(
                                       content: Text(
-                                          'Error Calculating Distance',style: kStyleNormal,),
+                                          'Error Calculating Distance',style: kStyleNormal.copyWith(color: Colors.white),),
                                     ),
                                   );
                                 }
                               });
                             }
                                 : null,
-                            // color: Colors.red,
-                            // shape: RoundedRectangleBorder(
-                            //   borderRadius: BorderRadius.circular(20.0),
-                            // ),
                             child: Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Text(

@@ -168,7 +168,9 @@ class _DriverHomeContentState extends State<DriverHomeContent> {
                                       }
                                     ),
                                     const SizedBox16(),
-                                    itemDivider(),
+                                    Padding(
+                                        padding: const EdgeInsets.symmetric(horizontal: 24),
+                                        child: itemDivider()),
                                     const SizedBox16(),
                                     Text('Scan tracking label to begin deliveries',style: kStyleNormal,textAlign: TextAlign.center,),
                                     Padding(
@@ -201,7 +203,7 @@ class _DriverHomeContentState extends State<DriverHomeContent> {
                                             var def = snapshot.data?.data;
                                             return ListView.builder(
                                                 shrinkWrap: true,
-                                                physics: ScrollPhysics(),
+                                                physics: const ScrollPhysics(),
                                                 scrollDirection: Axis.vertical,
                                                 itemCount: def?.length,
                                                 itemBuilder: (BuildContext context,
@@ -210,7 +212,7 @@ class _DriverHomeContentState extends State<DriverHomeContent> {
                                                     return pendingOrder(
                                                         name: '${def?[index]?.receiver}',
                                                         location: '${def?[index]?.destination}',
-                                                      onTap: (){
+                                                        onTap: (){
                                                         Navigator.push(context, MaterialPageRoute(builder: (context){return DeliveredOrder(
                                                           id: def?[index]?.id,
                                                           payment: def?[index]?.paymentType,
@@ -226,7 +228,9 @@ class _DriverHomeContentState extends State<DriverHomeContent> {
                                                           dest: def?[index]?.destination,
                                                         );}));
                                                       },);}else{
-                                                    return Container();
+                                                    return Center(
+                                                      child: Text('You haven\'t delivered an order yet.',style: kStyleNormal,),
+                                                    );
                                                   }
                                                 }
                                             );

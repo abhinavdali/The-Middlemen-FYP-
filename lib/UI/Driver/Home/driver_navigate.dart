@@ -308,7 +308,7 @@ class _DriverNavigateState extends State<DriverNavigate> {
       width: width,
       child: Scaffold(
         key: _scaffoldKey,
-        appBar: CustomAppBar(title: 'Ship Now',),
+        appBar: CustomAppBar(title: 'Navigate',),
         body: Stack(
           children: <Widget>[
             // Map View

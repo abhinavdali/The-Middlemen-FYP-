@@ -32,7 +32,7 @@ class pendingOrder extends StatelessWidget {
                       child: Row(
                         children: [
                           CircleAvatar(
-                            child: Image.asset('assets/Profile/profileimg.png'),
+                            child: Image.asset('assets/Profile/profile.png'),
                           ),
                           const SizedBox(
                             width: 14,

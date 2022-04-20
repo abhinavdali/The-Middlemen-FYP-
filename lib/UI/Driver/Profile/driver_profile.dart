@@ -71,9 +71,7 @@ class _DriverProfileContentState extends State<DriverProfileContent> {
                             child: Row(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                CircleAvatar(
-                                  child: Image.asset('assets/Profile/profileimg.png'),
-                                ),
+                                Image.asset('assets/Profile/driver.png',height: 50,width: 50,),
                                 const SizedBox(width: 16,),
                                 Expanded(
                                   child: Column(
@@ -124,12 +122,12 @@ class _DriverProfileContentState extends State<DriverProfileContent> {
             ),
             Row(
               children: [
-                Expanded(child: profileContent(icon: 'assets/DriverProfile/license.png',desc: 'License no.',value: '$license',)),
+                Expanded(child: profileContent(icon: 'assets/Profile/license.png',desc: 'License no.',value: '$license',)),
               ],
             ),
             Row(
               children: [
-                Expanded(child: profileContent(icon: 'assets/DriverProfile/vehicleno.png',desc: 'Vehicle no.',value: '$vehicle',)),
+                Expanded(child: profileContent(icon: 'assets/DriverProfile/vehicle.png',desc: 'Vehicle no.',value: '$vehicle',)),
               ],
             ),
             // Row(

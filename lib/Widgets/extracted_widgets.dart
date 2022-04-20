@@ -196,13 +196,9 @@ class profileContent extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             CircleAvatar(
-              radius: 21,
-              backgroundColor: Colors.black,
-              child: CircleAvatar(
-                child: Image(image: AssetImage(icon),color: Colors.black,width: 20,height: 20,),
-                backgroundColor: Colors.white,
-                radius: 20,
-              ),
+              child: Image(image: AssetImage(icon),width: 34,height: 34,),
+              backgroundColor: Colors.white,
+              radius: 24,
             ),
             const SizedBox(width: 16,),
             Column(
@@ -464,6 +460,7 @@ class PaymentOptions extends StatelessWidget {
 class OrdersListContent extends StatelessWidget {
   const OrdersListContent({
     Key? key,
+    required this.color,
     required this.trackingNo,
     required this.image,
     required this.receiver,
@@ -471,6 +468,7 @@ class OrdersListContent extends StatelessWidget {
     required this.onTap
   }) : super(key: key);
 
+  final color;
   final String trackingNo;
   final image;
   final receiver;
@@ -485,7 +483,7 @@ class OrdersListContent extends StatelessWidget {
         margin: const EdgeInsets.all(12),
         padding: const EdgeInsets.all(12),
         decoration: BoxDecoration(
-          color: kStyleBackground,
+          color: color,
           borderRadius: BorderRadius.circular(12),
           boxShadow: [boxShadowBlue],
         ),

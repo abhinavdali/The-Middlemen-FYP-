@@ -1,11 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
+import 'package:the_middlemen/Change%20Notifier/change_notifier.dart';
 import 'package:the_middlemen/Constants/const.dart';
+import 'package:the_middlemen/Models/Customer%20Models/view_shipment.dart';
+import 'package:the_middlemen/Nerwork/network_helper.dart';
+import 'package:the_middlemen/UI/Customer/Features/LiveChat.dart';
+import 'package:the_middlemen/UI/Customer/Features/calculate_and_ship.dart';
+import 'package:the_middlemen/UI/Customer/Features/qr_scan_cus.dart';
+import 'package:the_middlemen/UI/Customer/Features/receive_packages.dart';
 import 'package:the_middlemen/UI/Customer/ShipNow/select_type.dart';
 import 'package:the_middlemen/UI/Customer/Tracking/tracking.dart';
 import 'package:the_middlemen/Widgets/appbars.dart';
 import 'package:the_middlemen/Widgets/buttons.dart';
 import 'package:the_middlemen/Widgets/extracted_widgets.dart';
+import 'package:the_middlemen/Widgets/snackbar.dart';
 import 'package:the_middlemen/Widgets/textformfields.dart';
 
 class CusHome extends StatelessWidget {
@@ -18,7 +27,7 @@ class CusHome extends StatelessWidget {
       appBar: BottomNavAppBar(
         title: 'Home',
       ),
-      body: CusHomeContent(),
+      body: const CusHomeContent(),
     );
   }
 }
@@ -32,6 +41,30 @@ class CusHomeContent extends StatefulWidget {
 
 class _CusHomeContentState extends State<CusHomeContent> {
   final TextEditingController trackController = TextEditingController();
+  late String token =
+      Provider.of<DataProvider>(context, listen: false).token;
+
+  Future<ViewShipment?>? _viewShip;
+  Future<ViewShipment?> getShipmentDetails() async{
+    ViewShipment? list = await NetworkHelper().getViewShipmentData(token);
+    return  list;
+  }
+  Future<void> refreshCollectionItems() async {
+
+    setState(() {
+      // This will update the futureItems
+      _viewShip = getShipmentDetails();
+    });
+
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _viewShip = getShipmentDetails();
+  }
+
   @override
   Widget build(BuildContext context) {
     return ListView(
@@ -41,7 +74,7 @@ class _CusHomeContentState extends State<CusHomeContent> {
           child: Column(
             children: [
               Container(
-                padding: EdgeInsets.all(16),
+                padding: const EdgeInsets.all(16),
                 decoration: BoxDecoration(
                   color: kStyleContainer,
                   borderRadius: BorderRadius.circular(8),
@@ -67,7 +100,7 @@ class _CusHomeContentState extends State<CusHomeContent> {
                         text: 'SHIP NOW',
                         color: const Color(0xff00A6FB),
                         onPress: (){
-                          Navigator.push(context, MaterialPageRoute(builder: (context){return SelectType();}));
+                          Navigator.push(context, MaterialPageRoute(builder: (context){return const SelectType();}));
                         },
                         arrow: 'assets/Profile/buttonarrow.png'),
                     const SizedBox(
@@ -81,19 +114,40 @@ class _CusHomeContentState extends State<CusHomeContent> {
                     const SizedBox(
                       height: 24,
                     ),
-                    TrackingFormField('Enter your tracking number',
-                        Icons.backpack_outlined, trackController, (String? value) {
-                          if (value!.isEmpty) {
-                            return "This field is required";
-                          }
+                    FutureBuilder<ViewShipment?>(
+                        future: _viewShip,
+                        builder: (context,snapshot){
+                          var data = snapshot.data?.data?.where((element) => element?.trackingNumber == trackController.text);
+                          return Column(
+                            children: [
+                              TrackingFormField('Enter your tracking number',
+                                  Icons.backpack_outlined, trackController, (String? value) {
+                                    if (value!.isEmpty) {
+                                      return "This field is required";
+                                    }
+                                  }),
+                              const SizedBox(
+                                height: 16,
+                              ),
+                              ArrowButton(text: 'TRACK NOW', color: const Color(0xff00A6FB),
+                                  onPress: (){
+                                    if( data?.isNotEmpty == true)
+                                     {
+                                      Navigator.push(context, MaterialPageRoute(builder: (context){return Tracking(track: trackController.text);}));
+                                    }else{
+                                      showSnackBar(
+                                        context,
+                                        "Attention",
+                                        Colors.red,
+                                        Icons.info,
+                                        "Shipment with the provided tracking number doesn\'t exist ",
+                                      );
+                                    }
+
+                                  }, arrow: 'assets/Profile/buttonarrow.png'),
+                            ],
+                          );
                         }),
-                    const SizedBox(
-                      height: 16,
-                    ),
-                    ArrowButton(text: 'TRACK NOW', color: const Color(0xff00A6FB),
-                        onPress: (){
-                      Navigator.push(context, MaterialPageRoute(builder: (context){return Tracking(track: trackController.text);}));
-                    }, arrow: 'assets/Profile/buttonarrow.png'),
                     const SizedBox(
                       height: 16,
                     ),
@@ -117,16 +171,24 @@ class _CusHomeContentState extends State<CusHomeContent> {
                  Row(
                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                    children: [
-                     Features(icon: Icons.calculate_outlined,text: 'Calculate and ship packages',onPress: (){},),
-                     Features(icon: Icons.receipt_outlined, text: 'Receive Packages',onPress: (){},)
+                     Features(icon: Icons.calculate_outlined,text: 'Calculate and ship packages',onPress: (){
+                       Navigator.push(context, MaterialPageRoute(builder: (context){return const CalculateAndShip();}));
+                     },),
+                     Features(icon: Icons.receipt_outlined, text: 'Receive Packages',onPress: (){
+                       Navigator.push(context, MaterialPageRoute(builder: (context){return const ReceivePackages();}));
+                     },)
                    ],
                  ),
                  const SizedBox(height: 16,),
                  Row(
                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                    children: [
-                     Features(icon: Icons.scanner_outlined,text: 'QR Scan to track packages',onPress: (){},),
-                     Features(icon: Icons.receipt_outlined, text: 'Receive Packages',onPress: (){},)
+                     Features(icon: Icons.scanner_outlined,text: 'QR Scan to track packages',onPress: (){
+                       Navigator.push(context, MaterialPageRoute(builder: (context){return const QRScannerCus();}));
+                     },),
+                     Features(icon: Icons.report, text: 'Support',onPress: (){
+                       Navigator.push(context, MaterialPageRoute(builder: (context){return const LiveChat();}));
+                     },)
                    ],
                  ),
                ],

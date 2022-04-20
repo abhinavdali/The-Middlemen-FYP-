@@ -5,6 +5,7 @@ import 'package:the_middlemen/Change%20Notifier/change_notifier.dart';
 import 'package:the_middlemen/Constants/const.dart';
 import 'package:the_middlemen/Models/Driver%20Models/shipment_finish.dart';
 import 'package:the_middlemen/Nerwork/network_helper.dart';
+import 'package:the_middlemen/UI/Driver/BottomNavBar/bottom_nav_driver.dart';
 import 'package:the_middlemen/UI/Driver/Home/driver_navigate.dart';
 import 'package:the_middlemen/Widgets/appbars.dart';
 import 'package:the_middlemen/Widgets/buttons.dart';
@@ -129,7 +130,7 @@ class PendingOrder extends StatelessWidget {
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
                                       CircleAvatar(
-                                        child: Image.asset('assets/Profile/profileimg.png'),
+                                        child: Image.asset('assets/Profile/profile.png'),
                                       ),
                                       const SizedBox(
                                         width: 16,
@@ -251,11 +252,49 @@ class PendingOrder extends StatelessWidget {
               ArrowButton(
                   text: 'FINISH DELIVERY',
                   color: const Color(0xff00A6FB),
-                  onPress: ()async{
-                    ShipmentFinish update = await NetworkHelper().shipmentFinish(tracking, token);
-                    // if(update.data !=  null )
-                      // showBackDialog(context)
+
+                  onPress:
+                      (){
+                    showDialog(barrierColor: Colors.blueAccent.withOpacity(0.3),
+                        barrierDismissible: false,
+                        context: context,
+                        builder: (_) => Stack(
+                          clipBehavior: Clip.none,
+                          alignment: Alignment.center,
+                          children: <Widget>[
+                            Container(
+                                padding: const EdgeInsets.all(16),
+                                height: MediaQuery.of(context).size.height * 0.2,
+                                width: MediaQuery.of(context).size.width * 0.8,
+                                decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(16)
+                                ),
+                                child: Column(
+                                  children: [
+                                    Text('Finalize Shipment?',style: kStyleNormal,),
+                                    const SizedBox(
+                                      height: 50,
+                                    ),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        dialogButton(tn: 'tn', onTap: ()async{
+                                          await NetworkHelper().shipmentFinish(tracking, token);
+                                            // showBackDialog(context)
+                                            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context){return BottomNavigationDriver();}));
+                                        }, text: 'Yes', color: Colors.green),
+                                        dialogButton(tn: 'tn', onTap: (){
+                                          Navigator.pop(context);
+                                        }, text: 'No', color: Colors.red),
+                                      ],
+                                    )
+                                  ],
+                                )
+                            )
+                          ],));
                   },
+
                   arrow: 'assets/Profile/buttonarrow.png'),
             ],
           ),

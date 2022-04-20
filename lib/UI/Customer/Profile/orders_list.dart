@@ -77,16 +77,19 @@ class _OrderListsState extends State<OrderLists> {
                             boxShadow: [boxShadowBlue],
                             borderRadius: const BorderRadius.only(topLeft: Radius.circular(30),topRight: Radius.circular(30)),
                           ),
-                          height: MediaQuery.of(context).size.height * 0.55,
+                          height: MediaQuery.of(context).size.height * 0.65,
                           child: RefreshIndicator(
                             onRefresh: refreshCollectionItems,
                             child: ListView.builder(
                                 reverse: false,
                                 itemCount: def?.length == 0 ? 1 : def?.length,
                                 itemBuilder: (context,index){
-                                  var tn = def?[index]?.trackingNumber;
+
                                   if(def?.isNotEmpty == true){
+                                    var tn = def?[index]?.trackingNumber;
+
                                   return OrdersListContent(
+                                    color: kStyleBackground,
                                     trackingNo: '${def?[index]?.trackingNumber}',
                                     image: def?[index]?.ofType == 'parcel'? 'assets/ShipNow/parcel.png': 'assets/ShipNow/mail.png',
                                     receiver: '${def?[index]?.receiver}',
@@ -101,7 +104,7 @@ class _OrderListsState extends State<OrderLists> {
                                             children: <Widget>[
                                               Container(
                                                 padding: const EdgeInsets.all(16),
-                                                height: MediaQuery.of(context).size.height * 0.53,
+                                                height: MediaQuery.of(context).size.height * 0.57,
                                                 width: MediaQuery.of(context).size.width * 0.8,
                                                 decoration: BoxDecoration(
                                                     color: Colors.white,
@@ -122,36 +125,36 @@ class _OrderListsState extends State<OrderLists> {
                                                     const SizedBox16(),
                                                     Text('Tracking Number: ${def?[index]?.trackingNumber}',style: kStyleNormal,),
                                                     const SizedBox16(),
+                                                    Text('Status: ${def?[index]?.status}',style: kStyleNormal,),
+                                                    const SizedBox16(),
                                                     Row(
                                                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                       children: [
-                                                        SizedBox(
-                                                            width: 120,
-                                                            child: ElevatedButton(
-                                                                onPressed: () {
-                                                                  Clipboard.setData(ClipboardData(text: '$tn'));
-                                                                  Navigator.pop(context);
-                                                                  FocusScope.of(context).requestFocus(FocusNode());
-                                                                  showSnackBar2(
-                                                                    context,
-                                                                    'Copied to Clipboard',
-                                                                    Colors.white,
-                                                                  );
-                                                                  },
-                                                                 child: Text('Copy',style: kStyleButton.copyWith(color: Colors.white),))),
+                                                        dialogButton(
+                                                            tn: tn,
+                                                            onTap: () {
+                                                            Clipboard.setData(ClipboardData(text: '$tn'));
+                                                            Navigator.pop(context);
+                                                            FocusScope.of(context).requestFocus(FocusNode());
+                                                            showSnackBar2(
+                                                              context,
+                                                              'Copied to Clipboard',
+                                                              Colors.white,
+                                                            );
+                                                            },
+                                                            text: "Copy",
+                                                            color: Colors.blue,
+                                                        ),
                                                         Visibility(
                                                           visible: def?[index]?.status == 'Processing'? true : false,
-                                                          child: SizedBox(
-                                                              width: 120,
-                                                              child: ElevatedButton(
-                                                                  style: ButtonStyle(
-                                                                    backgroundColor: MaterialStateProperty.all(Colors.red)
-                                                                  ),
-                                                                  onPressed: ()async{
-                                                                    await NetworkHelper().shipmentDelete(tn!, token);
-                                                                    Navigator.pop(context);
-                                                                    _viewShip = getShipmentDetails();
-                                                                  }, child: Text('Cancel',style: kStyleButton.copyWith(color: Colors.white),))),
+                                                          child: dialogButton(onTap: ()async{
+                                                            await NetworkHelper().shipmentDelete(tn!, token);
+                                                            Navigator.pop(context);
+                                                            _viewShip = getShipmentDetails();
+                                                          },
+                                                            text: 'Cancel',
+                                                            color: Colors.red, tn: 'tn',
+                                                          )
                                                         ),
                                                       ],
                                                     ),
@@ -167,7 +170,7 @@ class _OrderListsState extends State<OrderLists> {
                                         const SizedBox32(),
                                         ArrowButton(text: 'Order Now', color: Colors.blue, onPress: (){
                                           Navigator.pushReplacement(context, MaterialPageRoute(builder: (context){return SelectType();}));
-                                        }, arrow: 'assets/Profile/forwardarrow.png')
+                                        }, arrow: 'assets/Profile/buttonarrow.png')
                                       ],
                                     ));
                                   }
@@ -191,5 +194,6 @@ class _OrderListsState extends State<OrderLists> {
     );
   }
 }
+
 
 

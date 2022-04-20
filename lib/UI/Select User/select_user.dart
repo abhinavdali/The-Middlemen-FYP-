@@ -59,9 +59,7 @@ class _SelectUserState extends State<SelectUser> {
                       'Welcome, User',
                       style: kStyleTitle,
                     ),
-                    const SizedBox(
-                      height: 16,
-                    ),
+
                     // Text('Let\'s start with what you want\n to use this app for',
                     //   style: kStyleNormal,
                     //   textAlign: TextAlign.center,),
@@ -174,7 +172,8 @@ class _SelectUserState extends State<SelectUser> {
                                           context.read<DataProvider>().firstName(fName);
                                           context.read<DataProvider>().lastName(lName);
                                           context.read<DataProvider>().pNumber(phone);
-
+                                          context.read<DataProvider>().email(email);
+                                          context.read<DataProvider>().userName(username);
                                           Future.delayed(
                                             const Duration(seconds: 3),
                                               (){

@@ -64,9 +64,9 @@ class _ReceivePackagesState extends State<ReceivePackages> {
                     return Container(
                       height: MediaQuery.of(context).size.height * 1,
                       child: ListView.builder(
-                          itemCount: snapshot.data?.data?.length,
+                          itemCount: data?.map((e) => e?.email == email) == email ? snapshot.data?.data?.length : 1,
                           itemBuilder: (context,index){
-                            if(data?.isNotEmpty == true && snapshot.data?.data?[index]?.email == email){
+                            if(snapshot.data?.data?[index]?.email == email){
                               var tn =snapshot.data?.data?[index]?.trackingNumber;
                               return OrdersListContent(
                                 color: Colors.white,
@@ -125,7 +125,13 @@ class _ReceivePackagesState extends State<ReceivePackages> {
                                 },
                               );
                             }else{
-                              return Container();
+                              return Center(child: Column(
+                                children: [
+                                  Image.asset('assets/Home/emptybox.jpg',),
+                                  const SizedBox16(),
+                                  Text('There are no packages that you\'re receiving at the moment.',style: kStyleNormal,textAlign: TextAlign.center,),
+                                ],
+                              ));
                             }
 
                           }),

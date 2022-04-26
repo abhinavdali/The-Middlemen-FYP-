@@ -1,17 +1,15 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/src/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:the_middlemen/Change%20Notifier/change_notifier.dart';
 import 'package:the_middlemen/Constants/const.dart';
-import 'package:the_middlemen/Models/Customer%20Models/login.dart';
 import 'package:the_middlemen/Models/Customer%20Models/signup.dart';
 import 'package:the_middlemen/Nerwork/network_helper.dart';
 import 'package:the_middlemen/UI/Select%20User/select_user.dart';
 import 'package:the_middlemen/Widgets/appbars.dart';
 import 'package:the_middlemen/Widgets/buttons.dart';
 import 'package:the_middlemen/Widgets/snackbar.dart';
-import 'package:provider/src/provider.dart';
 import 'package:the_middlemen/Widgets/textformfields.dart';
 
 class DSignupPage extends StatefulWidget {
@@ -197,8 +195,8 @@ class _DSignupPageState extends State<DSignupPage> {
 
                                   final username = nameController.text;
                                   final email = emailController.text;
-                                  final first_name = fNameController.text;
-                                  final last_name = lNameController.text;
+                                  final firstName = fNameController.text;
+                                  final lastName = lNameController.text;
                                   final phone = phoneNoController.text;
                                   final password = passwordController.text;
                                   final license = licenseController.text;
@@ -206,15 +204,15 @@ class _DSignupPageState extends State<DSignupPage> {
                                   SharedPreferences sp = await SharedPreferences.getInstance();
                                   try {
                                     SignUp? signup = await NetworkHelper()
-                                        .getDriverSignUpData(username, email, first_name,last_name,
+                                        .getDriverSignUpData(username, email, firstName,lastName,
                                         password, phone, license, vehicle);
                                     var token = signup?.token;
                                     if (token != null) {
-                                      sp.setString('fName', first_name);
-                                      sp.setString('lName', last_name);
+                                      sp.setString('fName', firstName);
+                                      sp.setString('lName', lastName);
                                       sp.setString('phone', phone);
-                                      context.read<DataProvider>().firstName(first_name);
-                                      context.read<DataProvider>().lastName(last_name);
+                                      context.read<DataProvider>().firstName(firstName);
+                                      context.read<DataProvider>().lastName(lastName);
                                       context.read<DataProvider>().pNumber(phone);
                                       showSnackBar(
                                         context,
@@ -242,13 +240,6 @@ class _DSignupPageState extends State<DSignupPage> {
                                     print(e);
                                   }
                                 }else {
-                                  /*   showSnackBar(
-                                    context,
-                                    "Attention",
-                                    Colors.red,
-                                    Icons.info,
-                                    "Unsuccessful.",
-                                  );*/
                                   return print("Unsuccessful");
                                 }
                               }else {
@@ -283,7 +274,7 @@ class _DSignupPageState extends State<DSignupPage> {
                                   },
                                   child: Text(
                                       'Log In',
-                                      style: kStyleNormal.copyWith(color: Color(0xff3F84FC),fontWeight: FontWeight.w500)
+                                      style: kStyleNormal.copyWith(color: const Color(0xff3F84FC),fontWeight: FontWeight.w500)
                                   ),
                                 ),
                               ],

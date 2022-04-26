@@ -45,8 +45,8 @@ Future<void> showFeedbackDialog(BuildContext context) => showDialog(
                   direction: Axis.horizontal,
                   allowHalfRating: true,
                   itemCount: 5,
-                  itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
-                  itemBuilder: (context, _) => Icon(
+                  itemPadding: const EdgeInsets.symmetric(horizontal: 4.0),
+                  itemBuilder: (context, _) => const Icon(
                     Icons.star,
                     color: kStyleAppColor,
                   ),
@@ -61,7 +61,7 @@ Future<void> showFeedbackDialog(BuildContext context) => showDialog(
                   Navigator.pop(context);
                   showReviewSubmittedDialog(context);
 
-                }, child: Text('Rate', style: TextStyle(color: kStyleAppColor),),),
+                }, child: const Text('Rate', style: TextStyle(color: kStyleAppColor),),),
               ),
               /*      SizedBox(height: 10.sp),*/
             ],
@@ -89,7 +89,7 @@ Future<void> showReviewSubmittedDialog(BuildContext context) => showDialog(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Image.asset('assets/reviewsubmitted.png', height: 64,),
+              Image.asset('assets/Settings/reviewsubmitted.png', height: 64,),
               SizedBox(height: 32.sp),
               Text(
                 "Review Submitted !",

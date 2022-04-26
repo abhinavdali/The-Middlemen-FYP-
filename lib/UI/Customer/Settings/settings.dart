@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:the_middlemen/Constants/const.dart';
+import 'package:the_middlemen/UI/Customer/Settings/privacy_and_policy.dart';
+import 'package:the_middlemen/UI/Customer/Settings/terms_and_conditions.dart';
 import 'package:the_middlemen/Widgets/appbars.dart';
 import 'package:the_middlemen/Widgets/extracted_widgets.dart';
 import 'package:the_middlemen/Widgets/show_dialog.dart';
+
+import 'faq.dart';
 
 class CusSettings extends StatelessWidget {
   const CusSettings({Key? key}) : super(key: key);
@@ -38,48 +42,14 @@ class _CusSettingsContentState extends State<CusSettingsContent> {
           child: Column(
             children: [
               ContentItems(
-                onTap: () {},
-                image: 'assets/Settings/shipping.png',
-                label: 'Shipping Address',
-                containerDesignType: 'top',
-              ),
-              itemDivider(),
-              ContentItems(
                 onTap: () {
-                  // Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  //   return Profile();
-                  // }));
-                },
-                image: 'assets/Settings/payment.png',
-                label: 'Payment Method',
-                containerDesignType: 'both',
-              ),
-              itemDivider(),
-              ContentItems(
-                onTap: () {},
-                image: 'assets/Settings/language.png',
-                label: 'Language',
-                containerDesignType: 'bottom',
-              ),
-              const SizedBox(
-                height: 16,
-              ),
-              ContentItems(
-                onTap: () {},
-                image: 'assets/Settings/notification.png',
-                label: 'Notification Profile',
-                containerDesignType: 'top',
-              ),
-              itemDivider(),
-              ContentItems(
-                onTap: () {
-                  // Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  //   return FAQ();
-                  // }));
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    return const FAQ();
+                  }));
                 },
                 image: 'assets/Settings/faq.png',
                 label: 'FAQ',
-                containerDesignType: 'both',
+                containerDesignType: 'top',
               ),
               itemDivider(),
               ContentItems(
@@ -93,9 +63,9 @@ class _CusSettingsContentState extends State<CusSettingsContent> {
               itemDivider(),
               ContentItems(
                 onTap: () {
-                  // Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  //   return Privacy();
-                  // }));
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    return const PrivacyAndPolicy();
+                  }));
                 },
                 image: 'assets/Settings/privacy.png',
                 label: 'Privacy Policy',
@@ -104,9 +74,9 @@ class _CusSettingsContentState extends State<CusSettingsContent> {
               itemDivider(),
               ContentItems(
                 onTap: () {
-                  // Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  //   return TermsAndCondition();
-                  // }));
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    return const TermsAndConditions();
+                  }));
                 },
                 image: 'assets/Settings/terms.png',
                 label: 'Terms and Conditions',

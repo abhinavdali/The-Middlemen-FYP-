@@ -34,7 +34,7 @@ class _SplashScreenState extends State<SplashScreen> {
                   builder: (context) {
                     return const SelectUser();
                   })) :
-           isCustomer ? Navigator.pushReplacement(context,
+          isCustomer ? Navigator.pushReplacement(context,
               MaterialPageRoute(
                   builder: (context) {
                     return const BottomNavigationCus();
@@ -43,7 +43,7 @@ class _SplashScreenState extends State<SplashScreen> {
                   builder: (context) {
                     return const BottomNavigationDriver();
                   }));
-            },
+        },
       );
     });
   }

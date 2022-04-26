@@ -1,17 +1,12 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:the_middlemen/Change%20Notifier/change_notifier.dart';
 import 'package:the_middlemen/Constants/const.dart';
-import 'package:the_middlemen/Models/Customer%20Models/login.dart';
 import 'package:the_middlemen/Models/Customer%20Models/signup.dart';
 import 'package:the_middlemen/Nerwork/network_helper.dart';
 import 'package:the_middlemen/UI/Select%20User/select_user.dart';
 import 'package:the_middlemen/Widgets/appbars.dart';
 import 'package:the_middlemen/Widgets/buttons.dart';
 import 'package:the_middlemen/Widgets/snackbar.dart';
-import 'package:provider/src/provider.dart';
 import 'package:the_middlemen/Widgets/textformfields.dart';
 
 class SignupPage extends StatefulWidget {
@@ -155,13 +150,13 @@ class _SignupPageState extends State<SignupPage> {
 
                                   final username = nameController.text;
                                   final email = emailController.text;
-                                  final first_name = fNameController.text;
-                                  final last_name = lNameController.text;
+                                  final firstName = fNameController.text;
+                                  final lastName = lNameController.text;
                                   final phone = phoneNoController.text;
                                   final password = passwordController.text;
                                   try {
                                     SignUp? signup = await NetworkHelper()
-                                        .getCusSignUpData(username, email, first_name,last_name,
+                                        .getCusSignUpData(username, email, firstName,lastName,
                                         password,phone);
                                     var token = signup?.token;
                                     if (token != null) {
@@ -176,7 +171,7 @@ class _SignupPageState extends State<SignupPage> {
                                           .pushAndRemoveUntil(
                                           MaterialPageRoute(
                                             builder: (context) =>
-                                                SelectUser(),
+                                                const SelectUser(),
                                           ),
                                               (route) => route.isFirst);
                                     }
@@ -191,13 +186,6 @@ class _SignupPageState extends State<SignupPage> {
                                     print(e);
                                   }
                                 }else {
-                                  /*   showSnackBar(
-                                    context,
-                                    "Attention",
-                                    Colors.red,
-                                    Icons.info,
-                                    "Unsuccessful.",
-                                  );*/
                                   return print("Unsuccessful");
                                 }
                               }else {

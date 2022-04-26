@@ -50,78 +50,79 @@ class _EditProfileContentState extends State<EditProfileContent> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 32.0, left: 16, right: 16),
-      child: ListView(
-        children: [
-          Column(
-            children: [
-              Image.asset(
-                'assets/Profile/profileimg.png',
-                height: 112,
-                width: 112,
-              ),
-              SizedBox(
-                height: 32,
-              ),
-               TextFormFieldForLoginRegister(
-                  label: 'First Name',
-                  imageName: 'assets/SignUp/personIcon.png',
-                  textFieldDesignType:
-                  "top" ,
-                controller: fnameController,
-              ),
-               TextFormFieldForLoginRegister(
-                  label: 'Last Name',
-                  imageName: 'assets/SignUp/personIcon.png',
-                  textFieldDesignType:
-                  "noRadius",
-                controller: lnameController,
-              ),
-               TextFormFieldForLoginRegister(
-                  label: 'Phone',
-                  imageName: 'assets/SignUp/phoneIcon.png',
-                  textFieldDesignType:
-                  "noRadius",
-                 controller: phoneController,
-              ),
-               TextFormFieldForLoginRegister(
-                  label: 'Email Address',
-                  imageName: 'assets/SignUp/email.png',
-                  textFieldDesignType:
-                  "noRadius",
-                 controller: emailController,
-              ),
-              const SizedBox16(),
-              SizedBox(
-                width: 120.sp,
-                child: ArrowButton(
-                    text: 'Update',
-                    color: Color(0xff00A6FB),
-                    arrow: 'assets/Profile/buttonarrow.png', onPress: ()async{
-                      if(fnameController.text.isNotEmpty == true && lnameController.text.isNotEmpty == true && phoneController.text.isNotEmpty == true && emailController.text.isNotEmpty == true){
-                      EditProfileModel editProfile = await NetworkHelper().updateCusProfile(fnameController.text, lnameController.text, phoneController.text, emailController.text, token, username);
-                      if(editProfile.data?.username == username){
-                        context.read<DataProvider>().firstName(fnameController.text);
-                        context.read<DataProvider>().lastName(lnameController.text);
-                        context.read<DataProvider>().pNumber(phoneController.text);
-                        context.read<DataProvider>().email(emailController.text);
-                        Navigator.push(context, MaterialPageRoute(builder: (context){return const BottomNavigationCus();}));
-                      }
-                      }else{
-                        showSnackBar(
-                          context,
-                          "Attention",
-                          Colors.blue,
-                          Icons.info,
-                          "Please enter all the fields",
-                        );
-                      }
-                },),
-              ),
-            ],
-          ),
-        ],
+    return Scaffold(
+      backgroundColor: kStyleBackground,
+      body: Padding(
+        padding: const EdgeInsets.only(top: 32.0, left: 16, right: 16),
+        child: ListView(
+          children: [
+            Column(
+              children: [
+                Image.asset(
+                  'assets/Profile/profile.png',
+                  height: 112,
+                  width: 112,
+                ),
+                const SizedBox32(),
+                 TextFormFieldForLoginRegister(
+                    label: 'First Name',
+                    imageName: 'assets/SignUp/personIcon.png',
+                    textFieldDesignType:
+                    "top" ,
+                  controller: fnameController,
+                ),
+                 TextFormFieldForLoginRegister(
+                    label: 'Last Name',
+                    imageName: 'assets/SignUp/personIcon.png',
+                    textFieldDesignType:
+                    "noRadius",
+                  controller: lnameController,
+                ),
+                 TextFormFieldForLoginRegister(
+                    label: 'Phone',
+                    imageName: 'assets/SignUp/phoneIcon.png',
+                    textFieldDesignType:
+                    "noRadius",
+                   controller: phoneController,
+                ),
+                 TextFormFieldForLoginRegister(
+                    label: 'Email Address',
+                    imageName: 'assets/SignUp/email.png',
+                    textFieldDesignType:
+                    "noRadius",
+                   controller: emailController,
+                ),
+                const SizedBox16(),
+                SizedBox(
+                  width: 120.sp,
+                  child: ArrowButton(
+                      text: 'Update',
+                      color: Color(0xff00A6FB),
+                      arrow: 'assets/Profile/buttonarrow.png', onPress: ()async{
+                        if(fnameController.text.isNotEmpty == true && lnameController.text.isNotEmpty == true && phoneController.text.isNotEmpty == true && emailController.text.isNotEmpty == true){
+                        EditProfileModel editProfile = await NetworkHelper().updateCusProfile(fnameController.text, lnameController.text, phoneController.text, emailController.text, token, username);
+                        if(editProfile.data?.username == username){
+                          context.read<DataProvider>().firstName(fnameController.text);
+                          context.read<DataProvider>().lastName(lnameController.text);
+                          context.read<DataProvider>().pNumber(phoneController.text);
+                          context.read<DataProvider>().email(emailController.text);
+                          Navigator.push(context, MaterialPageRoute(builder: (context){return const BottomNavigationCus();}));
+                        }
+                        }else{
+                          showSnackBar(
+                            context,
+                            "Attention",
+                            Colors.blue,
+                            Icons.info,
+                            "Please enter all the fields",
+                          );
+                        }
+                  },),
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }

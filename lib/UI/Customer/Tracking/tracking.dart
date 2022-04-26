@@ -3,7 +3,6 @@ import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 import 'package:the_middlemen/Change%20Notifier/change_notifier.dart';
 import 'package:the_middlemen/Constants/const.dart';
-import 'package:the_middlemen/Models/Customer%20Models/view_shipment.dart';
 import 'package:the_middlemen/Models/Driver%20Models/shipment_list.dart';
 import 'package:the_middlemen/Nerwork/network_helper.dart';
 import 'package:the_middlemen/Widgets/appbars.dart';

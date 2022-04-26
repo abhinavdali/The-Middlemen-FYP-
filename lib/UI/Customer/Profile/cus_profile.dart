@@ -89,7 +89,7 @@ class _CusProfileContentState extends State<CusProfileContent> {
                             Image.asset('assets/SignUp/phoneIcon.png',height: 18,width: 18,),
                             const SizedBox(width: 8,),
                             Text(
-                              '$phoneNumber',
+                              phoneNumber,
                               style: kStyleButton,
                             ),
                           ],
@@ -102,7 +102,7 @@ class _CusProfileContentState extends State<CusProfileContent> {
                             Image.asset('assets/SignUp/email.png',height: 18,width: 18,),
                             const SizedBox(width: 8,),
                             Text(
-                              '$email',
+                              email,
                               style: kStyleButton,
                             ),
                           ],
@@ -121,7 +121,7 @@ class _CusProfileContentState extends State<CusProfileContent> {
               children: [
                 ContentItems(
                   onTap: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context){return OrderLists();}));
+                    Navigator.push(context, MaterialPageRoute(builder: (context){return const OrderLists();}));
                   },
                   image: 'assets/Profile/menu.png',
                   label: 'My Orders List',
@@ -136,25 +136,19 @@ class _CusProfileContentState extends State<CusProfileContent> {
                   },
                   image: 'assets/Profile/profileicon.png',
                   label: 'Edit Profile',
-                  containerDesignType: 'both',
+                  containerDesignType: 'bottom',
                 ),
-                itemDivider(),
-                ContentItems(
-                    onTap: () {},
-                    image: 'assets/Profile/invfrens.png',
-                    label: 'Invite Friends',
-                    containerDesignType: 'bottom'),
               ],
             ),
           ),
 
           ArrowButton(
             text: 'LOGOUT',
-            color: Color(0xffFF3D3D),
+            color: const Color(0xffFF3D3D),
             onPress: ()async{
               final SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
               sharedPreferences.remove('username');
-              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context){return SelectUser();}));
+              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context){return const SelectUser();}));
             },
             arrow: 'assets/Profile/forwardarrowred.png',
           )

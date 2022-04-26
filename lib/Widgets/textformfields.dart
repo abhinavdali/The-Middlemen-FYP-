@@ -405,7 +405,7 @@ class TextFormFieldForLoginRegister extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        //For adding shadow in the back of text field
+        color: kStyleContainer,
           boxShadow: [
             BoxShadow(
                 blurRadius: 8,

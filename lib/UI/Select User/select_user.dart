@@ -59,10 +59,6 @@ class _SelectUserState extends State<SelectUser> {
                       'Welcome, User',
                       style: kStyleTitle,
                     ),
-
-                    // Text('Let\'s start with what you want\n to use this app for',
-                    //   style: kStyleNormal,
-                    //   textAlign: TextAlign.center,),
                   ],
                 ),
                 Column(

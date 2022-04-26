@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:geolocator/geolocator.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:the_middlemen/Change%20Notifier/change_notifier.dart';
 import 'package:the_middlemen/Constants/const.dart';
@@ -25,7 +23,7 @@ class DriverHome extends StatelessWidget {
       appBar: BottomNavAppBar(
         title: 'Orders',
       ),
-      body: DriverHomeContent(),
+      body: const DriverHomeContent(),
     );
   }
 }
@@ -69,7 +67,7 @@ class _DriverHomeContentState extends State<DriverHomeContent> {
         child: Padding(
             padding: const EdgeInsets.only(top: 16.0),
             child: Container(
-                color: Color(0xffF5FCFF),
+                color: const Color(0xffF5FCFF),
                 height: double.infinity,
                 width: double.infinity,
                 child: SafeArea(
@@ -79,7 +77,7 @@ class _DriverHomeContentState extends State<DriverHomeContent> {
                         alignment: Alignment.topCenter,
                         child: Container(
                           height: 40,
-                          margin: EdgeInsets.symmetric(horizontal: 16),
+                          margin: const EdgeInsets.symmetric(horizontal: 16),
                           decoration: BoxDecoration(
                               color: Colors.white,
                               borderRadius: BorderRadius.circular(
@@ -90,7 +88,7 @@ class _DriverHomeContentState extends State<DriverHomeContent> {
                                     blurRadius: 2,
                                     spreadRadius: 1,
                                     color: Colors.grey.withOpacity(0.3),
-                                    offset: Offset(0, 3))
+                                    offset: const Offset(0, 3))
                               ]),
                           child: TabBar(
                               isScrollable: true,
@@ -101,7 +99,7 @@ class _DriverHomeContentState extends State<DriverHomeContent> {
                               labelColor: Colors.white,
                               labelStyle: TabText,
                               unselectedLabelColor: kStyleAppColor,
-                              // Tabbar tabs
+                              // Tab bar tabs
                               tabs: [
                                 TabBarTabsD(
                                   text: 'Assigned'
@@ -127,7 +125,7 @@ class _DriverHomeContentState extends State<DriverHomeContent> {
                                           var def = snapshot.data?.data;
                                           return ListView.builder(
                                               shrinkWrap: true,
-                                              physics: ScrollPhysics(),
+                                              physics: const ScrollPhysics(),
                                               scrollDirection: Axis.vertical,
                                               itemCount: def?.length,
                                               itemBuilder: (BuildContext context,
@@ -181,7 +179,7 @@ class _DriverHomeContentState extends State<DriverHomeContent> {
                                               text: 'SCAN',
                                               color: const Color(0xff00A6FB),
                                               onPress: (){
-                                                Navigator.push(context, MaterialPageRoute(builder: (context){return QRScanner();}));
+                                                Navigator.push(context, MaterialPageRoute(builder: (context){return const QRScanner();}));
                                               },
                                               arrow: 'assets/Profile/buttonarrow.png'),
                                         ],
@@ -200,12 +198,13 @@ class _DriverHomeContentState extends State<DriverHomeContent> {
                                       future: _shipmentList,
                                         builder: (context, snapshot) {
                                           if(snapshot.hasData){
+                                            var data = snapshot.data?.data?.where((element) => element?.status == 'Delivered');
                                             var def = snapshot.data?.data;
                                             return ListView.builder(
                                                 shrinkWrap: true,
                                                 physics: const ScrollPhysics(),
                                                 scrollDirection: Axis.vertical,
-                                                itemCount: def?.length,
+                                                itemCount: data?.map((e) => e?.status == 'Delivered') == 'Delivered' ? snapshot.data?.data?.length : 1,
                                                 itemBuilder: (BuildContext context,
                                                     int index){
                                                   if(def?[index]?.status == "Delivered"){
@@ -247,9 +246,7 @@ class _DriverHomeContentState extends State<DriverHomeContent> {
                                   ],
                                 ),
                               ),
-                              // ElevatedButton(onPressed: (){
-                              //   _getCurrentLocation();
-                              // }, child: Text('Check'))
+
                             ],
                           ),
                         ),
